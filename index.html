@@ -338,6 +338,7 @@ body {
 .lesson-banner p { opacity: 0.85; font-size: 13px; line-height: 1.8; }
 
 .story-card {
+  overflow: visible;
   background: rgba(249,168,37,0.08);
   border-right: 5px solid var(--gold);
   border-radius: var(--r); padding: 20px 22px;
@@ -351,6 +352,7 @@ body {
 .story-card p { font-size: 13.5px; line-height: 2; color: rgba(255,255,255,0.88); }
 
 .concept-card {
+  overflow: visible;
   background: rgba(46,125,50,0.12);
   border-right: 5px solid var(--green-lt);
   border-radius: var(--r); padding: 20px 22px;
@@ -1870,7 +1872,7 @@ const UNITS = {
         }
       },
       {
-        id: 'l7b', title: 'قوة النتينة',
+        id: 'l7b', title: 'قوة العطاء',
         sub: 'لماذا نعطي — وكيف يجعلنا أسعد',
         bg: '🤲', bgColor: 'linear-gradient(140deg,#1A237E,#283593)',
         goal: 'تفهم لماذا التبرع ليس خسارة — بل هو استثمار في السعادة والمجتمع.',
@@ -1879,7 +1881,7 @@ const UNITS = {
           text: 'كريم يوفّر من مصروفه الأسبوعي منذ شهرين.\nعنده الآن 40₪ في دلو التوفير.\n\nفي يوم بارد رأى زميله تامر يرتجف في الفناء بدون كنزة.\nتامر قال: «أمي لم تستطع شراء كنزة هذا الشهر.»\n\nفكّر كريم: «عندي 40₪ — الكنزة في السوق بـ35₪.»\n\nقلبه قال: «اشترها له.»\nعقله قال: «لكنك وفّرت طويلاً لهذا المال!»\n\nقرر كريم أن يشتري الكنزة لتامر.\n\nفي البيت، توقّع أن يشعر بحزن على المال.\nلكن بدلاً من ذلك شعر بشيء أكبر — شعر أنه قوي، وأن لأفعاله معنى.\n\nأمه قالت له: «المال الذي تعطيه لا يختفي — يعود إليك بشكل آخر.»'
         },
         concept: {
-          text: '🤲 لماذا نتبرع؟\n\nليس لأن أحداً أجبرنا — بل لأن النتينة تفعل شيئاً في داخلنا:\n\n✨ تشعرنا بالقوة\n← لأننا نختار أن نساعد، لسنا مجبرين\n\n🔗 تربطنا بالآخرين\n← المجتمع الذي يتشارك أقوى من الذي يتنافس فقط\n\n😊 تجعلنا أسعد\n← الدراسات تقول: إنفاق المال على الآخرين يُسعد أكثر من إنفاقه على أنفسنا!\n\n💡 أنواع النتينة:\n🍞 طعام لمحتاج\n📚 كتاب لطفل لا يملكه\n🌱 مساعدة في المدرسة\n💰 مبلغ صغير لجمعية\n🕐 وقتك ومجهودك\n\n«لا يوجد مبلغ صغير جداً — حتى شيكل واحد يصنع فرقاً»'
+          text: '🤲 لماذا نتبرع؟\n\nليس لأن أحداً أجبرنا — بل لأن العطاء يفعل شيئاً في داخلنا:\n\n✨ تشعرنا بالقوة\n← لأننا نختار أن نساعد، لسنا مجبرين\n\n🔗 تربطنا بالآخرين\n← المجتمع الذي يتشارك أقوى من الذي يتنافس فقط\n\n😊 تجعلنا أسعد\n← الدراسات تقول: إنفاق المال على الآخرين يُسعد أكثر من إنفاقه على أنفسنا!\n\n💡 أنواع العطاء:\n🍞 طعام لمحتاج\n📚 كتاب لطفل لا يملكه\n🌱 مساعدة في المدرسة\n💰 مبلغ صغير لجمعية\n🕐 وقتك ومجهودك\n\n«لا يوجد مبلغ صغير جداً — حتى شيكل واحد يصنع فرقاً»'
         },
         quiz: {
           q: '🤲 كريم عنده 20₪ في دلو التبرع. رأى جمعية تجمع للأطفال المرضى. ماذا يفعل؟',
@@ -2952,29 +2954,29 @@ function subAsk(subId, msg) {
 
 <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.4);letter-spacing:1px;margin-bottom:14px">🪙 العملات المعدنية</div>
 
-<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:24px;direction:ltr" id="coins-display-row">
-  <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
-    <img src="" data-coin="coin10ag" style="width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.6))">
+<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;margin-bottom:24px;direction:ltr;overflow:visible;padding-top:20px" id="coins-display-row">
+  <div class="coin-item" style="display:flex;flex-direction:column;align-items:center;gap:5px">
+    <img src="" data-coin="coin10ag" style="width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.6));transition:transform 0.25s cubic-bezier(0.34,1.4,0.64,1)">
     <span style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.8)">10 אג</span>
   </div>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
-    <img src="" data-coin="coin05" style="width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.6))">
+  <div class="coin-item" style="display:flex;flex-direction:column;align-items:center;gap:5px">
+    <img src="" data-coin="coin05" style="width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.6));transition:transform 0.25s cubic-bezier(0.34,1.4,0.64,1)">
     <span style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.8)">₪½</span>
   </div>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
-    <img src="" data-coin="coin1" style="width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.6))">
+  <div class="coin-item" style="display:flex;flex-direction:column;align-items:center;gap:5px">
+    <img src="" data-coin="coin1" style="width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.6));transition:transform 0.25s cubic-bezier(0.34,1.4,0.64,1)">
     <span style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.8)">₪1</span>
   </div>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
-    <img src="" data-coin="coin2" style="width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.6))">
+  <div class="coin-item" style="display:flex;flex-direction:column;align-items:center;gap:5px">
+    <img src="" data-coin="coin2" style="width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.6));transition:transform 0.25s cubic-bezier(0.34,1.4,0.64,1)">
     <span style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.8)">₪2</span>
   </div>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
-    <img src="" data-coin="coin5" style="width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.6))">
+  <div class="coin-item" style="display:flex;flex-direction:column;align-items:center;gap:5px">
+    <img src="" data-coin="coin5" style="width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.6));transition:transform 0.25s cubic-bezier(0.34,1.4,0.64,1)">
     <span style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.8)">₪5</span>
   </div>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:5px">
-    <img src="" data-coin="coin10" style="width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.6))">
+  <div class="coin-item" style="display:flex;flex-direction:column;align-items:center;gap:5px">
+    <img src="" data-coin="coin10" style="width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 3px 8px rgba(0,0,0,0.6));transition:transform 0.25s cubic-bezier(0.34,1.4,0.64,1)">
     <span style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.8)">₪10</span>
   </div>
 </div>
@@ -2982,13 +2984,45 @@ function subAsk(subId, msg) {
 <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.4);letter-spacing:1px;margin-bottom:12px">💵 الأوراق النقدية</div>
 
 <style>
-.nl-row { display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; margin-bottom:8px; cursor:pointer; direction:ltr; }
+.nl-row { display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:12px; margin-bottom:8px; cursor:pointer; direction:ltr; position:relative; z-index:1; overflow:visible; }
 .nl-img { flex-shrink:0; width:130px; height:70px; object-fit:cover; border-radius:8px; border:1px solid rgba(255,255,255,0.1); }
 .nl-info { flex:1; text-align:right; direction:rtl; }
 .nl-value { font-size:22px; font-weight:900; line-height:1; margin-bottom:4px; }
 .nl-name { font-size:11px; opacity:0.7; margin-bottom:3px; }
 .nl-use { font-size:11px; opacity:0.55; }
 .nl-hint { font-size:10px; opacity:0.4; text-align:left; margin-top:4px; }
+/* ═══════════════════════════════════════════
+   HOVER ZOOM — COINS & BANKNOTES
+═══════════════════════════════════════════ */
+/* Coin zoom */
+.coin-item {
+  cursor: pointer;
+  transform-origin: bottom center;
+  position: relative;
+  z-index: 1;
+}
+.coin-item:hover {
+  transform: scale(2.2) translateY(-14px);
+  z-index: 99;
+}
+.coin-item img {
+  display: block;
+}
+
+/* Banknote image zoom on hover */
+.nl-img {
+  transition: transform 0.3s cubic-bezier(0.34,1.3,0.64,1),
+              box-shadow 0.3s ease;
+  transform-origin: center left;
+  cursor: zoom-in;
+}
+.nl-row:hover .nl-img {
+  transform: scale(2.0) translateX(30px) translateY(4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  z-index: 99;
+  position: relative;
+}
+
 </style>
 
 <div class="nl-row" style="background:rgba(21,101,192,0.15);border:1.5px solid rgba(30,136,229,0.3)" onclick="flipNote(this,'f200',_fronts['f200'],_backs['f200'])">
