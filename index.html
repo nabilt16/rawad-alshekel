@@ -2241,7 +2241,13 @@ function answerQuiz(lessonId, choiceIdx) {
       state.completedLessons.push(lessonId);
       state.completedActivities++;
       saveState();
-      setTimeout(() => selectUnit(unitNum), 2200);
+      setTimeout(() => {
+        showPanel('lessons');
+        selectUnit(unitNum);
+        document.getElementById('lesson-detail').classList.remove('open');
+        document.getElementById('lesson-detail').innerHTML = '';
+        document.getElementById('lessons-list').style.display = '';
+      }, 2200);
     }
   } else {
     soundWrong();
