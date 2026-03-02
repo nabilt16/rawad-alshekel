@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>رواد الشيكل — اللوح التفاعلي</title>
+<title>رواد المال — تعليم مالي للأطفال</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 <style>
 
@@ -257,6 +257,8 @@ body {
 .u1 { background: linear-gradient(140deg, #0D47A1, #1565C0); }
 .u2 { background: linear-gradient(140deg, #1B5E20, #2E7D32); }
 .u3 { background: linear-gradient(140deg, #BF360C, #D84315); }
+.u4 { background: linear-gradient(140deg, #4A148C, #6A1B9A); }
+.u5 { background: linear-gradient(140deg, #B71C1C, #C62828); }
 .unit-emoji { font-size: 38px; margin-bottom: 12px; }
 .unit-name {
   font-family: 'Cairo', sans-serif;
@@ -305,8 +307,8 @@ body {
   font-size: 12px; font-weight: 800; color: white;
   background: linear-gradient(135deg, var(--blue), #0D47A1);
 }
-.lesson-title { font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.92); }
-.lesson-sub   { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+.lesson-title { font-size: 16px; font-weight: 600; color: rgba(255,255,255,0.92); }
+.lesson-sub   { font-size: 13px; color: rgba(255,255,255,0.45); margin-top: 2px; }
 .lesson-chevron { margin-right: auto; color: rgba(255,255,255,0.3); font-size: 11px; }
 .lesson-done {
   width: 20px; height: 20px; border-radius: 50%;
@@ -335,7 +337,7 @@ body {
   font-family: 'Cairo', sans-serif;
   font-size: 20px; font-weight: 900; margin-bottom: 8px;
 }
-.lesson-banner p { opacity: 0.85; font-size: 13px; line-height: 1.8; }
+.lesson-banner p { opacity: 0.85; font-size: 16px; line-height: 1.8; }
 
 .story-card {
   overflow: visible;
@@ -349,7 +351,7 @@ body {
   color: var(--gold); margin-bottom: 10px;
   display: flex; align-items: center; gap: 6px;
 }
-.story-card p { font-size: 13.5px; line-height: 2; color: rgba(255,255,255,0.88); }
+.story-card p { font-size: 17px; line-height: 2.1; color: rgba(255,255,255,0.88); }
 
 .concept-card {
   overflow: visible;
@@ -363,7 +365,7 @@ body {
   color: var(--green-lt); margin-bottom: 10px;
   display: flex; align-items: center; gap: 6px;
 }
-.concept-card p { font-size: 13.5px; line-height: 1.9; color: rgba(255,255,255,0.88); }
+.concept-card p { font-size: 17px; line-height: 2; color: rgba(255,255,255,0.88); }
 
 .back-btn {
   display: inline-flex; align-items: center; gap: 6px;
@@ -417,7 +419,7 @@ body {
 .fb-bad { background: rgba(249,168,37,0.12); border-right: 4px solid var(--gold);  color: #FFE082; }
 
 /* ═══════════════════════════════════════════
-   PANEL 2 — CHAT (رفيق الشيكل)
+   PANEL 2 — CHAT (رفيق المال)
 ═══════════════════════════════════════════ */
 .chat-wrap {
   display: flex; flex-direction: column;
@@ -1209,14 +1211,14 @@ body {
   <!-- Header -->
   <div class="header">
     <div class="header-tag">🏫 الصف الرابع الابتدائي</div>
-    <h1>🪙 رواد الشيكل</h1>
+    <h1><img id="header-coin" src="data:image/png;base64,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" style="width:75px;height:75px;object-fit:contain;vertical-align:middle;filter:drop-shadow(0 3px 12px rgba(255,200,0,0.6));margin-left:12px"> رواد المال</h1>
     <p class="header-sub">اللوح التفاعلي للثقافة المالية · العملة: الشيكل الإسرائيلي ₪</p>
   </div>
 
   <!-- Nav -->
   <div class="nav">
     <button class="nav-btn active" onclick="showPanel('lessons')">📚 الدروس</button>
-    <button class="nav-btn" onclick="showPanel('chat')">🤖 رفيق الشيكل</button>
+    <button class="nav-btn" onclick="showPanel('chat')">🤖 رفيق المال</button>
     <button class="nav-btn" onclick="showPanel('savings')">🐷 هدف الادخار</button>
     <button class="nav-btn" onclick="showPanel('progress')">⭐ تقدمي</button>
     <button class="nav-btn nav-parent" onclick="showParentDashboard()">👨‍👩‍👧 للأهل</button>
@@ -1246,6 +1248,20 @@ body {
         <div class="unit-desc">الإعلانات، المقارنة، القيمة مقابل السعر</div>
         <div class="unit-count">3 لقاءات</div>
       </div>
+
+      <div class="unit-card u4" data-num="4" onclick="selectUnit(4)">
+        <div class="unit-emoji">🚀</div>
+        <div class="unit-name">أنا رائد صغير</div>
+        <div class="unit-desc">التكلفة، الربح، العمل، الزبون</div>
+        <div class="unit-count">4 لقاءات</div>
+      </div>
+
+      <div class="unit-card u5" data-num="5" onclick="selectUnit(5)">
+        <div class="unit-emoji">🏦</div>
+        <div class="unit-name">أنا مواطن مالي</div>
+        <div class="unit-desc">الضرائب، البنك، البطاقة، الحلم</div>
+        <div class="unit-count">4 لقاءات</div>
+      </div>
     </div>
 
     <!-- Lessons list -->
@@ -1274,7 +1290,7 @@ body {
       <div class="chat-top">
         <div class="rafiq-ava">🦊</div>
         <div class="chat-top-info">
-          <h3>رفيق الشيكل <span class="status-dot"></span></h3>
+          <h3>رفيق المال <span class="status-dot"></span></h3>
           <p>مساعدك المالي الذكي · دائماً هنا للمساعدة</p>
         </div>
       </div>
@@ -1345,7 +1361,7 @@ body {
 
       <div class="chat-input-row">
         <input class="chat-in" id="chat-input" type="text"
-               placeholder="اسأل رفيق الشيكل أي سؤال..."
+               placeholder="اسأل رفيق المال أي سؤال..."
                onkeydown="if(event.key==='Enter') sendMsg()">
         <button class="send-btn" onclick="sendMsg()">➤</button>
       </div>
@@ -1965,7 +1981,189 @@ const UNITS = {
       }
     ]
   }
-};
+,
+
+  4: {
+    title: '🚀 الوحدة الرابعة — أنا رائد صغير',
+    color: '#6A1B9A',
+    lessons: [
+      {
+        id: 'l10', title: 'ما هو العمل التجاري؟',
+        sub: 'الفرق بين التكلفة وسعر البيع',
+        bg: '🏪', bgColor: 'linear-gradient(140deg,#4A148C,#6A1B9A)',
+        goal: 'تفهم كيف يكسب أصحاب العمل المال — وما الفرق بين التكلفة والربح.',
+        story: {
+          title: '📖 قصة: عمر وعربة العصير',
+          text: 'عمر لاحظ أن زملاءه يشترون عصيراً من الدكانة بـ7₪.\nفكّر: «أنا أستطيع أن أصنع عصيراً أفضل وأبيعه!»\n\nذهب للسوق واشترى:\n🍋 ليمون: 5₪\n🍬 سكر: 3₪\n💧 ماء: 1₪\nالمجموع: 9₪\n\nصنع من هذا الخليط 6 أكواب.\nباع كل كوب بـ3₪.\n6 × 3 = 18₪\n\nحسب: 18₪ - 9₪ = 9₪ ربح!\n\n«ضاعفت مالي بالعمل والتفكير!» قال بفخر.\nهذا هو جوهر التجارة — تشتري بسعر وتبيع بأكثر.'
+        },
+        concept: {
+          text: '🏪 مصطلحات التاجر الصغير:\n\n💰 التكلفة (سعر الشراء)\n← ما تدفعه لتحضير المنتج\nمثال: 9₪ للمكونات\n\n💵 سعر البيع\n← ما تطلبه من الزبون\nمثال: 3₪ للكوب الواحد\n\n📈 الربح = سعر البيع - التكلفة\nمثال: 18₪ - 9₪ = 9₪ ربح\n\n⚠️ مهم:\nإذا بعت بأقل من التكلفة = خسارة!\nمثال: لو باع عمر الكوب بـ1₪ فقط:\n6 × 1 = 6₪ < 9₪ = خسارة 3₪\n\n«التاجر الذكي يحسب قبل أن يبيع»'
+        },
+        quiz: {
+          q: '🧮 اشترت سارة مواد لصنع الكعك بـ12₪، وباعت الكعك كله بـ20₪. كم ربحت؟',
+          choices: [
+            { text: '8₪', ok: true, fb: '🎉 ممتاز! 20 - 12 = 8₪ ربح. سارة تاجرة ذكية!' },
+            { text: '20₪', ok: false, fb: '20₪ هو سعر البيع كله — لكن دفعت 12₪ للمواد! الربح = 20 - 12 = 8₪' },
+            { text: '32₪', ok: false, fb: 'الربح ليس الجمع — هو الطرح! 20 - 12 = 8₪ فقط.' }
+          ]
+        }
+      },
+      {
+        id: 'l11', title: 'فكرة عملي',
+        sub: 'كيف تختار المشروع المناسب لك',
+        bg: '💡', bgColor: 'linear-gradient(140deg,#4A148C,#7B1FA2)',
+        goal: 'تتعلم كيف تجد فكرة عمل تناسب مهاراتك واحتياجات من حولك.',
+        story: {
+          title: '📖 قصة: ليلى ومشروع الثلاثة أسئلة',
+          text: 'ليلى أرادت أن تكسب مالاً في الصيف.\nجلست وسألت نفسها ثلاثة أسئلة:\n\n❓ ما الذي أجيده؟\n← أجيد الرسم والخط العربي\n\n❓ ماذا يحتاج الناس من حولي؟\n← جيراني يريدون كتابة أسماء على الهدايا\n\n❓ هل يمكنني أن أربح من ذلك؟\n← نعم! كتابة اسم على بطاقة = 5₪\n\nبدأت ليلى مشروعها الصغير.\nفي الشهر الأول كسبت 60₪.\n\n«أفضل عمل هو الذي تحبه وتجيده» قالت لأمها.'
+        },
+        concept: {
+          text: '💡 أسئلة الرائد الصغير:\n\nقبل أي مشروع اسأل نفسك:\n\n1️⃣ ما الذي أجيده؟\n← رسم، طبخ، برمجة، رياضة، تعليم...\n\n2️⃣ ماذا يحتاج الناس؟\n← انظر من حولك — ما المشكلة التي تراها؟\n\n3️⃣ هل يمكن أن يدفعوا مقابل ذلك؟\n← إذا نعم — لديك فكرة!\n\n🌟 أمثلة لمشاريع ناجحة لأطفال:\n🎨 بيع رسومات أو بطاقات\n🌱 سقي نباتات الجيران\n📚 مساعدة في الدروس\n♻️ جمع الزجاجات للمزيكور\n🐕 المشي مع الكلاب\n\n«كل مشكلة تراها هي فرصة عمل محتملة»'
+        },
+        quiz: {
+          q: '💡 يوسف يجيد الطبخ وجيرانه مشغولون دائماً. ما المشروع الأنسب له؟',
+          choices: [
+            { text: 'تعليم الرياضيات للأطفال', ok: false, fb: 'هذا مشروع جيد لكنه لا يناسب مهارة يوسف في الطبخ! الأفضل أن تبدأ بما تجيده.' },
+            { text: 'تحضير وجبات أو حلويات للبيع للجيران', ok: true, fb: '🎉 ممتاز! يوسف يجيد الطبخ والجيران يحتاجون — هذه وصفة نجاح مثالية!' },
+            { text: 'فتح دكانة كبيرة', ok: false, fb: 'الدكانة الكبيرة تحتاج رأس مال كبير! ابدأ صغيراً وكبّر مع الوقت.' }
+          ]
+        }
+      },
+      {
+        id: 'l12', title: 'من هو زبوني؟',
+        sub: 'فهم من سيشتري منك — وماذا يريد',
+        bg: '🤝', bgColor: 'linear-gradient(140deg,#4A148C,#8E24AA)',
+        goal: 'تتعلم أن النجاح في العمل يعتمد على فهم ما يريده الزبون.',
+        story: {
+          title: '📖 قصة: أحمد وعصير الليمون',
+          text: 'أحمد باع عصير ليمون أمام المدرسة.\nالأسبوع الأول — لم يشترِ أحد!\n\nجلس وفكّر: «لماذا لا يشترون؟»\n\nسأل زملاءه:\n«لماذا لا تشترون عصيري؟»\n\nقالوا له:\n🗣️ «مرّ جداً!"\n🗣️ «نريده بارداً!"\n🗣️ «الكوب صغير!"\n\nأحمد استمع وغيّر:\n✅ أضاف سكراً أكثر\n✅ وضع ثلجاً في الكوب\n✅ استخدم كوباً أكبر\n\nالأسبوع الثاني — باع 30 كوباً!\n\n«الزبون دائماً على حق» فهم أحمد.'
+        },
+        concept: {
+          text: '🤝 قواعد فهم الزبون:\n\n👤 من هو زبوني؟\n← أطفال؟ كبار؟ جيران؟ زملاء؟\n\n🎯 ماذا يريد الزبون؟\n← جودة؟ سعر رخيص؟ سرعة؟ راحة؟\n\n💬 كيف أعرف ماذا يريد؟\n← اسأله مباشرة!\n← انظر ما يشتكي منه\n← جرّب وغيّر حسب ردود فعله\n\n⭐ السر الكبير:\nالمنتج الناجح ليس ما تحب أنت\nبل ما يحتاجه الزبون\n\n«بع ما يريده الناس، لا ما تريده أنت»'
+        },
+        quiz: {
+          q: '🤝 باعت نور كعكاً بالشوكولاتة لكن لا أحد يشتري. قالت لها صديقتها: «كثير منا لا يأكل شوكولاتة». ماذا تفعل نور؟',
+          choices: [
+            { text: 'تستمر في بيع نفس الكعك لأنه لذيذ', ok: false, fb: 'إذا لم يشترِ أحد — يجب التغيير! العمل الناجح يستمع للزبون.' },
+            { text: 'تضيف خيار كعك بالفانيليا أو الفراولة', ok: true, fb: '🎉 قرار ذكي! نور استمعت لزبائنها وغيّرت — هذا ما يفعله التاجر الناجح.' },
+            { text: 'تخفض السعر فقط', ok: false, fb: 'تخفيض السعر لن يحل المشكلة إذا كان المنتج نفسه لا يناسب الزبون!' }
+          ]
+        }
+      },
+      {
+        id: 'l13', title: 'ربح أم خسارة؟',
+        sub: 'حساب النتيجة النهائية لمشروعك',
+        bg: '📊', bgColor: 'linear-gradient(140deg,#4A148C,#9C27B0)',
+        goal: 'تحسب ربح وخسارة مشروع صغير وتفهم لماذا التخطيط مهم.',
+        story: {
+          title: '📖 قصة: مشروع تامر الفاشل... ثم الناجح',
+          text: 'تامر أراد بيع عصائر في الحديقة.\n\nالمحاولة الأولى — بدون تخطيط:\n🍊 اشترى فاكهة: 30₪\n🥤 كؤوس: 10₪\n🧊 ثلج: 5₪\nالتكلفة: 45₪\n\nباع 10 كؤوس بـ3₪ = 30₪ فقط\nالنتيجة: خسر 15₪! 😢\n\nفكّر تامر:\n«أين أخطأت؟»\n\nأعاد الحساب:\n«أحتاج أن أبيع على الأقل 15 كوباً لأسترد مالي»\n\nالمحاولة الثانية — بتخطيط:\n✅ اشترى أقل فاكهة (20₪)\n✅ باع الكوب بـ5₪\n✅ باع 12 كوساً = 60₪\nالربح: 60 - 20 = 40₪! 🎉'
+        },
+        concept: {
+          text: '📊 حساب النتيجة:\n\n📌 نقطة التعادل:\nعدد القطع التي تحتاج بيعها لاسترداد تكلفتك\n\nمثال:\nتكلفة: 30₪\nسعر البيع: 5₪ للقطعة\nنقطة التعادل: 30 ÷ 5 = 6 قطع\n← من القطعة السابعة تبدأ الربح!\n\n📈 معادلة الربح والخسارة:\nالربح = إجمالي المبيعات - إجمالي التكاليف\n\nإذا الناتج موجب (+) = ربح ✅\nإذا الناتج سالب (-) = خسارة ❌\n\n💡 قاعدة ذهبية:\n«لا تبدأ أي مشروع بدون حساب نقطة التعادل أولاً»'
+        },
+        quiz: {
+          q: '📊 اشترى خالد مواد لصنع عصير بـ24₪. يبيع كل كوب بـ4₪. كم كوباً يحتاج ليبيع لاسترداد تكلفته؟',
+          choices: [
+            { text: '4 كؤوس', ok: false, fb: '4 × 4 = 16₪ فقط — أقل من التكلفة! المعادلة: 24 ÷ 4 = 6 كؤوس.' },
+            { text: '6 كؤوس', ok: true, fb: '🎉 ممتاز! 24 ÷ 4 = 6. من الكوس السابع — كل كوب ربح خالص!' },
+            { text: '24 كوساً', ok: false, fb: 'هذا كثير جداً! المعادلة: التكلفة ÷ سعر البيع = 24 ÷ 4 = 6 فقط.' }
+          ]
+        }
+      }
+    ]
+  },
+
+  5: {
+    title: '🏦 الوحدة الخامسة — أنا مواطن مالي',
+    color: '#B71C1C',
+    lessons: [
+      {
+        id: 'l14', title: 'ما هي الضرائب؟',
+        sub: 'لماذا ندفع ضرائب وماذا نحصل في المقابل',
+        bg: '🏛️', bgColor: 'linear-gradient(140deg,#B71C1C,#C62828)',
+        goal: 'تفهم أن الضرائب ليست عقوبة — بل هي المال الذي يبني المجتمع.',
+        story: {
+          title: '📖 قصة: سؤال رنا في الحافلة',
+          text: 'في الحافلة المدرسية سألت رنا أمها:\n«من بنى هذا الطريق؟\nومن يدفع لسائق الحافلة؟\nومن بنى مدرستنا؟»\n\nأجابت أمها:\n«الحكومة»\n\n«ومن يعطي الحكومة المال؟» سألت رنا.\n\n«نحن جميعاً» قالت أمها.\n«كل شخص يعمل يدفع جزءاً من راتبه للحكومة.\nهذا يسمى الضريبة.\nالحكومة تجمع هذه الأموال وتصرفها على:\n🏫 المدارس\n🏥 المستشفيات\n🚌 الطرق والحافلات\n👮 الشرطة والأمن»\n\nقالت رنا: «إذاً نحن ندفع معاً لنعيش معاً».\nابتسمت أمها: «هذا بالضبط».'
+        },
+        concept: {
+          text: '🏛️ الضرائب — ما تحتاج معرفته:\n\n💸 ما هي الضريبة؟\nجزء من المال يدفعه كل شخص يعمل أو يتجر\nللحكومة كي تموّل الخدمات العامة\n\n🔄 الدورة:\nأنت تعمل → تكسب راتباً → تدفع جزءاً كضريبة\n← الحكومة تبني طرقاً ومستشفيات ومدارس\n← أنت تستخدمها!\n\n📊 أنواع الضرائب في إسرائيل:\n🏠 ضريبة الدخل — على الراتب\n🛒 مع كل شراء — ضريبة القيمة المضافة (מע"מ) 17%\n🏡 أرنونا — ضريبة البلدية على المنازل\n\n💡 مثال بسيط:\nعندما تشتري عصيراً بـ7₪\n← حوالي 1₪ يذهب للحكومة كضريبة!\n\n«الضرائب هي ثمن الحضارة»'
+        },
+        quiz: {
+          q: '🏛️ لماذا يدفع الناس ضرائب للحكومة؟',
+          choices: [
+            { text: 'لأن الحكومة تجبرهم بدون سبب', ok: false, fb: 'الضرائب لها هدف واضح! هي تموّل المدارس والمستشفيات والطرق التي يستخدمها الجميع.' },
+            { text: 'لتمويل الخدمات التي يستخدمها الجميع كالمدارس والطرق', ok: true, fb: '🎉 ممتاز! الضرائب هي الطريقة التي نبني بها المجتمع معاً — كل شخص يساهم.' },
+            { text: 'فقط الأغنياء يدفعون ضرائب', ok: false, fb: 'كل من يعمل أو يشتري يدفع نوعاً من الضرائب — حتى عند شراء العصير!' }
+          ]
+        }
+      },
+      {
+        id: 'l15', title: 'البنك — صديقي أم عدوي؟',
+        sub: 'كيف يعمل البنك ولماذا نحتاجه',
+        bg: '🏦', bgColor: 'linear-gradient(140deg,#B71C1C,#D32F2F)',
+        goal: 'تفهم دور البنك في حياتنا المالية وكيف يكسب المال.',
+        story: {
+          title: '📖 قصة: جد كريم والصندوق القديم',
+          text: 'كان جد كريم يحفظ ماله في صندوق معدني تحت السرير.\nيوماً سأله كريم: «لماذا لا تضع مالك في البنك يا جدي؟»\n\nقال الجد: «البنك؟ لماذا؟\nمالي آمن هنا!"\n\nقال كريم: «يا جدي، لو وضعت 1000₪ في البنك،\nبعد سنة سيكونون 1050₪!\nالبنك يعطيك فائدة — مكافأة لأنك تركت مالك عنده»\n\nسأل الجد: «وكيف يكسب البنك هو؟»\n\n«البنك يأخذ مالك ويقرضه لأشخاص آخرين\nبفائدة أعلى — مثلاً 5%.\nيعطيك 2% ويأخذ الفرق لنفسه»\n\nعندها فهم الجد — البنك ليس صدقة، لكنه مفيد!'
+        },
+        concept: {
+          text: '🏦 البنك — كيف يعمل؟\n\n💰 أنت تودع مالك في البنك\n← مالك آمن\n← البنك يعطيك فائدة (مكافأة صغيرة)\n\n🔄 البنك يقرض مالك لآخرين\n← يأخذ منهم فائدة أعلى\n← الفرق = ربح البنك\n\n🏦 خدمات البنك:\n✅ حفظ المال بأمان\n✅ الدفع بدون نقود (بطاقة)\n✅ إرسال واستقبال أموال\n✅ قرض عند الحاجة\n⚠️ لكن القرض له فائدة — تسدد أكثر مما أخذت!\n\n📱 في إسرائيل:\nالبنوك الكبيرة: הפועלים، לאומי، דיסקונט\nيمكن فتح حساب من سن 12 مع ولي أمر\n\n«البنك أداة — استخدمها بذكاء»'
+        },
+        quiz: {
+          q: '🏦 وضع سامي 500₪ في البنك. بعد سنة أصبحت 510₪. من أين جاءت الـ 10₪ الإضافية؟',
+          choices: [
+            { text: 'البنك أعطاه هدية', ok: false, fb: 'ليست هدية! هذا يسمى الفائدة — مكافأة لأن سامي ترك ماله في البنك وسمح له باستخدامه.' },
+            { text: 'فائدة — مكافأة لأنه ترك ماله في البنك', ok: true, fb: '🎉 ممتاز! الفائدة هي عائد الادخار في البنك. 10₪ على 500₪ = 2% فائدة.' },
+            { text: 'سامي نسي أنه أضاف 10₪', ok: false, fb: 'لا! البنك هو من أضافها تلقائياً كفائدة على المبلغ المودع.' }
+          ]
+        }
+      },
+      {
+        id: 'l16', title: 'بطاقة الائتمان — قوة أم فخ؟',
+        sub: 'استخدام البطاقة بذكاء',
+        bg: '💳', bgColor: 'linear-gradient(140deg,#B71C1C,#E53935)',
+        goal: 'تفهم كيف تعمل بطاقة الائتمان وخطر الديون.',
+        story: {
+          title: '📖 قصة: عمو خالد والبطاقة السحرية',
+          text: 'قال عمو خالد لابنه:\n«هذه البطاقة سحرية — أشتري بها كل شيء بدون نقود!"\n\nسأل الابن: «وكيف تدفع؟»\n\n«في نهاية الشهر يأتي فاتورة وأدفع»\n\nلكن عمو خالد اشترى كثيراً جداً:\n👕 ملابس: 300₪\n📺 تلفاز: 800₪\n🍕 مطاعم: 200₪\nالمجموع: 1300₪\n\nفي نهاية الشهر — لم يكن عنده 1300₪!\nقرر أن «يؤجل» الدفع.\n\nالشهر التالي — الدين أصبح 1400₪!\n(البنك أضاف 100₪ كفائدة على التأخير)\n\nبعد 3 أشهر — الدين أصبح 1800₪!\n\n«البطاقة ليست سحرية» فهم عمو خالد متأخراً.'
+        },
+        concept: {
+          text: '💳 قواعد البطاقة الذكية:\n\n✅ البطاقة أداة سهلة للدفع\n⚠️ ليست مالاً مجانياً!\n\n🔴 خطر التأخير:\nإذا لم تدفع في الموعد:\n← البنك يضيف فائدة (15-20% سنوياً!)\n← الدين يكبر كل شهر\n← صعب جداً للخروج!\n\n📏 قاعدة الذكاء المالي:\n«لا تشترِ بالبطاقة ما لا تملكه نقداً»\n\nمثال صحيح ✅:\nعندي 200₪ → اشتري بالبطاقة بـ200₪ → أدفع كاملاً في الموعد\n\nمثال خاطئ ❌:\nعندي 100₪ → اشتري بالبطاقة بـ500₪ → لا أستطيع الدفع → دين!\n\n«البطاقة أداة راحة — ليست ترخيصاً للإنفاق»'
+        },
+        quiz: {
+          q: '💳 عند سلمى 150₪ في حسابها. أرادت شراء حذاء بـ200₪ ببطاقة الائتمان. ماذا يجب أن تفعل؟',
+          choices: [
+            { text: 'تشتري الحذاء الآن وتدفع لاحقاً', ok: false, fb: 'خطر! إذا لم يكن عندها 200₪ عند موعد الدفع — ستدفع فائدة وسيكبر الدين!' },
+            { text: 'تنتظر حتى توفر 50₪ إضافية ثم تشتري', ok: true, fb: '🎉 قرار حكيم! الانتظار والتوفير أفضل من الدين. هذا هو التفكير المالي الصحيح.' },
+            { text: 'تأخذ قرضاً لشراء الحذاء', ok: false, fb: 'قرض لشراء حذاء؟ ستدفع أكثر من قيمة الحذاء بسبب الفائدة! انتظري وادخري.' }
+          ]
+        }
+      },
+      {
+        id: 'l17', title: 'حلمي المالي',
+        sub: 'كيف تخطط لمستقبلك المالي',
+        bg: '🌟', bgColor: 'linear-gradient(140deg,#B71C1C,#F44336)',
+        goal: 'تتعلم أن الأهداف الكبيرة تبدأ بخطوات صغيرة — والتخطيط هو المفتاح.',
+        story: {
+          title: '📖 قصة: حلم مريم الكبير',
+          text: 'مريم عمرها 10 سنوات وعندها حلم:\nأن تفتح مكتبة صغيرة عندما تكبر.\n\nسألها أبوها: «كم تكلف المكتبة؟»\nقالت: «لا أعرف»\n\n«إذاً لنحسب معاً»\n\nبحثا معاً:\n📍 إيجار محل صغير: 2000₪ شهرياً\n📚 كتب أولية: 5000₪\n🪑 أثاث: 3000₪\nالمجموع الأولي: ~10,000₪\n\nقال الأب: «لو ادخرت 100₪ شهرياً،\nبعد 8 سنوات عندك 9600₪»\n\nقالت مريم: «إذاً حلمي ممكن — فقط يحتاج صبراً وخطة!"\n\nبدأت مريم في نفس اليوم.'
+        },
+        concept: {
+          text: '🌟 خطوات تحقيق الحلم المالي:\n\n1️⃣ حدد حلمك بدقة\n← ليس «أريد مالاً كثيراً»\n← بل «أريد أفتح مشروعاً بـ10,000₪»\n\n2️⃣ احسب المبلغ المطلوب\n← ابحث عن الأسعار الحقيقية\n\n3️⃣ حدد كم تستطيع ادخار شهرياً\n\n4️⃣ احسب المدة:\nالمبلغ ÷ الادخار الشهري = عدد الأشهر\n\nمثال مريم:\n10,000 ÷ 100 = 100 شهر = ~8 سنوات\n\n💡 طرق لتسريع الوصول:\n← زيادة الدخل (عمل جانبي)\n← تقليل الإنفاق غير الضروري\n← استثمار المدخرات\n\n«الحلم بدون خطة مجرد أمنية — الحلم مع خطة هدف»'
+        },
+        quiz: {
+          q: '🌟 تريد نور شراء دراجة بـ600₪. تستطيع ادخار 50₪ شهرياً. كم شهراً تحتاج؟',
+          choices: [
+            { text: '6 أشهر', ok: false, fb: '6 × 50 = 300₪ فقط — نصف المبلغ! المعادلة: 600 ÷ 50 = 12 شهراً.' },
+            { text: '12 شهراً', ok: true, fb: '🎉 ممتاز! 600 ÷ 50 = 12. بعد سنة واحدة من الادخار المنتظم — الدراجة لنور!' },
+            { text: '50 شهراً', ok: false, fb: '50 × 50 = 2500₪ — أكثر بكثير من السعر! المعادلة الصحيحة: 600 ÷ 50 = 12 شهراً.' }
+          ]
+        }
+      }
+    ]
+  }};
 
 const BADGES = [
   { id:'b1', icon:'🏆', name:'أول درس!', req: 1 },
@@ -2080,7 +2278,7 @@ function openLesson(unitNum, lessonIdx) {
 
     <div class="activity-card">
       <h4>🎯 نشاط تفاعلي</h4>
-      <p style="font-size:15px;font-weight:700;margin-bottom:16px;color:rgba(255,255,255,0.92);line-height:1.7">
+      <p style="font-size:18px;font-weight:700;margin-bottom:16px;color:rgba(255,255,255,0.92);line-height:1.7">
         ${l.quiz.q}
       </p>
       <div class="choices" id="quiz-choices-${l.id}">
@@ -2241,29 +2439,29 @@ function answerQuiz(lessonId, choiceIdx) {
       state.completedLessons.push(lessonId);
       state.completedActivities++;
       saveState();
-      setTimeout(() => {
-        showPanel('lessons');
-        selectUnit(unitNum);
-        document.getElementById('lesson-detail').classList.remove('open');
-        document.getElementById('lesson-detail').innerHTML = '';
-        document.getElementById('lessons-list').style.display = '';
-      }, 2200);
     }
+    setTimeout(() => {
+      showPanel('lessons');
+      selectUnit(unitNum);
+      document.getElementById('lesson-detail').classList.remove('open');
+      document.getElementById('lesson-detail').innerHTML = '';
+      document.getElementById('lessons-list').style.display = '';
+    }, 2200);
   } else {
     soundWrong();
   }
 }
 
 // ═══════════════════════════════════════════════════
-// CHAT — رفيق الشيكل (Local AI)
+// CHAT — رفيق المال (Local AI)
 // ═══════════════════════════════════════════════════
 
 // ═══════════════════════════════════════════
-// رفيق الشيكل — SMART AI CHAT
+// رفيق المال — SMART AI CHAT
 // Claude API + Enhanced Offline Fallback
 // ═══════════════════════════════════════════
 
-const RAFIQ_SYSTEM = `أنت مساعد تعليمي ذكي اسمك "رفيق الشيكل".
+const RAFIQ_SYSTEM = `أنت مساعد تعليمي ذكي اسمك "رفيق المال".
 تعمل داخل لوح تعليمي تفاعلي لتعليم الأطفال الثقافة المالية.
 الفئة العمرية: الصف الرابع الابتدائي، عمر 9-10 سنوات.
 العملة الوحيدة في كل أمثلتك: الشيكل الإسرائيلي (₪).
@@ -2480,7 +2678,7 @@ function addMsg(text, isUser = false, fromAI = false) {
   div.className = 'msg ' + (isUser ? 'msg-u' : 'msg-r');
   if (!isUser) {
     const aiTag = fromAI ? '<span style="font-size:9px;background:rgba(21,101,192,0.3);padding:2px 6px;border-radius:8px;margin-right:6px;color:#90CAF9">AI</span>' : '';
-    div.innerHTML = `<div class="msg-sender">🪙 رفيق الشيكل ${aiTag}</div>${text.replace(/\n/g,'<br>')}`;
+    div.innerHTML = `<div class="msg-sender">🪙 رفيق المال ${aiTag}</div>${text.replace(/\n/g,'<br>')}`;
   } else {
     div.textContent = text;
   }
@@ -2526,7 +2724,7 @@ function quickMsg(text) {
 function initChat() {
   setTimeout(() => {
     addMsg(`أهلاً وسهلاً! 🌟
-أنا رفيق الشيكل — مساعدك المالي الذكي!
+أنا رفيق المال — مساعدك المالي الذكي!
 
 يمكنك سؤالي عن أي شيء يخص المال والشيكل والادخار 🪙
 
