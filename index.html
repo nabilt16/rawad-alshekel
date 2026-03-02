@@ -1644,6 +1644,20 @@ body {
             </div>
             <div class="unit-track"><div class="unit-fill" id="p-bar3" style="width:0%;background:linear-gradient(90deg,#C62828,#FF7043)"></div></div>
           </div>
+          <div class="unit-bar-row">
+            <div class="unit-bar-label">
+              <span>🚀 أنا رائد صغير</span>
+              <span id="p-pct4">0 / 4 دروس</span>
+            </div>
+            <div class="unit-track"><div class="unit-fill" id="p-bar4" style="width:0%;background:linear-gradient(90deg,#4A148C,#7B1FA2)"></div></div>
+          </div>
+          <div class="unit-bar-row">
+            <div class="unit-bar-label">
+              <span>🏦 أنا مواطن مالي</span>
+              <span id="p-pct5">0 / 4 دروس</span>
+            </div>
+            <div class="unit-track"><div class="unit-fill" id="p-bar5" style="width:0%;background:linear-gradient(90deg,#B71C1C,#E53935)"></div></div>
+          </div>
         </div>
 
         <!-- Lessons log -->
@@ -1697,6 +1711,8 @@ body {
           <button class="guide-unit-btn active" onclick="selectGuideUnit(1,this)">💰 الوحدة 1</button>
           <button class="guide-unit-btn" onclick="selectGuideUnit(2,this)">🧠 الوحدة 2</button>
           <button class="guide-unit-btn" onclick="selectGuideUnit(3,this)">🛒 الوحدة 3</button>
+          <button class="guide-unit-btn" onclick="selectGuideUnit(4,this)">🚀 الوحدة 4</button>
+          <button class="guide-unit-btn" onclick="selectGuideUnit(5,this)">🏦 الوحدة 5</button>
         </div>
 
         <!-- Lesson selector -->
@@ -1988,7 +2004,7 @@ const UNITS = {
     color: '#6A1B9A',
     lessons: [
       {
-        id: 'l10', title: 'ما هو العمل التجاري؟',
+        id: 'l4a', title: 'ما هو العمل التجاري؟',
         sub: 'الفرق بين التكلفة وسعر البيع',
         bg: '🏪', bgColor: 'linear-gradient(140deg,#4A148C,#6A1B9A)',
         goal: 'تفهم كيف يكسب أصحاب العمل المال — وما الفرق بين التكلفة والربح.',
@@ -2009,7 +2025,7 @@ const UNITS = {
         }
       },
       {
-        id: 'l11', title: 'فكرة عملي',
+        id: 'l4b', title: 'فكرة عملي',
         sub: 'كيف تختار المشروع المناسب لك',
         bg: '💡', bgColor: 'linear-gradient(140deg,#4A148C,#7B1FA2)',
         goal: 'تتعلم كيف تجد فكرة عمل تناسب مهاراتك واحتياجات من حولك.',
@@ -2030,7 +2046,7 @@ const UNITS = {
         }
       },
       {
-        id: 'l12', title: 'من هو زبوني؟',
+        id: 'l4c', title: 'من هو زبوني؟',
         sub: 'فهم من سيشتري منك — وماذا يريد',
         bg: '🤝', bgColor: 'linear-gradient(140deg,#4A148C,#8E24AA)',
         goal: 'تتعلم أن النجاح في العمل يعتمد على فهم ما يريده الزبون.',
@@ -2051,7 +2067,7 @@ const UNITS = {
         }
       },
       {
-        id: 'l13', title: 'ربح أم خسارة؟',
+        id: 'l4d', title: 'ربح أم خسارة؟',
         sub: 'حساب النتيجة النهائية لمشروعك',
         bg: '📊', bgColor: 'linear-gradient(140deg,#4A148C,#9C27B0)',
         goal: 'تحسب ربح وخسارة مشروع صغير وتفهم لماذا التخطيط مهم.',
@@ -2079,7 +2095,7 @@ const UNITS = {
     color: '#B71C1C',
     lessons: [
       {
-        id: 'l14', title: 'ما هي الضرائب؟',
+        id: 'l5a', title: 'ما هي الضرائب؟',
         sub: 'لماذا ندفع ضرائب وماذا نحصل في المقابل',
         bg: '🏛️', bgColor: 'linear-gradient(140deg,#B71C1C,#C62828)',
         goal: 'تفهم أن الضرائب ليست عقوبة — بل هي المال الذي يبني المجتمع.',
@@ -2100,7 +2116,7 @@ const UNITS = {
         }
       },
       {
-        id: 'l15', title: 'البنك — صديقي أم عدوي؟',
+        id: 'l5b', title: 'البنك — صديقي أم عدوي؟',
         sub: 'كيف يعمل البنك ولماذا نحتاجه',
         bg: '🏦', bgColor: 'linear-gradient(140deg,#B71C1C,#D32F2F)',
         goal: 'تفهم دور البنك في حياتنا المالية وكيف يكسب المال.',
@@ -2121,7 +2137,7 @@ const UNITS = {
         }
       },
       {
-        id: 'l16', title: 'بطاقة الائتمان — قوة أم فخ؟',
+        id: 'l5c', title: 'بطاقة الائتمان — قوة أم فخ؟',
         sub: 'استخدام البطاقة بذكاء',
         bg: '💳', bgColor: 'linear-gradient(140deg,#B71C1C,#E53935)',
         goal: 'تفهم كيف تعمل بطاقة الائتمان وخطر الديون.',
@@ -2142,7 +2158,7 @@ const UNITS = {
         }
       },
       {
-        id: 'l17', title: 'حلمي المالي',
+        id: 'l5d', title: 'حلمي المالي',
         sub: 'كيف تخطط لمستقبلك المالي',
         bg: '🌟', bgColor: 'linear-gradient(140deg,#B71C1C,#F44336)',
         goal: 'تتعلم أن الأهداف الكبيرة تبدأ بخطوات صغيرة — والتخطيط هو المفتاح.',
@@ -3014,6 +3030,14 @@ const LESSON_NAMES = {
   l22:{name:'مشروع المستهلك', unit:3},
   l23:{name:'عرض المشاريع', unit:3},
   l24:{name:'مراجعة نهائية', unit:3},
+  l4a: {name:'ما هو العمل التجاري؟', unit:4},
+  l4b: {name:'فكرة عملي', unit:4},
+  l4c: {name:'من هو زبوني؟', unit:4},
+  l4d: {name:'ربح أم خسارة؟', unit:4},
+  l5a: {name:'ما هي الضرائب؟', unit:5},
+  l5b: {name:'البنك — صديقي أم عدوي؟', unit:5},
+  l5c: {name:'بطاقة الائتمان — قوة أم فخ؟', unit:5},
+  l5d: {name:'حلمي المالي', unit:5},
 };
 
 const UNIT_TOTALS = {1:7, 2:9, 3:8};
@@ -3078,25 +3102,31 @@ function loadParentData() {
   const u1done = done.filter(id => LESSON_NAMES[id] && LESSON_NAMES[id].unit === 1).length;
   const u2done = done.filter(id => LESSON_NAMES[id] && LESSON_NAMES[id].unit === 2).length;
   const u3done = done.filter(id => LESSON_NAMES[id] && LESSON_NAMES[id].unit === 3).length;
+  const u4done = done.filter(id => LESSON_NAMES[id] && LESSON_NAMES[id].unit === 4).length;
+  const u5done = done.filter(id => LESSON_NAMES[id] && LESSON_NAMES[id].unit === 5).length;
 
   document.getElementById('p-pct1').textContent = u1done + ' / ' + UNIT_TOTALS[1] + ' دروس';
   document.getElementById('p-pct2').textContent = u2done + ' / ' + UNIT_TOTALS[2] + ' دروس';
   document.getElementById('p-pct3').textContent = u3done + ' / ' + UNIT_TOTALS[3] + ' دروس';
+  if (document.getElementById('p-pct4')) document.getElementById('p-pct4').textContent = u4done + ' / 4 دروس';
+  if (document.getElementById('p-pct5')) document.getElementById('p-pct5').textContent = u5done + ' / 4 دروس';
   setTimeout(() => {
     document.getElementById('p-bar1').style.width = Math.round(u1done/UNIT_TOTALS[1]*100) + '%';
     document.getElementById('p-bar2').style.width = Math.round(u2done/UNIT_TOTALS[2]*100) + '%';
     document.getElementById('p-bar3').style.width = Math.round(u3done/UNIT_TOTALS[3]*100) + '%';
+    if (document.getElementById('p-bar4')) document.getElementById('p-bar4').style.width = Math.round(u4done/4*100) + '%';
+    if (document.getElementById('p-bar5')) document.getElementById('p-bar5').style.width = Math.round(u5done/4*100) + '%';
   }, 100);
 
   // Lessons log
   const log = document.getElementById('parent-lessons-log');
   const allLessons = Object.entries(LESSON_NAMES);
-  const unitHeaders = {1: false, 2: false, 3: false};
+  const unitHeaders = {1: false, 2: false, 3: false, 4: false, 5: false};
   let html = '';
   allLessons.forEach(([id, info]) => {
     const isDone = done.includes(id);
     if (!unitHeaders[info.unit]) {
-      const titles = {1:'💰 الوحدة الأولى', 2:'🎯 الوحدة الثانية', 3:'🧠 الوحدة الثالثة'};
+      const titles = {1:'💰 الوحدة الأولى', 2:'🎯 الوحدة الثانية', 3:'🧠 الوحدة الثالثة', 4:'🚀 الوحدة الرابعة', 5:'🏦 الوحدة الخامسة'};
       html += `<div style="font-size:11px;font-weight:800;color:rgba(255,255,255,0.35);letter-spacing:1px;text-transform:uppercase;padding:8px 0 4px;margin-top:${info.unit>1?'12px':'0'}">${titles[info.unit]}</div>`;
       unitHeaders[info.unit] = true;
     }
@@ -3497,6 +3527,194 @@ const GUIDE = {
           { icon: "🧮", text: "إذا صعب عليه الحساب: استخدم آلة حاسبة — المهم المفهوم لا الحساب" },
           { icon: "🛍️", text: "نشاط حقيقي: في المتجر القادم، اطلب منه يقارن منتجَين بنفسه" },
           { icon: "⚖️", text: "إذا تردّد: علّمه يسأل «هذا المبلغ على كم استخدام؟»" },
+        ],
+        totalTime: "20 دقيقة"
+      },
+    ]
+  },
+
+  4: {
+    name: "أنا رائد صغير",
+    lessons: [
+      {
+        title: "ما هو العمل التجاري؟",
+        goal: "يفهم الطفل الفرق بين التكلفة وسعر البيع ويحسب الربح",
+        steps: [
+          { text: "سؤال افتتاحي: «هل سبق أن بعت شيئاً؟ كيف حددت السعر؟»", time: "3 دق" },
+          { text: "اقرأ قصة عمر وعربة العصير معاً", time: "5 دق" },
+          { text: "على ورقة: اكتب التكلفة وسعر البيع والربح", time: "4 دق" },
+          { text: "اشرح معادلة الربح: سعر البيع - التكلفة", time: "4 دق" },
+          { text: "حل السؤال معاً: سارة اشترت بـ12 وباعت بـ20", time: "4 دق" },
+        ],
+        questions: [
+          "لماذا لا يبيع عمر الكوب بـ1 شيكل فقط؟",
+          "متى تكون الصفقة خسارة؟",
+          "ما المنتج الذي تفكر ببيعه أنت؟",
+        ],
+        tips: [
+          { icon: "🧮", text: "إذا تعثّر في الحساب: ارسم جدولاً — تكلفة / مبيعات / ربح" },
+          { icon: "🏪", text: "نشاط عملي: اطلب منه يفكر بشيء يستطيع بيعه للزملاء" },
+          { icon: "💡", text: "ربط واقعي: خذه لدكانة واسأل — كم يكسب صاحبها من كل منتج؟" },
+        ],
+        totalTime: "20 دقيقة"
+      },
+      {
+        title: "فكرة عملي",
+        goal: "يجد الطفل فكرة عمل تناسب مهاراته واحتياجات من حوله",
+        steps: [
+          { text: "سؤال: «ما الشيء الذي تجيده أكثر من زملائك؟»", time: "3 دق" },
+          { text: "اقرأ قصة ليلى ومشروع الثلاثة أسئلة", time: "5 دق" },
+          { text: "اكتبوا معاً: ما أجيده / ما يحتاجه الناس / هل يدفعون؟", time: "5 دق" },
+          { text: "ناقشوا أمثلة المشاريع في قسم المفهوم", time: "4 دق" },
+          { text: "كل طفل يختار فكرة مشروع واحدة", time: "3 دق" },
+        ],
+        questions: [
+          "لماذا بدأت ليلى بما تجيده وليس بما تحبه فقط؟",
+          "ما المشكلة التي تراها في حارتك يمكنك حلها؟",
+          "كيف تعرف إذا كان الناس سيدفعون مقابل فكرتك؟",
+        ],
+        tips: [
+          { icon: "💡", text: "إذا قال لا أجيد شيئاً: ذكّره بأشياء أشاد بها زملاؤه أو معلموه" },
+          { icon: "🌱", text: "لا تنتقد أي فكرة في البداية — كل الأفكار مقبولة أولاً" },
+          { icon: "🚀", text: "اربط بدرس إعادة التدوير — جمع الزجاجات هو مشروع حقيقي!" },
+        ],
+        totalTime: "20 دقيقة"
+      },
+      {
+        title: "من هو زبوني؟",
+        goal: "يفهم الطفل أن نجاح العمل يعتمد على فهم ما يريده الزبون",
+        steps: [
+          { text: "سؤال: «هل اشتريت يوماً شيئاً ثم ندمت؟ لماذا؟»", time: "3 دق" },
+          { text: "اقرأ قصة أحمد وعصير الليمون", time: "5 دق" },
+          { text: "ناقش: ماذا فعل أحمد بعد أن لم يشترِ أحد؟", time: "4 دق" },
+          { text: "تمثيل أدوار: طفل بائع، طفل زبون — ماذا تريد؟", time: "5 دق" },
+          { text: "حل الحيدون معاً", time: "3 دق" },
+        ],
+        questions: [
+          "لماذا لم يشترِ أحد من أحمد في الأسبوع الأول؟",
+          "كيف عرف أحمد ماذا يريد الزبون؟",
+          "ما الفرق بين ما تحب أنت وما يريده الزبون؟",
+        ],
+        tips: [
+          { icon: "🎭", text: "تمثيل الأدوار مفيد جداً — اجعل الأطفال يتبادلون دور البائع والزبون" },
+          { icon: "👂", text: "الرسالة الأساسية: الاستماع للزبون ليس ضعفاً — بل ذكاء" },
+          { icon: "🔄", text: "إذا رفض التغيير: اسأله «هل تفضل أن تتمسك برأيك أم أن تربح؟»" },
+        ],
+        totalTime: "20 دقيقة"
+      },
+      {
+        title: "ربح أم خسارة؟",
+        goal: "يحسب الطفل نقطة التعادل ويفهم لماذا التخطيط ضروري",
+        steps: [
+          { text: "سؤال: «ما الفرق بين شخص يخطط وشخص لا يخطط؟»", time: "3 دق" },
+          { text: "اقرأ قصة تامر — المحاولة الأولى والثانية", time: "5 دق" },
+          { text: "احسبوا معاً: لماذا خسر تامر في المرة الأولى؟", time: "4 دق" },
+          { text: "اشرح نقطة التعادل: التكلفة ÷ سعر البيع", time: "4 دق" },
+          { text: "حل الحيدون: 24 ÷ 4 = ؟", time: "4 دق" },
+        ],
+        questions: [
+          "ماذا تعلّم تامر من فشله الأول؟",
+          "لماذا نحسب نقطة التعادل قبل أن نبدأ؟",
+          "لو كان عندك مشروع — ما أول شيء ستحسبه؟",
+        ],
+        tips: [
+          { icon: "📊", text: "ارسم جدول بسيط على السبورة: التكلفة / سعر البيع / نقطة التعادل / الربح" },
+          { icon: "🔢", text: "إذا صعب الحساب: ابدأ بأرقام صغيرة جداً — تكلفة 10 وسعر 2" },
+          { icon: "💪", text: "الرسالة: الفشل الأول ليس نهاية — بل تعلّم. تامر حاول مرة ثانية!" },
+        ],
+        totalTime: "20 دقيقة"
+      },
+    ]
+  },
+
+  5: {
+    name: "أنا مواطن مالي",
+    lessons: [
+      {
+        title: "ما هي الضرائب؟",
+        goal: "يفهم الطفل أن الضرائب تموّل الخدمات التي يستخدمها الجميع",
+        steps: [
+          { text: "سؤال: «من بنى الطريق أمام مدرستك؟ ومن دفع؟»", time: "3 دق" },
+          { text: "اقرأ قصة رنا في الحافلة مع أمها", time: "5 دق" },
+          { text: "ناقش: ما الخدمات التي تدفع عنها الضرائب؟", time: "4 دق" },
+          { text: "اشرح ضريبة القيمة المضافة — 17% مع كل شراء", time: "4 دق" },
+          { text: "حل الحيدون معاً", time: "4 دق" },
+        ],
+        questions: [
+          "لماذا قالت رنا «ندفع معاً لنعيش معاً»؟",
+          "لو لم تكن هناك ضرائب — ما الذي سيختفي من حياتنا؟",
+          "كم ضريبة ندفع عند شراء عصير بـ7 شيكل؟",
+        ],
+        tips: [
+          { icon: "🏫", text: "ربط محسوس: اسأله — مدرستك مجانية؟ من يدفع راتب معلمك؟" },
+          { icon: "🧾", text: "نشاط: أحضر فاتورة وأرِه سطر الضريبة — سيصدم!" },
+          { icon: "⚖️", text: "إذا قال الضرائب ظلم: ناقش — ماذا تفضل، تدفع أم لا تحصل على طريق؟" },
+        ],
+        totalTime: "20 دقيقة"
+      },
+      {
+        title: "البنك — صديقي أم عدوي؟",
+        goal: "يفهم الطفل دور البنك وكيف يكسب المال من خلال الفائدة",
+        steps: [
+          { text: "سؤال: «أين يحفظ أهلك مالهم؟ لماذا؟»", time: "3 دق" },
+          { text: "اقرأ قصة جد كريم والصندوق القديم", time: "5 دق" },
+          { text: "اشرح: كيف يعمل البنك — يأخذ، يقرض، يربح الفرق", time: "5 دق" },
+          { text: "اشرح الفائدة: 500 تصبح 510 بعد سنة", time: "4 دق" },
+          { text: "حل الحيدون معاً", time: "3 دق" },
+        ],
+        questions: [
+          "لماذا كان جد كريم يخفي المال تحت السرير؟",
+          "كيف يكسب البنك المال من أموالنا؟",
+          "ما فائدة وضع المال في البنك بدلاً من البيت؟",
+        ],
+        tips: [
+          { icon: "🏦", text: "نشاط: أرِه تطبيق بنك أو بطاقة ATM — اشرح كيف يعمل" },
+          { icon: "💰", text: "إذا سأل عن الفائدة والدين الإسلامي: هذا نقاش عائلي مهم — شجّعه يسأل أهله" },
+          { icon: "📱", text: "اذكر: في إسرائيل يمكن فتح حساب من سن 12 مع ولي أمر" },
+        ],
+        totalTime: "20 دقيقة"
+      },
+      {
+        title: "بطاقة الائتمان — قوة أم فخ؟",
+        goal: "يفهم الطفل خطر الدين ويتعلم قاعدة الشراء الذكي بالبطاقة",
+        steps: [
+          { text: "سؤال: «هل رأيت أحداً يشتري بالبطاقة؟ ما الفرق عن النقود؟»", time: "3 دق" },
+          { text: "اقرأ قصة عمو خالد والبطاقة السحرية", time: "5 دق" },
+          { text: "اشرح: كيف يكبر الدين كل شهر بسبب الفائدة", time: "5 دق" },
+          { text: "القاعدة الذهبية: لا تشترِ ما لا تملكه نقداً", time: "4 دق" },
+          { text: "حل الحيدون: سلمى وحذاء الـ200", time: "3 دق" },
+        ],
+        questions: [
+          "لماذا سمّى عمو خالد البطاقة سحرية؟",
+          "لماذا أصبح الدين 1800 بعد 3 أشهر وليس 1300؟",
+          "ما القاعدة التي ستتذكرها قبل كل شراء بالبطاقة؟",
+        ],
+        tips: [
+          { icon: "💳", text: "أرِه فاتورة بطاقة حقيقية — سيفهم أكثر من أي شرح" },
+          { icon: "⚠️", text: "الرسالة الأهم: البطاقة أداة راحة — ليست ترخيصاً للإنفاق" },
+          { icon: "🔢", text: "احسبوا معاً: دين 1000 بفائدة 20% — كم يصبح بعد سنة؟" },
+        ],
+        totalTime: "20 دقيقة"
+      },
+      {
+        title: "حلمي المالي",
+        goal: "يتعلم الطفل أن الأهداف الكبيرة تبدأ بخطوات صغيرة منتظمة",
+        steps: [
+          { text: "سؤال: «ما أكبر شيء تتمنى شراءه أو تحقيقه؟»", time: "3 دق" },
+          { text: "اقرأ قصة مريم وحلم المكتبة", time: "5 دق" },
+          { text: "احسبوا معاً: 600 ÷ 50 = كم شهراً؟", time: "4 دق" },
+          { text: "كل طفل يكتب حلمه والمبلغ المطلوب وخطة الادخار", time: "5 دق" },
+          { text: "شارك بعض الطلاب حلمهم مع الصف", time: "3 دق" },
+        ],
+        questions: [
+          "لماذا قال أبو مريم «لنحسب» بدلاً من «أنت صغير على ذلك»؟",
+          "ما الفرق بين الحلم والهدف؟",
+          "كيف تسرّع الوصول لحلمك المالي؟",
+        ],
+        tips: [
+          { icon: "🌟", text: "اجعل كل طفل يكتب حلمه على ورقة ويعلقها — تذكير بصري قوي" },
+          { icon: "📅", text: "تحدٍّ: تابع معهم بعد شهر — هل بدأوا يدخرون فعلاً؟" },
+          { icon: "💪", text: "الرسالة الختامية: الثقافة المالية ليست عن المال — بل عن حرية الاختيار" },
         ],
         totalTime: "20 دقيقة"
       },
