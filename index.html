@@ -408,7 +408,12 @@ body {
 .choice.ok  { border-color: var(--green); background: rgba(46,125,50,0.2); color: #81C784; pointer-events:none; }
 .choice.bad { border-color: #EF5350; background: rgba(239,83,80,0.15); color: #EF9A9A; pointer-events:none; }
 .choice.dim { opacity: 0.4; pointer-events: none; }
-.choice-icon { font-size: 18px; flex-shrink: 0; }
+.choice-icon { 
+  font-size: 15px; font-weight: 800; flex-shrink: 0;
+  width: 28px; height: 28px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.15);
+}
 
 .feedback-box {
   margin-top: 14px; padding: 14px 18px;
@@ -1984,7 +1989,7 @@ const UNITS = {
           text: 'ياسمين لاحظت شيئاً في حارتها:\nكل أسبوع يرمي الجيران عشرات الزجاجات البلاستيكية في الزبالة.\n\nفي المدرسة تعلّمت أن محطات المشتريات والسوبرماركت\nتدفع مقابل إعادة هذه الزجاجات.\n\nفكّرت: «هذا مال مرمي في الزبالة!»\n\nبدأت تجمع الزجاجات من جيرانها كل يوم جمعة.\nفي نهاية الشهر الأول جمعت 120 زجاجة.\nذهبت للمحطة وحصلت على 24₪.\n\n«24 شيكل من الزبالة؟» ضحكت.\n\nلكنها لم تضحك فقط — وضعت 12₪ في دلو التوفير،\n و12₪ في دلو التبرع لجمعية تنظيف الشوارع.\n\nبعد ثلاثة أشهر، تبرعت لها الجمعية بشهادة «صديقة البيئة».\nلكن الأهم — شعرت أن لأفعالها أثراً حقيقياً في العالم.'
         },
         concept: {
-          text: '♻️ المال الأخضر — كيف يعمل؟\n\nفي إسرائيل يمكنك إعادة:\n🍶 زجاجة بلاستيك صغيرة = 0.25₪\n🥤 زجاجة كبيرة (1.5L+) = 0.30₪\n🧴 علبة معدنية (פחית) = 0.25₪\n\n📊 حساب بسيط:\n10 زجاجات يومياً × 7 أيام = 70 زجاجة\n70 × 0.25₪ = 17.5₪ في الأسبوع\nفي الشهر = ~70₪ 🤯\n\n📍 أين تعيد الزجاجات؟\n• محطات الوقود (paz، sonol)\n• سوبرماركت رامي ليفي، שופרסל، ויקטורי\n• آلات خاصة في المراكز التجارية\n\n🌍 لماذا هذا مهم؟\n• كل زجاجة تُعاد = لا تنتهي في المحيط\n• إعادة 1 زجاجة توفر طاقة لتشغيل تلفاز ساعتين\n• إسرائيل تُعيد 80% من الزجاجات — من الأعلى عالمياً\n\n«أنت لا تجمع زجاجات فقط — أنت تبني مستقبلاً»'
+          text: '🌍 ما هي إعادة التدوير؟\n\nإعادة التدوير تعني أننا لا نرمي بعض المواد في الزبالة — بل نُعيدها لتُصنَع منها أشياء جديدة.\n\nلماذا هذا مهم ماليًا؟ لأن بعض الدول تدفع مالاً مقابل هذه المواد — أي أن نفاياتك يمكن أن تتحول لدخل حقيقي!\n\n♻️ المال الأخضر — كيف يعمل؟\n\nفي إسرائيل يمكنك إعادة:\n🍶 زجاجة بلاستيك صغيرة = 0.25₪\n🥤 زجاجة كبيرة (1.5L+) = 0.30₪\n🧴 علبة معدنية (פחית) = 0.25₪\n\n📊 حساب بسيط:\n10 زجاجات يومياً × 7 أيام = 70 زجاجة\n70 × 0.25₪ = 17.5₪ في الأسبوع\nفي الشهر = ~70₪ 🤯\n\n📍 أين تعيد الزجاجات؟\n• محطات الوقود (paz، sonol)\n• سوبرماركت رامي ليفي، שופרסל، ויקטורי\n• آلات خاصة في المراكز التجارية\n\n🌍 لماذا هذا مهم؟\n• كل زجاجة تُعاد = لا تنتهي في المحيط\n• إعادة 1 زجاجة توفر طاقة لتشغيل تلفاز ساعتين\n• إسرائيل تُعيد 80% من الزجاجات — من الأعلى عالمياً\n\n«أنت لا تجمع زجاجات فقط — أنت تبني مستقبلاً»'
         },
         quiz: {
           q: '♻️ جمعت ياسمين 80 زجاجة صغيرة هذا الأسبوع. كم ستحصل من محطة المشتريات؟',
@@ -2034,7 +2039,7 @@ const UNITS = {
           text: 'ليلى أرادت أن تكسب مالاً في الصيف.\nجلست وسألت نفسها ثلاثة أسئلة:\n\n❓ ما الذي أجيده؟\n← أجيد الرسم والخط العربي\n\n❓ ماذا يحتاج الناس من حولي؟\n← جيراني يريدون كتابة أسماء على الهدايا\n\n❓ هل يمكنني أن أربح من ذلك؟\n← نعم! كتابة اسم على بطاقة = 5₪\n\nبدأت ليلى مشروعها الصغير.\nفي الشهر الأول كسبت 60₪.\n\n«أفضل عمل هو الذي تحبه وتجيده» قالت لأمها.'
         },
         concept: {
-          text: '💡 أسئلة الرائد الصغير:\n\nقبل أي مشروع اسأل نفسك:\n\n1️⃣ ما الذي أجيده؟\n← رسم، طبخ، برمجة، رياضة، تعليم...\n\n2️⃣ ماذا يحتاج الناس؟\n← انظر من حولك — ما المشكلة التي تراها؟\n\n3️⃣ هل يمكن أن يدفعوا مقابل ذلك؟\n← إذا نعم — لديك فكرة!\n\n🌟 أمثلة لمشاريع ناجحة لأطفال:\n🎨 بيع رسومات أو بطاقات\n🌱 سقي نباتات الجيران\n📚 مساعدة في الدروس\n♻️ جمع الزجاجات للمزيكور\n🐕 المشي مع الكلاب\n\n«كل مشكلة تراها هي فرصة عمل محتملة»'
+          text: '💡 أسئلة الرائد الصغير:\n\nقبل أي مشروع اسأل نفسك:\n\n1️⃣ ما الذي أجيده؟\n← رسم، طبخ، برمجة، رياضة، تعليم...\n\n2️⃣ ماذا يحتاج الناس؟\n← انظر من حولك — ما المشكلة التي تراها؟\n\n3️⃣ هل يمكن أن يدفعوا مقابل ذلك؟\n← إذا نعم — لديك فكرة!\n\n🌟 أمثلة لمشاريع ناجحة لأطفال:\n🎨 بيع رسومات أو بطاقات\n🌱 سقي نباتات الجيران\n📚 مساعدة في الدروس\n♻️ جمع الزجاجات لإعادة التدوير\n🐕 المشي مع الكلاب\n\n«كل مشكلة تراها هي فرصة عمل محتملة»'
         },
         quiz: {
           q: '💡 يوسف يجيد الطبخ وجيرانه مشغولون دائماً. ما المشروع الأنسب له؟',
@@ -2300,7 +2305,7 @@ function openLesson(unitNum, lessonIdx) {
       <div class="choices" id="quiz-choices-${l.id}">
         ${l.quiz.choices.map((c,ci) => `
           <button class="choice" onclick="soundClick();answerQuiz('${l.id}',${ci})">
-            <span class="choice-icon">${ci===0?'🅰️':ci===1?'🅱️':'🅾️'}</span>
+            <span class="choice-icon">${ci===0?'A':ci===1?'B':'C'}</span>
             ${c.text}
           </button>`).join('')}
       </div>
@@ -2465,6 +2470,24 @@ function answerQuiz(lessonId, choiceIdx) {
     }, 2200);
   } else {
     soundWrong();
+    // After wrong answer - show continue button after 1.5s
+    setTimeout(() => {
+      const existing = document.getElementById('continue-btn-' + lessonId);
+      if (!existing) {
+        const continueBtn = document.createElement('button');
+        continueBtn.id = 'continue-btn-' + lessonId;
+        continueBtn.innerHTML = '← التالي';
+        continueBtn.style.cssText = 'margin-top:16px;padding:12px 24px;border-radius:12px;border:none;background:linear-gradient(135deg,#1565C0,#1E88E5);color:white;font-family:Cairo,sans-serif;font-size:16px;font-weight:700;cursor:pointer;width:100%';
+        continueBtn.onclick = () => {
+          showPanel('lessons');
+          selectUnit(unitNum);
+          document.getElementById('lesson-detail').classList.remove('open');
+          document.getElementById('lesson-detail').innerHTML = '';
+          document.getElementById('lessons-list').style.display = '';
+        };
+        fb.parentNode.appendChild(continueBtn);
+      }
+    }, 1500);
   }
 }
 
