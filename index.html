@@ -2439,10 +2439,15 @@ function answerQuiz(lessonId, choiceIdx) {
   const fb = document.getElementById('fb-' + lessonId);
 
   btns.forEach((b, i) => {
-    b.classList.add('done');
-    if (l.quiz.choices[i].ok) b.classList.add('ok');
-    else if (i === choiceIdx && !choice.ok) b.classList.add('bad');
-    else b.classList.add('dim');
+    if (choice.ok) {
+      // Correct answer - mark everything
+      b.classList.add('done');
+      if (l.quiz.choices[i].ok) b.classList.add('ok');
+      else b.classList.add('dim');
+    } else {
+      // Wrong answer - only mark the wrong choice, don't reveal correct
+      if (i === choiceIdx) b.classList.add('bad');
+    }
   });
 
   fb.textContent = choice.fb;
