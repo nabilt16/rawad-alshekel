@@ -3323,12 +3323,48 @@ function subAsk(subId, msg) {
 
 
 @media print {
-  @page { size: A4 portrait; margin: 0; }
-  html, body { background: white !important; }
-  body > *:not(#cert-overlay) { display: none !important; }
-  #cert-overlay { display: block !important; position: fixed !important; inset: 0 !important; background: white !important; overflow: hidden !important; padding: 0 !important; }
+  @page {
+    size: A4 portrait;
+    margin: 0;
+    marks: none;
+  }
+  html {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  html, body {
+    width: 210mm !important;
+    height: 297mm !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    overflow: hidden !important;
+  }
+  body > * { display: none !important; }
+  #cert-overlay {
+    display: flex !important;
+    position: fixed !important;
+    inset: 0 !important;
+    width: 210mm !important;
+    height: 297mm !important;
+    background: white !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
   #cert-overlay > * { display: none !important; }
-  #cert-card { display: block !important; position: fixed !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; width: 170mm !important; max-width: 170mm !important; box-shadow: none !important; }
+  #cert-card {
+    display: block !important;
+    width: 165mm !important;
+    max-width: 165mm !important;
+    box-shadow: none !important;
+    margin: 0 auto !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+  }
   .no-print { display: none !important; }
 }
 </style>
@@ -4020,7 +4056,14 @@ function printCertificate(studentName, dateStr) {
   const tip = document.createElement('div');
   tip.setAttribute('style','max-width:680px;margin:12px auto 0;text-align:center;color:rgba(255,255,255,0.4);font-family:Cairo,sans-serif;font-size:13px;line-height:1.8');
   tip.className = 'no-print';
-  tip.innerHTML = '💡 لإرسال الشهادة عبر واتساب أو بريد: اضغط <b style="color:rgba(255,255,255,0.7)">🖨️ طباعة</b> ← اختر <b style="color:rgba(255,255,255,0.7)">حفظ كـ PDF</b> ← شارك الملف';
+  tip.innerHTML = `
+    <div style="margin-bottom:6px">💡 للحصول على شهادة نظيفة بدون رأس أو تذييل:</div>
+    <div style="color:rgba(255,255,255,0.6);font-size:12px;line-height:2">
+      🖨️ اضغط <b style="color:white">طباعة</b> ← في إعدادات الطباعة اختر
+      <b style="color:white">مزيد من الإعدادات</b> ← أزل علامة
+      <b style="color:white">الرؤوس والتذييلات</b> ← احفظ كـ PDF
+    </div>
+  `; 
 
   overlay.appendChild(closeBtn);
   overlay.appendChild(cert);
