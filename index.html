@@ -1195,6 +1195,7 @@ body {
 .bucket-sublabel { font-size:12px; color:rgba(255,255,255,0.5); }
 .bucket-progress-text { font-size:11px; color:rgba(255,255,255,0.45); margin-top:4px; }
 </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
 <div id="coin-assets" style="display:none">
@@ -4002,9 +4003,15 @@ function printCertificate(studentName, dateStr) {
     shareBar.appendChild(btn);
   });
 
+  // Tip text
+  const tip = document.createElement('div');
+  tip.setAttribute('style','max-width:680px;margin:12px auto 0;text-align:center;color:rgba(255,255,255,0.4);font-family:Cairo,sans-serif;font-size:13px;line-height:1.8');
+  tip.innerHTML = '💡 لإرسال الشهادة عبر واتساب أو بريد: اضغط <b style="color:rgba(255,255,255,0.7)">🖨️ طباعة</b> ← اختر <b style="color:rgba(255,255,255,0.7)">حفظ كـ PDF</b> ← شارك الملف';
+
   overlay.appendChild(closeBtn);
   overlay.appendChild(cert);
   overlay.appendChild(shareBar);
+  overlay.appendChild(tip);
   document.body.appendChild(overlay);
   document.body.style.overflow = 'hidden';
 }
