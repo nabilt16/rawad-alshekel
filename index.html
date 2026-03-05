@@ -3969,8 +3969,42 @@ function printCertificate(studentName, dateStr) {
     <div style="font-size:11px;color:#aaa;margin-top:14px">📅 ${dateStr}</div>
   `;
   
+  // Share buttons bar
+  const shareBar = document.createElement('div');
+  shareBar.setAttribute('style','max-width:680px;margin:16px auto 0;display:flex;flex-wrap:wrap;gap:10px;justify-content:center');
+  
+  const btns = [
+    { label:'🖨️ طباعة',     color:'#1565C0', action: () => window.print() },
+    { label:'📲 واتساب',    color:'#25D366', action: () => {
+        const text = encodeURIComponent('🎓 شهادة إنجاز\n\nيُشهد بأن الطالب/ة ' + studentName + ' أتمّ بنجاح برنامج رواد المال - الثقافة المالية للأطفال 🪙\n\nالصف الرابع الابتدائي - ' + dateStr);
+        window.open('https://wa.me/?text=' + text, '_blank');
+    }},
+    { label:'📧 بريد إلكتروني', color:'#E53935', action: () => {
+        const subject = encodeURIComponent('شهادة إنجاز - ' + studentName);
+        const body = encodeURIComponent('يُشهد بأن الطالب/ة ' + studentName + ' أتمّ بنجاح برنامج رواد المال للثقافة المالية للأطفال\nالصف الرابع الابتدائي\nالتاريخ: ' + dateStr);
+        window.open('mailto:?subject=' + subject + '&body=' + body);
+    }},
+    { label:'📥 حفظ PDF',   color:'#F57F17', action: () => window.print() },
+    { label:'📤 مشاركة',    color:'#7B1FA2', action: () => {
+        if (navigator.share) {
+          navigator.share({ title: 'شهادة إنجاز - ' + studentName, text: 'يُشهد بأن الطالب/ة ' + studentName + ' أتمّ بنجاح برنامج رواد المال 🪙', url: window.location.href });
+        } else {
+          navigator.clipboard.writeText('🎓 ' + studentName + ' أتمّ بنجاح برنامج رواد المال 🪙').then(() => alert('✅ تم نسخ النص'));
+        }
+    }},
+  ];
+  
+  btns.forEach(b => {
+    const btn = document.createElement('button');
+    btn.innerHTML = b.label;
+    btn.setAttribute('style', 'padding:12px 20px;border:none;border-radius:12px;background:' + b.color + ';color:white;font-family:Cairo,sans-serif;font-size:15px;font-weight:700;cursor:pointer;min-width:120px');
+    btn.onclick = b.action;
+    shareBar.appendChild(btn);
+  });
+
   overlay.appendChild(closeBtn);
   overlay.appendChild(cert);
+  overlay.appendChild(shareBar);
   document.body.appendChild(overlay);
   document.body.style.overflow = 'hidden';
 }
