@@ -3323,9 +3323,12 @@ function subAsk(subId, msg) {
 
 
 @media print {
-  body * { visibility: hidden !important; }
-  #cert-overlay, #cert-overlay * { visibility: visible !important; }
-  #cert-overlay { position: fixed !important; inset: 0 !important; background: white !important; padding: 30px !important; }
+  @page { size: A4 portrait; margin: 0; }
+  html, body { background: white !important; }
+  body > *:not(#cert-overlay) { display: none !important; }
+  #cert-overlay { display: block !important; position: fixed !important; inset: 0 !important; background: white !important; overflow: hidden !important; padding: 0 !important; }
+  #cert-overlay > * { display: none !important; }
+  #cert-card { display: block !important; position: fixed !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important; width: 170mm !important; max-width: 170mm !important; box-shadow: none !important; }
   .no-print { display: none !important; }
 }
 </style>
@@ -3958,6 +3961,7 @@ function printCertificate(studentName, dateStr) {
   closeBtn.onclick = () => { overlay.remove(); document.body.style.overflow = ''; };
   
   const cert = document.createElement('div');
+  cert.id = 'cert-card';
   cert.setAttribute('style','max-width:680px;margin:0 auto;background:linear-gradient(160deg,#FFFDE7,#FFF8E1);border:6px double #C8960C;border-radius:16px;padding:32px 24px;text-align:center;font-family:Cairo,sans-serif;');
   cert.innerHTML = `
     <div style="font-size:40px">🪙</div>
