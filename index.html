@@ -366,6 +366,7 @@ body {
   display: flex; align-items: center; gap: 6px;
 }
 .concept-card p { font-size: 17px; line-height: 2; color: rgba(255,255,255,0.88); }
+.math-op { font-size: 22px; font-weight: 900; color: #FFD54F; margin: 0 3px; }
 
 .back-btn {
   display: inline-flex; align-items: center; gap: 6px;
@@ -2285,7 +2286,7 @@ function openLesson(unitNum, lessonIdx) {
 
     <div class="story-card">
       <div class="s-label">📖 القصة</div>
-      <p>${l.story.text.replace(/\n/g,'<br>')}</p>
+      <p>${l.story.text.replace(/\n/g,'<br>').replace(/(÷|×|\+|−|=|≈)/g,'<span class="math-op">$1</span>')}</p>
     </div>
 
     <div class="concept-card">
@@ -2294,7 +2295,7 @@ function openLesson(unitNum, lessonIdx) {
         ? `<div style="margin-top:4px" id="concept-render-target"></div>`
         : l.concept.html
           ? `<div style="margin-top:4px">${l.concept.html}</div>`
-          : `<p>${l.concept.text.replace(/\n/g,'<br>')}</p>`}
+          : `<p>${l.concept.text.replace(/\n/g,'<br>').replace(/(÷|×|\+|−|=|≈)/g,'<span class="math-op">$1</span>')}</p>`}
     </div>
 
     <div class="activity-card">
