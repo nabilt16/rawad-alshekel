@@ -3977,17 +3977,14 @@ function renderStudentList() {
 }
 
 function printCertificate(studentName, dateStr) {
-  const unitNames = {
-    1: 'المال من حولي', 2: 'قراراتي المالية',
-    3: 'أنا مستهلك واعٍ', 4: 'أنا رائد صغير', 5: 'المال أداة في يدي'
-  };
-  const done = JSON.parse(localStorage.getItem('rawad_done') || '[]');
-  const completedUnits = [];
-  for (let u = 1; u <= 5; u++) {
-    const unitLessons = Object.entries(LESSON_NAMES).filter(([id, info]) => info.unit === u);
-    const unitDone = unitLessons.filter(([id]) => done.includes(id));
-    if (unitDone.length > 0) completedUnits.push({name: unitNames[u]});
-  }
+  // Teacher issues certificate - show all 5 units always
+  const completedUnits = [
+    {name: 'المال من حولي'},
+    {name: 'قراراتي المالية'},
+    {name: 'أنا مستهلك واعٍ'},
+    {name: 'أنا رائد صغير'},
+    {name: 'المال أداة في يدي'}
+  ];
 
   const certHTML = `
     <div style="
@@ -4031,12 +4028,24 @@ function printCertificate(studentName, dateStr) {
     </div>
   `;
 
+  // Try overlay first, fallback to new tab
   const overlay = document.getElementById('cert-overlay');
   const content = document.getElementById('cert-content');
-  if (!overlay || !content) { alert('خطأ: لا يمكن فتح الشهادة'); return; }
-  content.innerHTML = certHTML;
-  overlay.style.display = 'block';
-  document.body.style.overflow = 'hidden';
+  if (overlay && content) {
+    content.innerHTML = certHTML;
+    overlay.style.display = 'block';
+    overlay.style.zIndex = '99999';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+  } else {
+    // Fallback: insert directly into body
+    const div = document.createElement('div');
+    div.id = 'cert-overlay';
+    div.style.cssText = 'position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.95);overflow-y:auto;padding:20px';
+    div.innerHTML = '<div style="text-align:center;margin-bottom:16px"><button onclick="this.parentNode.parentNode.remove();document.body.style.overflow=\'\'" style="background:rgba(255,255,255,0.15);border:none;border-radius:10px;color:white;font-family:Cairo,sans-serif;font-size:15px;padding:10px 24px;cursor:pointer">✕ إغلاق</button></div><div style="max-width:700px;margin:0 auto">' + certHTML + '</div>';
+    document.body.appendChild(div);
+    document.body.style.overflow = 'hidden';
+  }
 }
 
 function closeCertificate() {
