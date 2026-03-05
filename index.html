@@ -3323,49 +3323,30 @@ function subAsk(subId, msg) {
 
 
 @media print {
-  @page {
-    size: A4 portrait;
-    margin: 0;
-    marks: none;
-  }
-  html {
+  @page { size: A4 portrait; margin: 15mm 20mm; }
+  html, body {
+    background: white !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
-  html, body {
-    width: 210mm !important;
-    height: 297mm !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    background: white !important;
-    overflow: hidden !important;
-  }
   body > * { display: none !important; }
-  #cert-overlay {
-    display: flex !important;
+  #cert-print-wrapper {
+    display: block !important;
     position: fixed !important;
-    inset: 0 !important;
-    width: 210mm !important;
-    height: 297mm !important;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: white !important;
+    display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    padding: 0 !important;
-    margin: 0 !important;
   }
-  #cert-overlay > * { display: none !important; }
   #cert-card {
     display: block !important;
-    width: 165mm !important;
-    max-width: 165mm !important;
+    width: 100% !important;
+    max-width: 170mm !important;
     box-shadow: none !important;
     margin: 0 auto !important;
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    transform: none !important;
   }
-  .no-print { display: none !important; }
+  .no-print, #cert-overlay { display: none !important; }
 }
 </style>
 
@@ -4024,7 +4005,19 @@ function printCertificate(studentName, dateStr) {
   shareBar.className = 'no-print';
   
   const btns = [
-    { label:'🖨️ طباعة',     color:'#1565C0', action: () => window.print() },
+    { label:'🖨️ طباعة', color:'#1565C0', action: () => {
+      // Create clean print wrapper
+      let pw = document.getElementById('cert-print-wrapper');
+      if (pw) pw.remove();
+      pw = document.createElement('div');
+      pw.id = 'cert-print-wrapper';
+      pw.setAttribute('style','display:none');
+      const clone = document.getElementById('cert-card').cloneNode(true);
+      pw.appendChild(clone);
+      document.body.appendChild(pw);
+      window.print();
+      setTimeout(() => pw.remove(), 1000);
+    }},
     { label:'📲 واتساب',    color:'#25D366', action: () => {
         const text = encodeURIComponent('🎓 شهادة إنجاز\n\nيُشهد بأن الطالب/ة ' + studentName + ' أتمّ بنجاح برنامج رواد المال - الثقافة المالية للأطفال 🪙\n\nالصف الرابع الابتدائي - ' + dateStr);
         window.open('https://wa.me/?text=' + text, '_blank');
@@ -4034,7 +4027,7 @@ function printCertificate(studentName, dateStr) {
         const body = encodeURIComponent('يُشهد بأن الطالب/ة ' + studentName + ' أتمّ بنجاح برنامج رواد المال للثقافة المالية للأطفال\nالصف الرابع الابتدائي\nالتاريخ: ' + dateStr);
         window.open('mailto:?subject=' + subject + '&body=' + body);
     }},
-    { label:'📥 حفظ PDF',   color:'#F57F17', action: () => window.print() },
+    { label:'📥 حفظ PDF', color:'#F57F17', action: () => { document.querySelector('#cert-print-wrapper') || (() => { let pw = document.createElement('div'); pw.id='cert-print-wrapper'; pw.setAttribute('style','display:none'); pw.appendChild(document.getElementById('cert-card').cloneNode(true)); document.body.appendChild(pw); window.print(); setTimeout(()=>pw.remove(),1000); })(); } },
     { label:'📤 مشاركة',    color:'#7B1FA2', action: () => {
         if (navigator.share) {
           navigator.share({ title: 'شهادة إنجاز - ' + studentName, text: 'يُشهد بأن الطالب/ة ' + studentName + ' أتمّ بنجاح برنامج رواد المال 🪙', url: window.location.href });
