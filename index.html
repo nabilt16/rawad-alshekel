@@ -1228,6 +1228,7 @@ body {
     <button class="nav-btn" onclick="showPanel('savings')">🐷 هدف الادخار</button>
     <button class="nav-btn" onclick="showPanel('progress')">⭐ تقدمي</button>
     <button class="nav-btn nav-parent" onclick="showParentDashboard()">👨‍👩‍👧 للأهل</button>
+    <button class="nav-btn" onclick="showPanel('teacher')" style="background:linear-gradient(135deg,#1B5E20,#2E7D32);color:white">📋 للمعلم</button>
   </div>
 
   <!-- ══════════════════════════════════
@@ -1291,6 +1292,51 @@ body {
   <!-- ══════════════════════════════════
        PANEL: CHAT
   ══════════════════════════════════ -->
+  <div id="panel-teacher" class="panel" style="padding:16px;overflow-y:auto">
+
+    <h2 style="font-family:'Cairo',sans-serif;font-size:18px;font-weight:800;color:white;
+      margin-bottom:16px;text-align:right">📋 دليل المعلم</h2>
+
+    <!-- Unit selector -->
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px">
+      <button class="guide-unit-btn active" id="tu1" onclick="selectTUnit(1,this)">💰 الوحدة 1</button>
+      <button class="guide-unit-btn" id="tu2" onclick="selectTUnit(2,this)">🎯 الوحدة 2</button>
+      <button class="guide-unit-btn" id="tu3" onclick="selectTUnit(3,this)">🛒 الوحدة 3</button>
+      <button class="guide-unit-btn" id="tu4" onclick="selectTUnit(4,this)">🚀 الوحدة 4</button>
+      <button class="guide-unit-btn" id="tu5" onclick="selectTUnit(5,this)">🏦 الوحدة 5</button>
+    </div>
+
+    <!-- Lesson selector -->
+    <select id="t-lesson-sel" onchange="renderTGuide()"
+      style="width:100%;padding:10px 14px;border-radius:12px;margin-bottom:16px;
+      background:rgba(255,255,255,0.08);color:white;border:2px solid rgba(255,255,255,0.2);
+      font-family:'Cairo',sans-serif;font-size:15px;direction:rtl;outline:none">
+    </select>
+
+    <!-- Guide content -->
+    <div id="t-guide-content"></div>
+
+    <!-- Students + Certificates -->
+    <div style="margin-top:28px;border-top:1px solid rgba(255,255,255,0.1);padding-top:20px">
+      <h3 style="font-family:'Cairo',sans-serif;font-size:16px;font-weight:800;
+        color:white;margin-bottom:14px">🎓 شهادات الإنجاز</h3>
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        <input id="t-student-input" type="text" placeholder="اسم الطالب..." dir="rtl"
+          style="flex:1;padding:10px 14px;border-radius:12px;
+          border:2px solid rgba(255,255,255,0.25);background:rgba(255,255,255,0.1);
+          color:white;font-family:'Cairo',sans-serif;font-size:16px;
+          outline:none;text-align:right;"
+          onkeydown="if(event.key==='Enter')addTStudent()" />
+        <button onclick="addTStudent()" style="padding:10px 18px;border-radius:12px;
+          border:none;background:linear-gradient(135deg,#1565C0,#1E88E5);
+          color:white;font-family:'Cairo',sans-serif;font-size:15px;
+          font-weight:700;cursor:pointer">+ إضافة</button>
+      </div>
+      <div id="t-student-list" style="display:flex;flex-direction:column;gap:8px"></div>
+    </div>
+
+  </div><!-- end panel-teacher -->
+
   <div id="panel-chat" class="panel">
     <div class="chat-wrap">
       <div class="chat-top">
@@ -1608,7 +1654,65 @@ body {
       </div>
 
       <!-- Parent content -->
-      <div class="parent-content" id="parent-content">
+          <!-- ══════════════════════════════════
+         GUIDE PANE
+    ══════════════════════════════════ -->
+    <div class="modal-pane" id="pane-guide">
+      <div style="padding:20px 24px 28px">
+
+        <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:16px;line-height:1.7">
+          دليل عملي لتشغيل كل درس — للأهل في البيت وللمدرّس في الكيتة
+        </div>
+
+        <!-- Unit selector -->
+        <div class="guide-unit-select" id="guide-unit-btns">
+          <button class="guide-unit-btn active" onclick="selectGuideUnit(1,this)">💰 الوحدة 1</button>
+          <button class="guide-unit-btn" onclick="selectGuideUnit(2,this)">🧠 الوحدة 2</button>
+          <button class="guide-unit-btn" onclick="selectGuideUnit(3,this)">🛒 الوحدة 3</button>
+          <button class="guide-unit-btn" onclick="selectGuideUnit(4,this)">🚀 الوحدة 4</button>
+          <button class="guide-unit-btn" onclick="selectGuideUnit(5,this)">🏦 الوحدة 5</button>
+        </div>
+
+        <!-- Lesson selector -->
+        <div class="guide-lesson-select">
+          <select id="guide-lesson-sel" onchange="renderGuide()">
+          </select>
+        </div>
+
+        <!-- Guide content -->
+        <div id="guide-content"></div>
+
+        <!-- ═══ Student List + Certificate ═══ -->
+        <div style="margin-top:32px;border-top:1px solid rgba(255,255,255,0.1);padding-top:24px">
+          <h3 style="font-family:'Cairo',sans-serif;font-size:16px;font-weight:800;color:white;margin-bottom:16px">
+            🎓 شهادات الإنجاز
+          </h3>
+
+          <!-- Add student -->
+          <div style="display:flex;gap:8px;margin-bottom:16px">
+            <input id="new-student-input" type="text" placeholder="اسم الطالب..." dir="rtl"
+              autocomplete="off" autocorrect="off" spellcheck="false"
+              style="flex:1;padding:10px 14px;border-radius:12px;border:2px solid rgba(255,255,255,0.3);
+              background:rgba(255,255,255,0.12);color:white;font-family:'Cairo',sans-serif;
+              font-size:16px;outline:none;text-align:right;-webkit-appearance:none;"
+              onkeydown="if(event.key==='Enter') addStudent()"
+            />
+            <button onclick="addStudent()" style="padding:10px 20px;border-radius:12px;border:none;
+              background:linear-gradient(135deg,#1565C0,#1E88E5);color:white;
+              font-family:'Cairo',sans-serif;font-size:16px;font-weight:700;cursor:pointer;
+              min-width:80px;-webkit-tap-highlight-color:transparent;">
+              + إضافة
+            </button>
+          </div>
+
+          <!-- Student list -->
+          <div id="student-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px"></div>
+        </div>
+
+      </div>
+    </div><!-- end pane-guide -->
+
+    <div class="parent-content" id="parent-content">
 
         <!-- Summary -->
         <div class="summary-grid">
@@ -1699,39 +1803,12 @@ body {
           <button class="pin-change-btn" onclick="changePin()">تغيير الرمز</button>
         </div>
 
+
+
       </div>
     </div><!-- end pane-parent -->
 
-    <!-- ══════════════════════════════════
-         GUIDE PANE
-    ══════════════════════════════════ -->
-    <div class="modal-pane" id="pane-guide">
-      <div style="padding:20px 24px 28px">
 
-        <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:16px;line-height:1.7">
-          دليل عملي لتشغيل كل درس — للأهل في البيت وللمدرّس في الكيتة
-        </div>
-
-        <!-- Unit selector -->
-        <div class="guide-unit-select" id="guide-unit-btns">
-          <button class="guide-unit-btn active" onclick="selectGuideUnit(1,this)">💰 الوحدة 1</button>
-          <button class="guide-unit-btn" onclick="selectGuideUnit(2,this)">🧠 الوحدة 2</button>
-          <button class="guide-unit-btn" onclick="selectGuideUnit(3,this)">🛒 الوحدة 3</button>
-          <button class="guide-unit-btn" onclick="selectGuideUnit(4,this)">🚀 الوحدة 4</button>
-          <button class="guide-unit-btn" onclick="selectGuideUnit(5,this)">🏦 الوحدة 5</button>
-        </div>
-
-        <!-- Lesson selector -->
-        <div class="guide-lesson-select">
-          <select id="guide-lesson-sel" onchange="renderGuide()">
-          </select>
-        </div>
-
-        <!-- Guide content -->
-        <div id="guide-content"></div>
-
-      </div>
-    </div><!-- end pane-guide -->
 
     </div><!-- end parent-body -->
   </div>
@@ -3762,6 +3839,14 @@ function switchModalTab(tab) {
   document.getElementById('pane-' + tab).classList.add('active');
   if (tab === 'guide') {
     selectGuideUnit(1, document.querySelector('.guide-unit-btn'));
+    setTimeout(renderStudentList, 200);
+  }
+  if (tab === 'teacher') {
+    setTimeout(() => {
+      const btn = document.getElementById('tu1');
+      selectTUnit(1, btn || null);
+      renderTStudents();
+    }, 100);
   }
 }
 
@@ -3825,7 +3910,252 @@ function renderGuide() {
   document.getElementById('guide-content').innerHTML = html;
 }
 
+
+
+// ══════════════════════════════════════════
+// STUDENT MANAGEMENT + CERTIFICATE
+// ══════════════════════════════════════════
+
+function getStudents() {
+  try { return JSON.parse(localStorage.getItem('rawad_students') || '[]'); }
+  catch(e) { return []; }
+}
+
+function saveStudents(arr) {
+  localStorage.setItem('rawad_students', JSON.stringify(arr));
+}
+
+function addStudent() {
+  const input = document.getElementById('new-student-input');
+  const name = input.value.trim();
+  if (!name) return;
+  const students = getStudents();
+  if (students.includes(name)) {
+    input.value = '';
+    return;
+  }
+  students.push(name);
+  saveStudents(students);
+  input.value = '';
+  renderStudentList();
+}
+
+function removeStudent(name) {
+  const students = getStudents().filter(s => s !== name);
+  saveStudents(students);
+  renderStudentList();
+}
+
+function renderStudentList() {
+  const list = document.getElementById('student-list');
+  if (!list) return;
+  const students = getStudents();
+  if (students.length === 0) {
+    list.innerHTML = '<div style="color:rgba(255,255,255,0.35);font-size:13px;text-align:center;padding:12px">لا يوجد طلاب بعد — أضف اسماً أعلاه</div>';
+    return;
+  }
+  list.innerHTML = students.map(name => `
+    <div style="display:flex;align-items:center;justify-content:space-between;
+      background:rgba(255,255,255,0.06);border-radius:12px;padding:10px 14px">
+      <button onclick="printCertificate('${name.replace(/'/g,"\\'")}','${new Date().toLocaleDateString('ar-SA')}')"
+        style="background:linear-gradient(135deg,#F9A825,#E65100);border:none;border-radius:8px;
+        color:white;font-family:'Cairo',sans-serif;font-size:12px;font-weight:700;
+        padding:6px 12px;cursor:pointer">
+        🏆 شهادة
+      </button>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-family:'Cairo',sans-serif;font-size:15px;color:white;font-weight:600">${name}</span>
+        <span style="font-size:18px">👤</span>
+      </div>
+      <button onclick="removeStudent('${name.replace(/'/g,"\\'")}' )"
+        style="background:rgba(255,0,0,0.2);border:1px solid rgba(255,0,0,0.3);border-radius:6px;
+        color:rgba(255,100,100,0.9);font-size:12px;padding:4px 8px;cursor:pointer">
+        حذف
+      </button>
+    </div>
+  `).join('');
+}
+
+function printCertificate(studentName, dateStr) {
+  const unitNames = {
+    1: 'المال من حولي', 2: 'قراراتي المالية',
+    3: 'أنا مستهلك واعٍ', 4: 'أنا رائد صغير', 5: 'المال أداة في يدي'
+  };
+  const done = JSON.parse(localStorage.getItem('rawad_done') || '[]');
+  const completedUnits = [];
+  for (let u = 1; u <= 5; u++) {
+    const unitLessons = Object.entries(LESSON_NAMES).filter(([id, info]) => info.unit === u);
+    const unitDone = unitLessons.filter(([id]) => done.includes(id));
+    if (unitDone.length > 0) completedUnits.push({name: unitNames[u]});
+  }
+
+  const certHTML = `
+    <div style="
+      background:linear-gradient(160deg,#FFFDE7,#FFF8E1,#FFFDE7);
+      border:6px double #C8960C;border-radius:16px;
+      padding:32px 28px;text-align:center;
+      font-family:'Cairo',sans-serif;
+      box-shadow:0 4px 30px rgba(200,150,12,0.15);
+    ">
+      <div style="font-size:40px;margin-bottom:4px">🪙</div>
+      <div style="font-size:20px;font-weight:900;color:#C8960C;margin-bottom:6px">رواد المال</div>
+      <div style="font-size:13px;color:#7B5800;letter-spacing:2px;margin-bottom:16px">شـهـادة إنـجـاز</div>
+      <div style="font-size:14px;color:#555;margin-bottom:6px">يُشهد بأن الطالب/ة</div>
+      <div style="font-size:30px;font-weight:900;color:#1A237E;
+        border-bottom:3px solid #C8960C;display:inline-block;
+        padding-bottom:4px;margin-bottom:16px;min-width:200px">
+        ${studentName}
+      </div>
+      <div style="font-size:14px;color:#555;margin-bottom:12px">
+        أتمّ بنجاح الوحدات التالية في برنامج الثقافة المالية للأطفال:
+      </div>
+      <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-bottom:20px">
+        ${completedUnits.map(u => `
+          <span style="background:linear-gradient(135deg,#1565C0,#1E88E5);
+            color:white;border-radius:20px;padding:6px 14px;
+            font-size:13px;font-weight:700">✅ ${u.name}</span>
+        `).join('')}
+      </div>
+      <div style="font-size:26px;letter-spacing:4px;margin:10px 0">⭐⭐⭐⭐⭐</div>
+      <div style="display:flex;justify-content:space-around;margin-top:24px">
+        <div style="text-align:center">
+          <div style="width:130px;border-bottom:2px solid #C8960C;height:32px;margin-bottom:6px"></div>
+          <div style="font-size:12px;color:#888">توقيع المعلم/ة</div>
+        </div>
+        <div style="text-align:center">
+          <div style="width:130px;border-bottom:2px solid #C8960C;height:32px;margin-bottom:6px"></div>
+          <div style="font-size:12px;color:#888">ختم المدرسة</div>
+        </div>
+      </div>
+      <div style="font-size:12px;color:#aaa;margin-top:16px">📅 ${dateStr}</div>
+    </div>
+  `;
+
+  const overlay = document.getElementById('cert-overlay');
+  const content = document.getElementById('cert-content');
+  if (!overlay || !content) { alert('خطأ: لا يمكن فتح الشهادة'); return; }
+  content.innerHTML = certHTML;
+  overlay.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeCertificate() {
+  document.getElementById('cert-overlay').style.display = 'none';
+  document.body.style.overflow = '';
+}
+// Student list initialized via showPanel
+
+
+// ══════════════════════════════════════════
+// TEACHER PANEL
+// ══════════════════════════════════════════
+
+
+// ══ TEACHER PANEL ══════════════════════
+let _tUnit = 1;
+
+function selectTUnit(num, btn) {
+  _tUnit = num;
+  try {
+    document.querySelectorAll('#panel-teacher .guide-unit-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+  } catch(e) {}
+  const lessons = (GUIDE && GUIDE[num]) ? GUIDE[num].lessons : [];
+  const sel = document.getElementById('t-lesson-sel');
+  if (!sel) return;
+  sel.innerHTML = lessons.map((l,i) => `<option value="${i}">${l.title}</option>`).join('');
+  renderTGuide();
+}
+
+function renderTGuide() {
+  const sel = document.getElementById('t-lesson-sel');
+  if (!sel) return;
+  const idx = parseInt(sel.value) || 0;
+  if (!GUIDE || !GUIDE[_tUnit]) return;
+  const lesson = GUIDE[_tUnit].lessons[idx];
+  const content = document.getElementById('t-guide-content');
+  if (!lesson || !content) { if(content) content.innerHTML = ''; return; }
+  content.innerHTML = `
+    <div style="background:rgba(255,255,255,0.06);border-radius:14px;padding:18px;margin-bottom:12px">
+      <div style="font-family:'Cairo',sans-serif;font-size:15px;font-weight:800;color:#FFD54F;margin-bottom:10px">🎯 ${lesson.goal}</div>
+      ${lesson.steps.map((s,i) => `
+        <div style="display:flex;gap:10px;margin-bottom:9px;align-items:flex-start">
+          <span style="background:#1565C0;color:white;border-radius:50%;width:22px;height:22px;min-width:22px;
+            display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800">${i+1}</span>
+          <span style="font-family:'Cairo',sans-serif;font-size:14px;color:rgba(255,255,255,0.88);flex:1">${s.text}
+            ${s.time ? `<span style="color:rgba(255,200,0,0.7);font-size:12px"> ⏱${s.time}</span>` : ''}</span>
+        </div>`).join('')}
+      <div style="color:rgba(255,200,0,0.8);font-size:13px;margin-top:8px">⏱ المجموع: ${lesson.totalTime}</div>
+    </div>
+    <div style="background:rgba(255,255,255,0.06);border-radius:14px;padding:18px;margin-bottom:12px">
+      <div style="font-family:'Cairo',sans-serif;font-size:14px;font-weight:800;color:rgba(255,255,255,0.6);margin-bottom:10px">❓ أسئلة للنقاش</div>
+      ${lesson.questions.map(q => `<div style="font-family:'Cairo',sans-serif;font-size:14px;color:rgba(255,255,255,0.85);margin-bottom:7px">◈ ${q}</div>`).join('')}
+    </div>
+    <div style="background:rgba(255,255,255,0.06);border-radius:14px;padding:18px">
+      <div style="font-family:'Cairo',sans-serif;font-size:14px;font-weight:800;color:rgba(255,255,255,0.6);margin-bottom:10px">💡 نصائح</div>
+      ${lesson.tips.map(t => `<div style="display:flex;gap:9px;margin-bottom:8px"><span>${t.icon}</span><span style="font-family:'Cairo',sans-serif;font-size:14px;color:rgba(255,255,255,0.85)">${t.text}</span></div>`).join('')}
+    </div>
+  `;
+}
+
+function addTStudent() {
+  try {
+    const input = document.getElementById('t-student-input');
+    if (!input) return;
+    const name = (input.value || '').trim();
+    if (!name) return;
+    const arr = getStudents();
+    if (!arr.includes(name)) { arr.push(name); saveStudents(arr); }
+    input.value = '';
+    renderTStudents();
+  } catch(e) { console.log('addTStudent error:', e); }
+}
+
+function renderTStudents() {
+  const list = document.getElementById('t-student-list');
+  if (!list) return;
+  const arr = getStudents();
+  if (!arr.length) {
+    list.innerHTML = '<div style="color:rgba(255,255,255,0.35);font-size:13px;text-align:center;padding:10px">لا يوجد طلاب — أضف اسماً أعلاه</div>';
+    return;
+  }
+  list.innerHTML = arr.map(name => `
+    <div style="display:flex;align-items:center;justify-content:space-between;
+      background:rgba(255,255,255,0.07);border-radius:12px;padding:10px 14px">
+      <button onclick="removeStudent('${name.replace(/'/g,"\\'")}');renderTStudents();"
+        style="background:rgba(255,0,0,0.2);border:1px solid rgba(255,80,80,0.3);
+        border-radius:6px;color:rgba(255,120,120,0.9);font-size:12px;padding:5px 10px;cursor:pointer">حذف</button>
+      <span style="font-family:'Cairo',sans-serif;font-size:15px;color:white;font-weight:600">👤 ${name}</span>
+      <button onclick="printCertificate('${name.replace(/'/g,"\\'")}','${new Date().toLocaleDateString('ar-SA')}')"
+        style="background:linear-gradient(135deg,#F9A825,#E65100);border:none;
+        border-radius:8px;color:white;font-family:'Cairo',sans-serif;
+        font-size:13px;font-weight:700;padding:7px 14px;cursor:pointer">🏆 شهادة</button>
+    </div>`).join('');
+}
+
+// Teacher panel init handled in showPanel directly
+
 </script>
+
+  <!-- Certificate Overlay -->
+  <div id="cert-overlay" style="display:none;position:fixed;inset:0;z-index:9999;
+    background:rgba(0,0,0,0.95);overflow-y:auto;padding:20px;-webkit-overflow-scrolling:touch">
+    <div style="text-align:center;margin-bottom:16px;display:flex;gap:10px;justify-content:center">
+      <button onclick="closeCertificate()" style="background:rgba(255,255,255,0.15);
+        border:none;border-radius:10px;color:white;font-family:'Cairo',sans-serif;
+        font-size:15px;padding:10px 24px;cursor:pointer">
+        ✕ إغلاق
+      </button>
+      <button onclick="window.print()" style="background:linear-gradient(135deg,#F9A825,#E65100);
+        border:none;border-radius:10px;color:white;font-family:'Cairo',sans-serif;
+        font-size:15px;font-weight:700;padding:10px 24px;cursor:pointer">
+        🖨️ طباعة / حفظ PDF
+      </button>
+    </div>
+    <div id="cert-content" style="max-width:700px;margin:0 auto"></div>
+  </div>
+
 </div></div>
+</div>
 </body>
 </html>
