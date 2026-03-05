@@ -2305,9 +2305,9 @@ function saveState() {
 function showPanel(id) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('panel-' + id).classList.add('active');
+  const panelEl = document.getElementById('panel-' + id); if(panelEl) panelEl.classList.add('active');
   const idx = ['lessons','chat','savings','progress'].indexOf(id);
-  document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  const activeNavBtn = document.querySelectorAll('.nav-btn')[idx]; if(activeNavBtn) activeNavBtn.classList.add('active');
   if (id === 'progress') updateProgress();
 }
 
@@ -2322,9 +2322,11 @@ function selectUnit(num) {
   currentUnit = num;
   document.querySelectorAll('.unit-card').forEach(c => c.classList.remove('sel'));
   const selCard = document.querySelector(`.unit-card[data-num="${num}"]`);
-  selCard.classList.add('sel');
-  selCard.style.transform = 'scale(0.96)';
-  setTimeout(() => selCard.style.transform = '', 200);
+  if (selCard) {
+    selCard.classList.add('sel');
+    selCard.style.transform = 'scale(0.96)';
+    setTimeout(() => selCard.style.transform = '', 200);
+  }
 
   const unit = UNITS[num];
   document.getElementById('unit-title').textContent = unit.title;
@@ -3855,9 +3857,10 @@ let _guideUnit = 1;
 function selectGuideUnit(num, btn) {
   _guideUnit = num;
   document.querySelectorAll('.guide-unit-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const lessons = GUIDE[num].lessons;
+  if (btn) btn.classList.add('active');
+  const lessons = GUIDE[num] ? GUIDE[num].lessons : [];
   const sel = document.getElementById('guide-lesson-sel');
+  if (!sel) return;
   sel.innerHTML = lessons.map((l,i) => `<option value="${i}">${i+1}. ${l.title}</option>`).join('');
   renderGuide();
 }
@@ -4145,7 +4148,14 @@ function renderTStudents() {
     const certBtn = document.createElement('button');
     certBtn.innerHTML = '🏆 شهادة';
     certBtn.style.cssText = 'background:linear-gradient(135deg,#F9A825,#E65100);border:none;border-radius:8px;color:white;font-family:Cairo,sans-serif;font-size:13px;font-weight:700;padding:7px 14px;cursor:pointer';
-    certBtn.onclick = () => { printCertificate(name, new Date().toLocaleDateString('ar-SA')); };
+    certBtn.onclick = () => { 
+    try { 
+      printCertificate(name, new Date().toLocaleDateString('ar-SA')); 
+    } catch(err) { 
+      console.error('cert error:', err);
+      alert('اسم الطالب: ' + name + ' - خطأ: ' + err.message); 
+    } 
+  };
     
     row.appendChild(delBtn);
     row.appendChild(nameSpan);
