@@ -3321,6 +3321,13 @@ function subAsk(subId, msg) {
   position: relative;
 }
 
+
+@media print {
+  body * { visibility: hidden !important; }
+  #cert-overlay, #cert-overlay * { visibility: visible !important; }
+  #cert-overlay { position: fixed !important; inset: 0 !important; background: white !important; padding: 30px !important; }
+  .no-print { display: none !important; }
+}
 </style>
 
 <div class="nl-row" style="background:rgba(21,101,192,0.15);border:1.5px solid rgba(30,136,229,0.3)" onclick="flipNote(this,'f200',_fronts['f200'],_backs['f200'])">
@@ -3946,6 +3953,7 @@ function printCertificate(studentName, dateStr) {
   
   const closeBtn = document.createElement('button');
   closeBtn.textContent = '✕ إغلاق';
+  closeBtn.className = 'no-print';
   closeBtn.setAttribute('style','display:block;margin:0 auto 16px;background:rgba(255,255,255,0.15);border:none;border-radius:10px;color:white;font-family:Cairo,sans-serif;font-size:16px;padding:12px 28px;cursor:pointer;');
   closeBtn.onclick = () => { overlay.remove(); document.body.style.overflow = ''; };
   
@@ -3973,6 +3981,7 @@ function printCertificate(studentName, dateStr) {
   // Share buttons bar
   const shareBar = document.createElement('div');
   shareBar.setAttribute('style','max-width:680px;margin:16px auto 0;display:flex;flex-wrap:wrap;gap:10px;justify-content:center');
+  shareBar.className = 'no-print';
   
   const btns = [
     { label:'🖨️ طباعة',     color:'#1565C0', action: () => window.print() },
@@ -4006,6 +4015,7 @@ function printCertificate(studentName, dateStr) {
   // Tip text
   const tip = document.createElement('div');
   tip.setAttribute('style','max-width:680px;margin:12px auto 0;text-align:center;color:rgba(255,255,255,0.4);font-family:Cairo,sans-serif;font-size:13px;line-height:1.8');
+  tip.className = 'no-print';
   tip.innerHTML = '💡 لإرسال الشهادة عبر واتساب أو بريد: اضغط <b style="color:rgba(255,255,255,0.7)">🖨️ طباعة</b> ← اختر <b style="color:rgba(255,255,255,0.7)">حفظ كـ PDF</b> ← شارك الملف';
 
   overlay.appendChild(closeBtn);
