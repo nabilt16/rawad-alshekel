@@ -1200,128 +1200,155 @@ body {
 <body>
 
 <!-- ═══════════════════════════════════════════
-     مسك التسجيل / الدخول
-     يظهر بالأول إذا ما في بيانات محفوظة
+     مسك التسجيل / الدخول — v31
      ═══════════════════════════════════════════ -->
 <div id="onboarding-overlay" style="display:none;position:fixed;inset:0;background:#0B1929;z-index:9999;overflow-y:auto;font-family:'Cairo',sans-serif;direction:rtl">
 <style>
-#onboarding-overlay { font-family:'Cairo',sans-serif; }
-#onboarding-overlay .ob-wrap { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
-#onboarding-overlay .ob-card { background:#0F2236; border:1px solid rgba(249,168,37,0.25); border-radius:24px; padding:36px 28px 32px; width:100%; max-width:440px; box-shadow:0 24px 80px rgba(0,0,0,0.5); }
-#onboarding-overlay .ob-screen { display:none; }
-#onboarding-overlay .ob-screen.active { display:block; animation:obFadeUp .4s ease both; }
-@keyframes obFadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-#onboarding-overlay .ob-coin { font-size:52px; display:block; text-align:center; margin-bottom:6px; filter:drop-shadow(0 0 18px rgba(249,168,37,.5)); animation:obPulse 3s ease-in-out infinite; }
-@keyframes obPulse { 0%,100%{filter:drop-shadow(0 0 14px rgba(249,168,37,.4))} 50%{filter:drop-shadow(0 0 28px rgba(249,168,37,.8))} }
-#onboarding-overlay .ob-appname { display:block; text-align:center; font-size:28px; font-weight:900; color:#F9A825; margin-bottom:2px; }
-#onboarding-overlay .ob-appsub  { display:block; text-align:center; font-size:12px; color:rgba(255,255,255,.4); margin-bottom:24px; }
-#onboarding-overlay .ob-steps   { display:flex; justify-content:center; gap:8px; margin-bottom:24px; }
-#onboarding-overlay .ob-dot     { width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.15); transition:all .3s; }
-#onboarding-overlay .ob-dot.act { background:#F9A825; width:24px; border-radius:4px; }
-#onboarding-overlay .ob-dot.done{ background:#2E7D32; }
-#onboarding-overlay .ob-label   { font-size:13px; color:#F9A825; font-weight:700; margin-bottom:6px; }
-#onboarding-overlay .ob-title   { font-size:22px; font-weight:900; color:#fff; margin-bottom:20px; line-height:1.4; }
-#onboarding-overlay .ob-field input { width:100%; background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.12); border-radius:14px; padding:14px 18px; font-size:17px; font-weight:600; color:#fff; outline:none; font-family:'Cairo',sans-serif; direction:rtl; text-align:right; transition:border-color .2s,background .2s; margin-bottom:16px; }
-#onboarding-overlay .ob-field input::placeholder { color:rgba(255,255,255,.25); font-weight:400; }
-#onboarding-overlay .ob-field input:focus { border-color:#F9A825; background:rgba(249,168,37,.06); }
-#onboarding-overlay .ob-chips   { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
-#onboarding-overlay .ob-chip    { padding:8px 14px; border-radius:20px; border:1.5px solid rgba(255,255,255,.15); background:rgba(255,255,255,.04); color:rgba(255,255,255,.7); font-size:13px; font-weight:600; cursor:pointer; transition:all .2s; font-family:'Cairo',sans-serif; }
-#onboarding-overlay .ob-chip:hover { border-color:#F9A825; color:#F9A825; }
-#onboarding-overlay .ob-chip.sel  { border-color:#F9A825; color:#0B1929; background:#F9A825; font-weight:700; }
-#onboarding-overlay .ob-btn { width:100%; padding:15px; border-radius:14px; border:none; font-size:17px; font-weight:900; cursor:pointer; background:linear-gradient(135deg,#F9A825,#C8960C); color:#0B1929; box-shadow:0 6px 24px rgba(249,168,37,.35); transition:all .2s; font-family:'Cairo',sans-serif; }
-#onboarding-overlay .ob-btn:hover { transform:translateY(-2px); }
-#onboarding-overlay .ob-btn:disabled { opacity:.4; cursor:not-allowed; transform:none; }
-#onboarding-overlay .ob-welcome-avatar { width:88px; height:88px; border-radius:50%; background:linear-gradient(135deg,#1565C0,#0D47A1); display:flex; align-items:center; justify-content:center; font-size:40px; margin:0 auto 18px; box-shadow:0 0 0 4px rgba(21,101,192,.3),0 0 40px rgba(21,101,192,.4); animation:obPop .5s cubic-bezier(.34,1.56,.64,1) both; }
-@keyframes obPop { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
-#onboarding-overlay .ob-wname   { font-size:28px; font-weight:900; color:#fff; text-align:center; margin-bottom:6px; }
-#onboarding-overlay .ob-wname span { color:#F9A825; }
-#onboarding-overlay .ob-wmsg    { font-size:14px; color:rgba(255,255,255,.55); text-align:center; line-height:1.7; margin-bottom:24px; padding:0 8px; }
-#onboarding-overlay .ob-wmsg strong { color:rgba(255,255,255,.85); }
-#onboarding-overlay .ob-pill    { background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.1); border-radius:12px; padding:12px 16px; display:flex; align-items:center; gap:10px; margin-bottom:10px; font-size:13px; color:rgba(255,255,255,.65); }
-#onboarding-overlay .ob-pill .pi { font-size:18px; flex-shrink:0; }
-#onboarding-overlay .ob-pill strong { color:rgba(255,255,255,.9); }
-#onboarding-overlay .ob-note    { text-align:center; font-size:11px; color:rgba(255,255,255,.25); margin-top:14px; }
-#onboarding-overlay .ob-note span { color:rgba(46,125,50,.8); }
+#onboarding-overlay .ob-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+#onboarding-overlay .ob-card{background:#0F2236;border:1px solid rgba(249,168,37,.25);border-radius:24px;padding:36px 28px 32px;width:100%;max-width:440px;box-shadow:0 24px 80px rgba(0,0,0,.5)}
+#onboarding-overlay .ob-screen{display:none}
+#onboarding-overlay .ob-screen.active{display:block;animation:obFadeUp .4s ease both}
+@keyframes obFadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+#onboarding-overlay .ob-coin{font-size:52px;display:block;text-align:center;margin-bottom:6px;filter:drop-shadow(0 0 18px rgba(249,168,37,.5));animation:obPulse 3s ease-in-out infinite}
+@keyframes obPulse{0%,100%{filter:drop-shadow(0 0 14px rgba(249,168,37,.4))}50%{filter:drop-shadow(0 0 28px rgba(249,168,37,.8))}}
+#onboarding-overlay .ob-appname{display:block;text-align:center;font-size:28px;font-weight:900;color:#F9A825;margin-bottom:2px}
+#onboarding-overlay .ob-appsub{display:block;text-align:center;font-size:12px;color:rgba(255,255,255,.4);margin-bottom:24px}
+#onboarding-overlay .ob-steps{display:flex;justify-content:center;gap:8px;margin-bottom:24px}
+#onboarding-overlay .ob-dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.15);transition:all .3s}
+#onboarding-overlay .ob-dot.act{background:#F9A825;width:24px;border-radius:4px}
+#onboarding-overlay .ob-dot.done{background:#2E7D32}
+#onboarding-overlay .ob-label{font-size:13px;color:#F9A825;font-weight:700;margin-bottom:6px}
+#onboarding-overlay .ob-title{font-size:22px;font-weight:900;color:#fff;margin-bottom:20px;line-height:1.4}
+#onboarding-overlay .ob-field input{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:14px;padding:14px 18px;font-size:17px;font-weight:600;color:#fff;outline:none;font-family:'Cairo',sans-serif;direction:rtl;text-align:right;transition:border-color .2s,background .2s;margin-bottom:16px;box-sizing:border-box}
+#onboarding-overlay .ob-field input::placeholder{color:rgba(255,255,255,.25);font-weight:400}
+#onboarding-overlay .ob-field input:focus{border-color:#F9A825;background:rgba(249,168,37,.06)}
+#onboarding-overlay .ob-who-btns{display:flex;gap:10px;margin-bottom:20px}
+#onboarding-overlay .ob-who-btn{flex:1;padding:16px 8px;border-radius:16px;border:2px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:rgba(255,255,255,.7);font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Cairo',sans-serif;text-align:center}
+#onboarding-overlay .ob-who-btn:hover{border-color:#F9A825;color:#F9A825}
+#onboarding-overlay .ob-who-btn.sel{border-color:#F9A825;color:#0B1929;background:#F9A825}
+#onboarding-overlay .ob-chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+#onboarding-overlay .ob-chip{padding:8px 14px;border-radius:20px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);color:rgba(255,255,255,.7);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:'Cairo',sans-serif}
+#onboarding-overlay .ob-chip:hover{border-color:#F9A825;color:#F9A825}
+#onboarding-overlay .ob-chip.sel{border-color:#F9A825;color:#0B1929;background:#F9A825;font-weight:700}
+#onboarding-overlay .ob-btn{width:100%;padding:15px;border-radius:14px;border:none;font-size:17px;font-weight:900;cursor:pointer;background:linear-gradient(135deg,#F9A825,#C8960C);color:#0B1929;box-shadow:0 6px 24px rgba(249,168,37,.35);transition:all .2s;font-family:'Cairo',sans-serif}
+#onboarding-overlay .ob-btn:hover{transform:translateY(-2px)}
+#onboarding-overlay .ob-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
+#onboarding-overlay .ob-parent-block{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px;margin-bottom:14px}
+#onboarding-overlay .ob-parent-label{font-size:13px;color:#F9A825;font-weight:700;margin-bottom:8px}
+#onboarding-overlay .ob-welcome-avatar{width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#1565C0,#0D47A1);display:flex;align-items:center;justify-content:center;font-size:40px;margin:0 auto 18px;box-shadow:0 0 0 4px rgba(21,101,192,.3),0 0 40px rgba(21,101,192,.4);animation:obPop .5s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes obPop{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+#onboarding-overlay .ob-wname{font-size:28px;font-weight:900;color:#fff;text-align:center;margin-bottom:6px}
+#onboarding-overlay .ob-wname span{color:#F9A825}
+#onboarding-overlay .ob-wmsg{font-size:14px;color:rgba(255,255,255,.55);text-align:center;line-height:1.7;margin-bottom:20px;padding:0 8px}
+#onboarding-overlay .ob-wmsg strong{color:rgba(255,255,255,.85)}
+#onboarding-overlay .ob-pill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:12px 16px;display:flex;align-items:center;gap:10px;margin-bottom:10px;font-size:13px;color:rgba(255,255,255,.65)}
+#onboarding-overlay .ob-pill .pi{font-size:18px;flex-shrink:0}
+#onboarding-overlay .ob-pill strong{color:rgba(255,255,255,.9)}
+#onboarding-overlay .ob-note{text-align:center;font-size:11px;color:rgba(255,255,255,.25);margin-top:14px}
+#onboarding-overlay .ob-note span{color:rgba(46,125,50,.8)}
 </style>
 
-<div class="ob-wrap">
-<div class="ob-card">
+<div class="ob-wrap"><div class="ob-card">
 
   <!-- S1: اسم الطالب -->
   <div class="ob-screen active" id="ob-s1">
     <span class="ob-coin">🪙</span>
     <span class="ob-appname">رواد المال</span>
     <span class="ob-appsub">برنامج الثقافة المالية · الصف الرابع</span>
-    <div class="ob-steps">
-      <div class="ob-dot act"></div><div class="ob-dot"></div><div class="ob-dot"></div>
-    </div>
-    <div class="ob-label">✦ خطوة 1 من 3</div>
+    <div class="ob-steps"><div class="ob-dot act"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
+    <div class="ob-label">✦ خطوة 1 من 4</div>
     <div class="ob-title">شو اسمك؟</div>
     <div class="ob-field"><input type="text" id="ob-name" placeholder="اكتب اسمك هون..." maxlength="30" autocomplete="off"></div>
     <button class="ob-btn" id="ob-btn1" disabled onclick="obStep2()">يلا نكمل ←</button>
     <div class="ob-note">معلوماتك محفوظة على جهازك بس <span>🔒</span></div>
   </div>
 
-  <!-- S2: اسم الأهل -->
+  <!-- S2: مين بيشتغل بالبيت؟ -->
   <div class="ob-screen" id="ob-s2">
     <span class="ob-coin">🪙</span>
     <span class="ob-appname">رواد المال</span>
     <span class="ob-appsub">برنامج الثقافة المالية · الصف الرابع</span>
-    <div class="ob-steps">
-      <div class="ob-dot done"></div><div class="ob-dot act"></div><div class="ob-dot"></div>
+    <div class="ob-steps"><div class="ob-dot done"></div><div class="ob-dot act"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
+    <div class="ob-label">✦ خطوة 2 من 4</div>
+    <div class="ob-title" id="ob-s2-title">مين بيشتغل وبيجيب المصاري للبيت؟</div>
+    <div class="ob-who-btns">
+      <div class="ob-who-btn" id="ob-who-dad" onclick="obPickWho('dad')">👨 أبوي بس</div>
+      <div class="ob-who-btn" id="ob-who-mom" onclick="obPickWho('mom')">👩 أمي بس</div>
+      <div class="ob-who-btn" id="ob-who-both" onclick="obPickWho('both')">👨‍👩‍👦 كلاهم</div>
     </div>
-    <div class="ob-label">✦ خطوة 2 من 3</div>
-    <div class="ob-title">شو اسم أبوك أو أمك؟</div>
-    <div class="ob-field"><input type="text" id="ob-parent" placeholder="اسم أبوك أو أمك..." maxlength="30" autocomplete="off"></div>
     <button class="ob-btn" id="ob-btn2" disabled onclick="obStep3()">يلا نكمل ←</button>
   </div>
 
-  <!-- S3: شغلة الأهل -->
+  <!-- S3: اسم وشغلة — ديناميكي -->
   <div class="ob-screen" id="ob-s3">
     <span class="ob-coin">🪙</span>
     <span class="ob-appname">رواد المال</span>
     <span class="ob-appsub">برنامج الثقافة المالية · الصف الرابع</span>
-    <div class="ob-steps">
-      <div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot act"></div>
-    </div>
-    <div class="ob-label">✦ خطوة 3 من 3</div>
-    <div class="ob-title">شو بيشتغل أبوك أو أمك؟</div>
-    <div class="ob-chips" id="ob-chips">
-      <div class="ob-chip" onclick="obPickJob(this,'سواق','كل مرة بتطلع عالباص — في واحد متل أبوك أو أمك شغّال يجيب المصاري للبيت.')">🚌 سواق</div>
-      <div class="ob-chip" onclick="obPickJob(this,'دكتور','أبوك أو أمك بيساعد ناس كتير كل يوم — وهيك بتيجي المصاري برزقة وعمل مهم.')">👨‍⚕️ دكتور</div>
-      <div class="ob-chip" onclick="obPickJob(this,'معلم','التعليم من أهم الشغلات — وأبوك أو أمك يعرف هيك أكثر من غيره.')">👩‍🏫 معلم</div>
-      <div class="ob-chip" onclick="obPickJob(this,'مهندس','المهندسين هم اللي بيبنوا المدن — شغلة عظيمة وبتجيب رزق كويس.')">🔧 مهندس</div>
-      <div class="ob-chip" onclick="obPickJob(this,'صاحب محل','صاحب المحل شغله ما بيوقف — وكل بيعة هي رزقة جديدة للعيلة.')">🏪 صاحب محل</div>
-      <div class="ob-chip" onclick="obPickJob(this,'ممرض','الممرضين هم اللي بيحرسوا المرضى — شغلة بتحتاج قلب كبير.')">🩺 ممرض</div>
-      <div class="ob-chip" onclick="obPickJob(this,'شرطي','الشرطي بيحمي الناس كل يوم — وهيك بيستاهل كل قرش بيكسبه.')">👮 شرطي</div>
-      <div class="ob-chip" onclick="obPickJob(this,'عامل بناء','عمال البناء هم اللي بيعملوا البيوت اللي نحنا ساكنين فيها.')">🧱 عامل بناء</div>
-      <div class="ob-chip" onclick="obPickJob(this,'فلاح','الفلاح بيزرع الأرض ليجيب الأكل عالموائد — شغلة مهمة ومحترمة.')">🌾 فلاح</div>
-      <div class="ob-chip" onclick="obPickJob(this,'موظف','الموظف بيحافظ على شغله كل يوم عشان يجيب رزق ثابت للعيلة.')">💼 موظف</div>
-    </div>
-    <div class="ob-field"><input type="text" id="ob-job-input" placeholder="أو اكتب شغلة ثانية..." maxlength="30" autocomplete="off"></div>
-    <button class="ob-btn" id="ob-btn3" disabled onclick="obFinish()">خلص! وريني يلا 🎉</button>
+    <div class="ob-steps"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot act"></div><div class="ob-dot"></div></div>
+    <div class="ob-label">✦ خطوة 3 من 4</div>
+    <div class="ob-title" id="ob-s3-title">اسم وشغلة أبوك</div>
+    <div id="ob-s3-body"><!-- يتبنى ديناميكياً --></div>
+    <button class="ob-btn" id="ob-btn3" disabled onclick="obStep4()">يلا نكمل ←</button>
   </div>
 
-  <!-- S4: مرحبا -->
+  <!-- S4: إذا كلاهم — اسم وشغلة الأم -->
   <div class="ob-screen" id="ob-s4">
+    <span class="ob-coin">🪙</span>
+    <span class="ob-appname">رواد المال</span>
+    <span class="ob-appsub">برنامج الثقافة المالية · الصف الرابع</span>
+    <div class="ob-steps"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot act"></div></div>
+    <div class="ob-label">✦ خطوة 4 من 4</div>
+    <div class="ob-title">اسم وشغلة أمك</div>
+    <div id="ob-s4-body"></div>
+    <button class="ob-btn" id="ob-btn4" disabled onclick="obFinish()">خلص! وريني يلا 🎉</button>
+  </div>
+
+  <!-- S5: مرحبا -->
+  <div class="ob-screen" id="ob-s5">
     <div class="ob-welcome-avatar">🌟</div>
     <div class="ob-wname">أهلاً <span id="ob-disp-name"></span>!</div>
     <div class="ob-wmsg" id="ob-disp-msg"></div>
-    <div class="ob-pill"><span class="pi">👨‍👩‍👦</span><div>شغلة <strong id="ob-disp-parent"></strong>: <strong id="ob-disp-job"></strong></div></div>
-    <div class="ob-pill"><span class="pi">🎯</span><div>رح تتعلم كيف المصاري بتشتغل — وكيف تصير <strong>رائد مالي صغير</strong></div></div>
+    <div id="ob-disp-pills"></div>
     <button class="ob-btn" style="margin-top:22px" onclick="obStart()">يلا نبلش! 🚀</button>
     <div class="ob-note">معلوماتك محفوظة على جهازك بس <span>🔒</span></div>
   </div>
 
-</div>
-</div>
-</div>
+</div></div></div>
 
 <script>
 // ══════════════════════════════════════════
-//  Onboarding — بيشتغل قبل ما يفتح التطبيق
+//  Onboarding v31 — مع دعم أبو / أم / كلاهم
 // ══════════════════════════════════════════
-var _obProfile = { name:'', parentName:'', parentJob:'', jobMsg:'' };
+var _ob = {
+  name:'', whoWorks:'',
+  dadName:'', dadJob:'', dadJobMsg:'',
+  momName:'', momJob:'', momJobMsg:''
+};
+
+var _jobList = [
+  {e:'🚌',j:'سواق',m:'بيطلع عالطريق كل يوم عشان يجيب الناس لشغلهم — وهيك بتيجي الرزقة للبيت.'},
+  {e:'👨‍⚕️',j:'دكتور',m:'بيساعد ناس كتير كل يوم — وهيك بتيجي المصاري برزقة وعمل مهم.'},
+  {e:'👩‍🏫',j:'معلم',m:'التعليم من أهم الشغلات — ومن بيشتغل فيها عارف قيمة المعرفة.'},
+  {e:'🔧',j:'مهندس',m:'المهندسين هم اللي بيبنوا المدن — شغلة عظيمة وبتجيب رزق كويس.'},
+  {e:'🏪',j:'صاحب محل',m:'صاحب المحل شغله ما بيوقف — وكل بيعة هي رزقة جديدة للعيلة.'},
+  {e:'🩺',j:'ممرض',m:'الممرضين هم اللي بيحرسوا المرضى — شغلة بتحتاج قلب كبير.'},
+  {e:'👮',j:'شرطي',m:'الشرطي بيحمي الناس كل يوم — وهيك بيستاهل كل قرش بيكسبه.'},
+  {e:'🧱',j:'عامل بناء',m:'عمال البناء هم اللي بيعملوا البيوت اللي نحنا ساكنين فيها.'},
+  {e:'🌾',j:'فلاح',m:'الفلاح بيزرع الأرض ليجيب الأكل عالموائد — شغلة مهمة ومحترمة.'},
+  {e:'💼',j:'موظف',m:'الموظف بيحافظ على شغله كل يوم عشان يجيب رزق ثابت للعيلة.'},
+  {e:'🚛',j:'سائق شاحنة',m:'بيوصل البضاعة من مكان لمكان — بدونه ما في سوبرماركت مليان!'},
+  {e:'💇',j:'حلاق',m:'كل يوم ناس جديدة — شغلة بتحتاج براعة إيدين وصبر.'}
+];
+
+function _buildJobHTML(prefix, btnId) {
+  var chips = _jobList.map(function(item){
+    return '<div class="ob-chip" onclick="obPickJob(this,\''+prefix+'\',\''+item.j+'\',\''+item.m.replace(/'/g,"\\'")+'\')">'+item.e+' '+item.j+'</div>';
+  }).join('');
+  return '<div class="ob-field"><input type="text" id="ob-'+prefix+'-name" placeholder="'+(prefix==='dad'?'اسم أبوك...':'اسم أمك...')+'" maxlength="30" autocomplete="off" oninput="obCheckParentName(\''+prefix+'\',\''+btnId+'\')"></div>'
+    +'<div class="ob-label" style="margin-top:4px">شو شغلته؟</div>'
+    +'<div class="ob-chips" id="ob-'+prefix+'-chips">'+chips+'</div>'
+    +'<div class="ob-field"><input type="text" id="ob-'+prefix+'-job-input" placeholder="أو اكتب شغلة ثانية..." maxlength="30" autocomplete="off" oninput="obCustomJob(\''+prefix+'\',\''+btnId+'\')"></div>';
+}
 
 function obShowScreen(id) {
   document.querySelectorAll('.ob-screen').forEach(function(s){ s.classList.remove('active'); });
@@ -1330,89 +1357,172 @@ function obShowScreen(id) {
   el.style.animation='none'; el.offsetHeight; el.style.animation='';
 }
 
-// --- watchers ---
 document.getElementById('ob-name').addEventListener('input', function(){
-  var v = this.value.trim();
-  document.getElementById('ob-btn1').disabled = v.length < 2;
+  document.getElementById('ob-btn1').disabled = this.value.trim().length < 2;
 });
-document.getElementById('ob-parent').addEventListener('input', function(){
-  var v = this.value.trim();
-  document.getElementById('ob-btn2').disabled = v.length < 2;
+document.getElementById('ob-name').addEventListener('keydown', function(e){
+  if(e.key==='Enter' && !document.getElementById('ob-btn1').disabled) obStep2();
 });
-document.getElementById('ob-job-input').addEventListener('input', function(){
-  var v = this.value.trim();
-  if (v.length >= 2) {
-    document.querySelectorAll('.ob-chip').forEach(function(c){ c.classList.remove('sel'); });
-    _obProfile.parentJob = v;
-    _obProfile.jobMsg = 'أهله بيشتغلوا ' + v + ' — وكل يوم بيطلعوا عالشغل عشانك إنت.';
-    document.getElementById('ob-btn3').disabled = false;
-  } else if (!_obProfile.parentJob) {
-    document.getElementById('ob-btn3').disabled = true;
-  }
-});
-document.getElementById('ob-name').addEventListener('keydown', function(e){ if(e.key==='Enter'&&!document.getElementById('ob-btn1').disabled) obStep2(); });
-document.getElementById('ob-parent').addEventListener('keydown', function(e){ if(e.key==='Enter'&&!document.getElementById('ob-btn2').disabled) obStep3(); });
 
-function obPickJob(el, job, msg) {
-  document.querySelectorAll('.ob-chip').forEach(function(c){ c.classList.remove('sel'); });
+function obPickWho(w) {
+  _ob.whoWorks = w;
+  ['dad','mom','both'].forEach(function(x){ document.getElementById('ob-who-'+x).classList.remove('sel'); });
+  document.getElementById('ob-who-'+w).classList.add('sel');
+  document.getElementById('ob-btn2').disabled = false;
+}
+
+function obCheckParentName(prefix, btnId) {
+  var nm = document.getElementById('ob-'+prefix+'-name').value.trim();
+  if(nm.length >= 2 && (prefix==='dad' ? _ob.dadJob : _ob.momJob)) {
+    document.getElementById(btnId).disabled = false;
+  }
+}
+
+function obPickJob(el, prefix, job, msg) {
+  var chips = document.getElementById('ob-'+prefix+'-chips');
+  chips.querySelectorAll('.ob-chip').forEach(function(c){ c.classList.remove('sel'); });
   el.classList.add('sel');
-  _obProfile.parentJob = job;
-  _obProfile.jobMsg    = msg;
-  document.getElementById('ob-job-input').value = '';
-  document.getElementById('ob-btn3').disabled = false;
+  document.getElementById('ob-'+prefix+'-job-input').value = '';
+  if(prefix==='dad'){ _ob.dadJob=job; _ob.dadJobMsg=msg; }
+  else { _ob.momJob=job; _ob.momJobMsg=msg; }
+  var nm = document.getElementById('ob-'+prefix+'-name').value.trim();
+  var btnId = prefix==='dad' ? 'ob-btn3' : 'ob-btn4';
+  document.getElementById(btnId).disabled = nm.length < 2;
 }
+
+function obCustomJob(prefix, btnId) {
+  var v = document.getElementById('ob-'+prefix+'-job-input').value.trim();
+  if(v.length >= 2) {
+    var chips = document.getElementById('ob-'+prefix+'-chips');
+    chips.querySelectorAll('.ob-chip').forEach(function(c){ c.classList.remove('sel'); });
+    var msg = (prefix==='dad' ? 'أبوك' : 'أمك') + ' بيشتغل ' + v + ' — وكل يوم بيطلع عالشغل عشانك إنت.';
+    if(prefix==='dad'){ _ob.dadJob=v; _ob.dadJobMsg=msg; }
+    else { _ob.momJob=v; _ob.momJobMsg=msg; }
+    var nm = document.getElementById('ob-'+prefix+'-name').value.trim();
+    document.getElementById(btnId).disabled = nm.length < 2;
+  }
+}
+
 function obStep2() {
-  _obProfile.name = document.getElementById('ob-name').value.trim();
+  _ob.name = document.getElementById('ob-name').value.trim();
+  document.getElementById('ob-s2-title').textContent = _ob.name + '، مين بيشتغل وبيجيب المصاري للبيت؟';
   obShowScreen('ob-s2');
-  setTimeout(function(){ document.getElementById('ob-parent').focus(); }, 400);
 }
+
 function obStep3() {
-  _obProfile.parentName = document.getElementById('ob-parent').value.trim();
+  if(!_ob.whoWorks) return;
+  // بناء S3 حسب الاختيار
+  var s3body = document.getElementById('ob-s3-body');
+  if(_ob.whoWorks === 'dad' || _ob.whoWorks === 'both') {
+    document.getElementById('ob-s3-title').textContent = 'اسم وشغلة أبوك';
+    s3body.innerHTML = _buildJobHTML('dad','ob-btn3');
+    setTimeout(function(){ var el=document.getElementById('ob-dad-name'); if(el) el.focus(); }, 400);
+  } else {
+    // أم بس — نقفز لـ S3 بمحتوى الأم
+    document.getElementById('ob-s3-title').textContent = 'اسم وشغلة أمك';
+    s3body.innerHTML = _buildJobHTML('mom','ob-btn3');
+    // ob-btn3 يحيل لـ obFinish مباشرة
+    document.getElementById('ob-btn3').onclick = obFinishSingle;
+    setTimeout(function(){ var el=document.getElementById('ob-mom-name'); if(el) el.focus(); }, 400);
+  }
   obShowScreen('ob-s3');
 }
-function obFinish() {
-  var ji = document.getElementById('ob-job-input').value.trim();
-  if (ji.length >= 2) {
-    _obProfile.parentJob = ji;
-    _obProfile.jobMsg    = 'أهله بيشتغلوا ' + ji + ' — وكل يوم بيطلعوا عالشغل عشانك إنت.';
+
+function obFinishSingle() {
+  // حالة: أم بس — ob-s3 هو الأخير
+  var nm = document.getElementById('ob-mom-name').value.trim();
+  if(nm.length >= 2 && _ob.momJob) {
+    _ob.momName = nm;
+    _obSaveAndWelcome();
   }
-  if (!_obProfile.parentJob) return;
+}
+
+function obStep4() {
+  // وصلنا هون = كلاهم — حفظ بيانات الأب وانتقل لـ S4 للأم
+  var dadNm = document.getElementById('ob-dad-name').value.trim();
+  if(dadNm.length >= 2 && _ob.dadJob) {
+    _ob.dadName = dadNm;
+    // بناء S4 للأم
+    document.getElementById('ob-s4-body').innerHTML = _buildJobHTML('mom','ob-btn4');
+    document.getElementById('ob-btn4').onclick = obFinish;
+    obShowScreen('ob-s4');
+    setTimeout(function(){ var el=document.getElementById('ob-mom-name'); if(el) el.focus(); }, 400);
+  }
+}
+
+function obFinish() {
+  var nm = '';
+  var prefix = (_ob.whoWorks==='both') ? 'mom' : (_ob.whoWorks==='dad' ? 'dad' : 'mom');
+  try { nm = document.getElementById('ob-'+prefix+'-name').value.trim(); } catch(e){}
+  if(_ob.whoWorks==='both') {
+    _ob.momName = nm;
+  } else if(_ob.whoWorks==='dad') {
+    _ob.dadName = document.getElementById('ob-dad-name').value.trim();
+  } else {
+    _ob.momName = nm;
+  }
+  _obSaveAndWelcome();
+}
+
+function _obSaveAndWelcome() {
+  // تحديد اسم الأهل الرئيسي للاستخدام في القصص
+  var primaryParentName = _ob.dadName || _ob.momName;
+  var primaryJob = _ob.dadJob || _ob.momJob;
+  var primaryJobMsg = _ob.dadJobMsg || _ob.momJobMsg;
+
   try {
-    localStorage.setItem('rw_profile', JSON.stringify({
-      name: _obProfile.name, parentName: _obProfile.parentName,
-      parentJob: _obProfile.parentJob, createdAt: new Date().toISOString()
-    }));
+    var profile = {
+      name:_ob.name, whoWorks:_ob.whoWorks,
+      dadName:_ob.dadName, dadJob:_ob.dadJob,
+      momName:_ob.momName, momJob:_ob.momJob,
+      parentName:primaryParentName, parentJob:primaryJob,
+      createdAt:new Date().toISOString()
+    };
+    localStorage.setItem('rw_profile', JSON.stringify(profile));
     var st = {};
     try { st = JSON.parse(localStorage.getItem('rawad_state')||'{}'); } catch(e){}
-    st.studentName = _obProfile.name;
-    st.parentName  = _obProfile.parentName;
-    st.parentJob   = _obProfile.parentJob;
+    st.studentName = _ob.name;
+    st.dadName = _ob.dadName; st.dadJob = _ob.dadJob;
+    st.momName = _ob.momName; st.momJob = _ob.momJob;
+    st.parentName = primaryParentName; st.parentJob = primaryJob;
+    st.whoWorks = _ob.whoWorks;
     localStorage.setItem('rawad_state', JSON.stringify(st));
-  } catch(e) {}
-  document.getElementById('ob-disp-name').textContent   = _obProfile.name;
-  document.getElementById('ob-disp-parent').textContent = _obProfile.parentName;
-  document.getElementById('ob-disp-job').textContent    = _obProfile.parentJob;
-  document.getElementById('ob-disp-msg').innerHTML      = '<strong>' + _obProfile.jobMsg + '</strong><br><br>رواد المال هو برنامجك الخاص — رح يحكيلك كيف المصاري بتشتغل، وكيف تحافظ عليها وتكبّرها.';
-  obShowScreen('ob-s4');
+  } catch(e){}
+
+  // شاشة الترحيب
+  document.getElementById('ob-disp-name').textContent = _ob.name;
+  var msg = '<strong>' + primaryJobMsg + '</strong><br><br>رواد المال هو برنامجك الخاص — رح يحكيلك كيف المصاري بتشتغل، وكيف تحافظ عليها.';
+  document.getElementById('ob-disp-msg').innerHTML = msg;
+
+  var pills = '';
+  if(_ob.dadName) pills += '<div class="ob-pill"><span class="pi">👨</span><div>أبوك <strong>'+_ob.dadName+'</strong> — <strong>'+_ob.dadJob+'</strong></div></div>';
+  if(_ob.momName) pills += '<div class="ob-pill"><span class="pi">👩</span><div>أمك <strong>'+_ob.momName+'</strong> — <strong>'+_ob.momJob+'</strong></div></div>';
+  pills += '<div class="ob-pill"><span class="pi">🎯</span><div>رح تتعلم كيف تصير <strong>رائد مالي صغير</strong></div></div>';
+  document.getElementById('ob-disp-pills').innerHTML = pills;
+
+  obShowScreen('ob-s5');
 }
+
 function obStart() {
   document.getElementById('onboarding-overlay').style.display = 'none';
 }
 
-// --- Init: فحص إذا في بيانات ---
+// ── Init ──
 (function(){
   try {
     var p = JSON.parse(localStorage.getItem('rw_profile')||'null');
     if (!p || !p.name) {
       document.getElementById('onboarding-overlay').style.display = 'block';
-    }
-    // في الحالتين — نحدّث state بالبيانات الموجودة
-    if (p && p.name) {
+    } else {
+      // حدّث state من profile موجود
       var st = {};
       try { st = JSON.parse(localStorage.getItem('rawad_state')||'{}'); } catch(e){}
       st.studentName = p.name;
-      st.parentName  = p.parentName;
-      st.parentJob   = p.parentJob;
+      st.dadName = p.dadName||''; st.dadJob = p.dadJob||'';
+      st.momName = p.momName||''; st.momJob = p.momJob||'';
+      st.parentName = p.parentName||p.dadName||p.momName||'';
+      st.parentJob  = p.parentJob||p.dadJob||p.momJob||'';
+      st.whoWorks   = p.whoWorks||'';
       localStorage.setItem('rawad_state', JSON.stringify(st));
     }
   } catch(e) {
@@ -2526,6 +2636,54 @@ function selectUnit(num) {
   }).join('');
 }
 
+// ═══════════════════════════════════════════════════
+// PERSONALIZATION — بدّل أسماء الشخصيات باسم الطالب وأهله
+// ═══════════════════════════════════════════════════
+function personalizeText(text) {
+  if (!text) return text;
+  var st = state;
+  var sName  = (st.studentName || '').trim();
+  var dName  = (st.dadName     || '').trim();
+  var mName  = (st.momName     || '').trim();
+  var dJob   = (st.dadJob      || '').trim();
+  var mJob   = (st.momJob      || '').trim();
+  var whoWorks = (st.whoWorks  || '');
+
+  if (!sName) return text;
+
+  // حدد اسم الأهل المناسب للسياق
+  var parentRef   = dName || mName || '';   // الاسم
+  var parentTitle = (whoWorks==='mom') ? 'أمك' : (whoWorks==='both' && mName) ? 'أبوك وأمك' : 'أبوك';
+  var parentJob   = dJob || mJob || '';
+
+  // أسماء الشخصيات الثابتة في القصص — نستبدلها باسم الطالب
+  var storyKids = ['أسامة','ياسمين','ريم','يوسف','ليلى','نادين','سارة','أحمد','عمر'];
+  storyKids.forEach(function(n){
+    text = text.split(n).join(sName);
+  });
+
+  // أسماء الأهل في القصص — نستبدل بالاسم الحقيقي
+  // خالد (الفلاح في قصة المقايضة) — دوره ثانوي، لا نبدله
+  // نبدل إشارات "أمها/أبوه/والده" عند الضرورة إذا يتبعها فعل عمل
+  if (parentRef) {
+    // "قال لأمه" ← "قال لـ[اسم أمه]"  — فقط إذا أم تعمل وعندها اسم
+    if (whoWorks === 'mom' || whoWorks === 'both') {
+      if (mName) text = text.split('لأمه').join('لـ' + mName);
+    }
+    if (whoWorks === 'dad' || whoWorks === 'both') {
+      if (dName) text = text.split('لأبيه').join('لـ' + dName).split('لأبوه').join('لـ' + dName);
+    }
+  }
+
+  // أبو الشخصية ← أبو + اسم الطالب
+  storyKids.forEach(function(n){
+    text = text.split('أبو '+n).join(parentTitle + (dName?' '+dName:''));
+    text = text.split('أبوه').join(parentTitle + (dName?' ('+dName+')':''));
+  });
+
+  return text;
+}
+
 function openLesson(unitNum, lessonIdx) {
   currentLesson = { unitNum, lessonIdx };
   const l = UNITS[unitNum].lessons[lessonIdx];
@@ -2541,7 +2699,7 @@ function openLesson(unitNum, lessonIdx) {
 
     <div class="story-card">
       <div class="s-label">📖 القصة</div>
-      <p>${l.story.text.replace(/\n/g,'<br>').replace(/(÷|×|\+|−|=|≈)/g,'<span class="math-op">$1</span>')}</p>
+      <p>${personalizeText(l.story.text).replace(/\n/g,'<br>').replace(/(÷|×|\+|−|=|≈)/g,'<span class="math-op">$1</span>')}</p>
     </div>
 
     <div class="concept-card">
@@ -2550,19 +2708,19 @@ function openLesson(unitNum, lessonIdx) {
         ? `<div style="margin-top:4px" id="concept-render-target"></div>`
         : l.concept.html
           ? `<div style="margin-top:4px">${l.concept.html}</div>`
-          : `<p>${l.concept.text.replace(/\n/g,'<br>').replace(/(÷|×|\+|−|=|≈)/g,'<span class="math-op">$1</span>')}</p>`}
+          : `<p>${personalizeText(l.concept.text).replace(/\n/g,'<br>').replace(/(÷|×|\+|−|=|≈)/g,'<span class="math-op">$1</span>')}</p>`}
     </div>
 
     <div class="activity-card">
       <h4>🎯 نشاط تفاعلي</h4>
       <p style="font-size:18px;font-weight:700;margin-bottom:16px;color:rgba(255,255,255,0.92);line-height:1.7">
-        ${l.quiz.q}
+        ${personalizeText(l.quiz.q)}
       </p>
       <div class="choices" id="quiz-choices-${l.id}">
         ${l.quiz.choices.map((c,ci) => `
           <button class="choice" onclick="soundClick();answerQuiz('${l.id}',${ci})">
             <span class="choice-icon">${ci===0?'A':ci===1?'B':'C'}</span>
-            ${c.text}
+            ${personalizeText(c.text)}
           </button>`).join('')}
       </div>
       <div class="feedback-box" id="fb-${l.id}"></div>
@@ -2706,7 +2864,7 @@ function answerQuiz(lessonId, choiceIdx) {
     }
   });
 
-  fb.textContent = choice.fb;
+  fb.textContent = personalizeText(choice.fb);
   fb.className = 'feedback-box ' + (choice.ok ? 'fb-ok' : 'fb-bad');
   fb.style.display = 'block';
 
@@ -2723,11 +2881,13 @@ function answerQuiz(lessonId, choiceIdx) {
       saveState();
     }
     setTimeout(() => {
+      const detail = document.getElementById('lesson-detail');
+      const list   = document.getElementById('lessons-list');
+      detail.classList.remove('open');
+      detail.innerHTML = '';
+      if (list) list.style.display = '';
       showPanel('lessons');
       selectUnit(unitNum);
-      document.getElementById('lesson-detail').classList.remove('open');
-      document.getElementById('lesson-detail').innerHTML = '';
-      document.getElementById('lessons-list').style.display = '';
     }, 2200);
   } else {
     soundWrong();
