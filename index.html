@@ -2789,6 +2789,7 @@ function selectUnit(num) {
   document.getElementById('unit-title').textContent = unit.title;
   document.getElementById('lesson-detail').classList.remove('open');
   document.getElementById('lesson-detail').innerHTML = '';
+  document.getElementById('lessons-list').style.display = '';
 
   const body = document.getElementById('lessons-body');
   body.innerHTML = unit.lessons.map((l, i) => {
@@ -2845,8 +2846,9 @@ function personalizeText(text) {
     ];
     fem.forEach(function(p){ text = text.split(p[0]).join(p[1]); });
   } else {
-    storyMaleKids.forEach(function(n){   text = text.split(n).join(sName); });
-    storyFemaleKids.forEach(function(n){ text = text.split(n).join(sName); });
+    // الطالب الذكر — نستبدل أسماء الذكور فقط، الإناث نتركهن كما هن
+    storyMaleKids.forEach(function(n){ text = text.split(n).join(sName); });
+    // لا نستبدل أسماء الإناث لأن أفعالهن مؤنثة ولا تناسب اسم الطالب
   }
 
   // --- استبدال اسم الأب ---
