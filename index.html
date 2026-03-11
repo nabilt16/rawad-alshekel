@@ -1494,12 +1494,15 @@ function _obSaveAndWelcome() {
 
   // شاشة الترحيب
   document.getElementById('ob-disp-name').textContent = _ob.name;
-  var msg = '<strong>' + primaryJobMsg + '</strong><br><br>رواد المال هو برنامجك الخاص — رح يحكيلك كيف المصاري بتشتغل، وكيف تحافظ عليها.';
+  var isFemale = (_ob.gender === 'f');
+  var msg = '<strong>' + primaryJobMsg + '</strong><br><br>رواد المال هو برنامجك الخاص — رح يحكيلك كيف المصاري بتشتغل، وكيف '
+    + (isFemale ? 'تحافظي' : 'تحافظ') + ' عليها.';
   document.getElementById('ob-disp-msg').innerHTML = msg;
 
   var whoIcon = _ob.whoWorks==='mom' ? '👩' : '👨';
+  var leaderTitle = isFemale ? 'رائدة مالية صغيرة' : 'رائد مالي صغير';
   var pills = '<div class="ob-pill"><span class="pi">'+whoIcon+'</span><div><strong>'+primaryParentName+'</strong> — <strong>'+primaryJob+'</strong></div></div>';
-  pills += '<div class="ob-pill"><span class="pi">🎯</span><div>رح تتعلم كيف تصير <strong>رائد مالي صغير</strong></div></div>';
+  pills += '<div class="ob-pill"><span class="pi">🎯</span><div>رح تتعلم كيف تصير<strong> '+leaderTitle+'</strong></div></div>';
   document.getElementById('ob-disp-pills').innerHTML = pills;
 
   obShowScreen('ob-s4');
@@ -1507,7 +1510,10 @@ function _obSaveAndWelcome() {
 
 function obStart() {
   document.getElementById('onboarding-overlay').style.display = 'none';
-  loadState(); // חשוב — הנתונים נשמרו עכשיו, נטעין אותם ל-state
+  loadState();
+  // عرض الاسم في شريط الدروس
+  var greet = document.getElementById('lessons-greeting');
+  if (greet && state.studentName) greet.textContent = 'أهلاً ' + state.studentName + '!';
 }
 
 // ── Init ──
@@ -1573,6 +1579,12 @@ function obStart() {
        PANEL: LESSONS
   ══════════════════════════════════ -->
   <div id="panel-lessons" class="panel active">
+
+    <!-- زر تعديل الملف الشخصي -->
+    <div id="lessons-profile-bar" style="display:flex;align-items:center;justify-content:space-between;padding:10px 16px 4px;margin-bottom:4px">
+      <span id="lessons-greeting" style="font-size:14px;color:rgba(255,255,255,.55);font-weight:600"></span>
+      <button onclick="openProfileEdit()" style="background:rgba(249,168,37,.12);border:1px solid rgba(249,168,37,.25);color:#F9A825;border-radius:10px;padding:5px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Cairo',sans-serif">✏️ تعديل ملفي</button>
+    </div>
 
     <div class="units-row">
       <div class="unit-card u1" data-num="1" onclick="selectUnit(1)">
@@ -2546,7 +2558,7 @@ const UNITS = {
         goal: 'تفهم دور البنك في حياتنا المالية وكيف يكسب المال.',
         story: {
           title: '📖 قصة: جد كريم والصندوق القديم',
-          text: 'كان جد كريم يحفظ ماله في صندوق معدني تحت السرير.\nيوماً سأله كريم: «لماذا لا تضع مالك في البنك يا جدي؟»\n\nقال الجد: «البنك؟ لماذا؟\nمالي آمن هنا!"\n\nقال كريم: «يا جدي، لو وضعت 1000 ₪ في البنك،\nبعد سنة سيكونون 1050 ₪!\nالبنك يعطيك فائدة — مكافأة لأنك تركت مالك عنده»\n\nسأل الجد: «وكيف يكسب البنك هو؟»\n\n«البنك يأخذ مالك ويقرضه لأشخاص آخرين\nبفائدة أعلى — مثلاً 5%.\nيعطيك 2% ويأخذ الفرق لنفسه»\n\nعندها فهم الجد — البنك ليس صدقة، لكنه مفيد!'
+          text: 'كان جد كريم يحفظ ماله في صندوق معدني تحت السرير.\nيوماً سأل كريم جدّه: «لماذا لا تضع مالك في البنك يا جدي؟»\n\nقال الجد: «البنك؟ لماذا؟\nمالي آمن هنا!"\n\nقال كريم: «يا جدي، لو وضعت 1000 ₪ في البنك،\nبعد سنة سيكونون 1050 ₪!\nالبنك يعطيك فائدة — مكافأة لأنك تركت مالك في البنك»\n\nسأل الجد: «وكيف يكسب البنك؟»\n\n«البنك يأخذ مالك ويقرضه لأشخاص آخرين\nبفائدة أعلى — مثلاً 5%.\nيعطيك 2% ويأخذ الفرق لنفسه»\n\nفي تلك اللحظة فهم الجد — البنك ليس صدقة، لكنه مفيد!'
         },
         concept: {
           text: '🏦 البنك — كيف يعمل؟\n\n💰 أنت تودع مالك في البنك\n← مالك آمن\n← البنك يعطيك فائدة (مكافأة صغيرة)\n\n🔄 البنك يقرض مالك لآخرين\n← يأخذ منهم فائدة أعلى\n← الفرق = ربح البنك\n\n🏦 خدمات البنك:\n✅ حفظ المال بأمان\n✅ الدفع بدون نقود (بطاقة)\n✅ إرسال واستقبال أموال\n✅ قرض عند الحاجة\n⚠️ لكن القرض له فائدة — تسدد أكثر مما أخذت!\n\n📱 في إسرائيل:\nالبنوك الكبيرة: הפועלים، לאומי، דיסקונט\nيمكن فتح حساب من سن 12 مع ولي أمر\n\n«البنك أداة — استخدمها بذكاء»'
@@ -2749,6 +2761,8 @@ function saveProfileEdit() {
 
   closeProfileEdit();
   renderProfileDisplay();
+  var greet = document.getElementById('lessons-greeting');
+  if (greet) greet.textContent = 'أهلاً ' + nm + '!';
 }
 
 function closeProfileEdit() {
@@ -2841,7 +2855,7 @@ function personalizeText(text) {
       ['أخرج','أخرجت'],['أضاف','أضافت'],['بدأ ','بدأت '],
       ['وضع','وضعت'],['وجد','وجدت'],['ربح','ربحت'],
       ['باع','باعت'],['كسب','كسبت'],['حسب ','حسبت '],
-      ['عنده','عندها'],['معه','معها'],
+      // لا نستبدل عنده/معه بشكل عام — يسبب أخطاء (البنك عنده، الجد عنده...)
       [' له ',' لها '],[' هو ',' هي '],
     ];
     fem.forEach(function(p){ text = text.split(p[0]).join(p[1]); });
@@ -3626,6 +3640,9 @@ document.addEventListener('DOMContentLoaded', () => {
   spawnCoins();
   initChat();
   selectUnit(1);
+  // تحديث الترحيب إذا كان التلميذ مسجلاً مسبقاً
+  var greet = document.getElementById('lessons-greeting');
+  if (greet && state.studentName) greet.textContent = 'أهلاً ' + state.studentName + '!';
 
   // Enter key in savings inputs
   ['goal-name','goal-price','goal-weekly','goal-current'].forEach(id => {
