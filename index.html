@@ -1507,6 +1507,7 @@ function _obSaveAndWelcome() {
 
 function obStart() {
   document.getElementById('onboarding-overlay').style.display = 'none';
+  loadState(); // חשוב — הנתונים נשמרו עכשיו, נטעין אותם ל-state
 }
 
 // ── Init ──
@@ -1964,6 +1965,15 @@ function obStart() {
       <div class="badges-grid" id="badges-grid"></div>
     </div>
 
+    <!-- بطاقة الملف الشخصي -->
+    <div class="card-glass" id="profile-card" style="margin-top:18px;border-radius:var(--r-lg);padding:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <h3 style="font-family:'Cairo',sans-serif;font-weight:800;font-size:16px;margin:0">👤 ملفي الشخصي</h3>
+        <button onclick="openProfileEdit()" style="background:rgba(249,168,37,.15);border:1px solid rgba(249,168,37,.3);color:#F9A825;border-radius:10px;padding:6px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Cairo',sans-serif">✏️ تعديل</button>
+      </div>
+      <div id="profile-display"></div>
+    </div>
+
   </div>
 
 
@@ -2104,6 +2114,48 @@ function obStart() {
 </div>
 
 </div><!-- end #app -->
+
+<!-- ══════════════════════════════════
+     PROFILE EDIT MODAL
+══════════════════════════════════ -->
+<div id="profile-edit-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:8888;overflow-y:auto;font-family:'Cairo',sans-serif;direction:rtl">
+<style>
+#profile-edit-overlay .pe-card{background:#0F2236;border:1px solid rgba(249,168,37,.25);border-radius:20px;padding:28px 22px;width:100%;max-width:400px;margin:40px auto;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+#profile-edit-overlay .pe-title{font-size:20px;font-weight:900;color:#F9A825;margin-bottom:20px;text-align:center}
+#profile-edit-overlay .pe-label{font-size:13px;color:rgba(255,255,255,.6);font-weight:700;margin-bottom:5px;margin-top:12px}
+#profile-edit-overlay .pe-input{width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.12);border-radius:12px;padding:12px 16px;font-size:16px;color:#fff;outline:none;font-family:'Cairo',sans-serif;direction:rtl;box-sizing:border-box}
+#profile-edit-overlay .pe-input:focus{border-color:#F9A825}
+#profile-edit-overlay .pe-gender{display:flex;gap:10px;margin-bottom:4px}
+#profile-edit-overlay .pe-gbtn{flex:1;padding:10px;border-radius:10px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.04);color:rgba(255,255,255,.7);font-size:14px;font-weight:700;cursor:pointer;font-family:'Cairo',sans-serif}
+#profile-edit-overlay .pe-gbtn.sel{border-color:#F9A825;background:#F9A825;color:#0B1929}
+#profile-edit-overlay .pe-save{width:100%;margin-top:20px;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,#F9A825,#C8960C);color:#0B1929;font-size:16px;font-weight:900;cursor:pointer;font-family:'Cairo',sans-serif}
+#profile-edit-overlay .pe-cancel{width:100%;margin-top:8px;padding:11px;border-radius:12px;border:1.5px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.6);font-size:14px;font-weight:700;cursor:pointer;font-family:'Cairo',sans-serif}
+</style>
+<div class="pe-card">
+  <div class="pe-title">✏️ تعديل الملف الشخصي</div>
+
+  <div class="pe-label">اسمك</div>
+  <input class="pe-input" id="pe-name" maxlength="30" autocomplete="off">
+
+  <div class="pe-label">أنت</div>
+  <div class="pe-gender">
+    <div class="pe-gbtn" id="pe-gm" onclick="pEditGender('m')">👦 صبي</div>
+    <div class="pe-gbtn" id="pe-gf" onclick="pEditGender('f')">👧 بنت</div>
+  </div>
+
+  <div class="pe-label">مين بيشتغل بالبيت؟</div>
+  <div class="pe-gender">
+    <div class="pe-gbtn" id="pe-wd" onclick="pEditWho('dad')">👨 أبوي</div>
+    <div class="pe-gbtn" id="pe-wm" onclick="pEditWho('mom')">👩 أمي</div>
+    <div class="pe-gbtn" id="pe-wb" onclick="pEditWho('both')">👨‍👩‍👦 كلاهم</div>
+  </div>
+
+  <div id="pe-parent-fields"></div>
+
+  <button class="pe-save" onclick="saveProfileEdit()">💾 حفظ التعديلات</button>
+  <button class="pe-cancel" onclick="closeProfileEdit()">إلغاء</button>
+</div>
+</div>
 
 <script>
 // ═══════════════════════════════════════════════════
@@ -2588,6 +2640,122 @@ function saveState() {
 }
 
 // ═══════════════════════════════════════════════════
+// PROFILE — عرض وتعديل الملف الشخصي
+// ═══════════════════════════════════════════════════
+function renderProfileDisplay() {
+  var el = document.getElementById('profile-display');
+  if (!el) return;
+  var g  = state.studentGender === 'f' ? '👧 بنت' : '👦 صبي';
+  var who = state.whoWorks === 'mom' ? '👩 أمي بس' : state.whoWorks === 'both' ? '👨‍👩‍👦 كلاهم' : '👨 أبوي بس';
+  var html = '<div style="display:flex;flex-direction:column;gap:8px">'
+    + _pRow('👤', 'الاسم', state.studentName || '—')
+    + _pRow('⚧', 'الجنس', g)
+    + _pRow('🏠', 'من يعمل', who);
+  if (state.dadName) html += _pRow('👨', 'الأب', state.dadName + ' — ' + (state.dadJob||''));
+  if (state.momName) html += _pRow('👩', 'الأم', state.momName + ' — ' + (state.momJob||''));
+  html += '</div>';
+  el.innerHTML = html;
+}
+function _pRow(icon, label, val) {
+  return '<div style="display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border-radius:10px;padding:10px 14px">'
+    + '<span style="font-size:18px">'+icon+'</span>'
+    + '<div><div style="font-size:11px;color:rgba(255,255,255,.4);font-weight:600">'+label+'</div>'
+    + '<div style="font-size:15px;color:#fff;font-weight:700">'+val+'</div></div></div>';
+}
+
+var _peWho = '';
+var _peGender = '';
+
+function openProfileEdit() {
+  // ملء الحقول من البيانات الحالية
+  document.getElementById('pe-name').value = state.studentName || '';
+  _peGender = state.studentGender || 'm';
+  _peWho    = state.whoWorks || 'dad';
+  // مزامنة أزرار الجنس
+  ['m','f'].forEach(function(x){ document.getElementById('pe-g'+x).classList.remove('sel'); });
+  document.getElementById('pe-g'+_peGender).classList.add('sel');
+  // مزامنة أزرار من يعمل
+  ['d','m','b'].forEach(function(x){ document.getElementById('pe-w'+x).classList.remove('sel'); });
+  var wKey = _peWho==='dad'?'d':_peWho==='mom'?'m':'b';
+  document.getElementById('pe-w'+wKey).classList.add('sel');
+  // بناء حقول الأهل
+  _peBuildParentFields(_peWho);
+  document.getElementById('profile-edit-overlay').style.display = 'block';
+}
+
+function pEditGender(g) {
+  _peGender = g;
+  ['m','f'].forEach(function(x){ document.getElementById('pe-g'+x).classList.remove('sel'); });
+  document.getElementById('pe-g'+g).classList.add('sel');
+}
+
+function pEditWho(w) {
+  _peWho = w;
+  ['d','m','b'].forEach(function(x){ document.getElementById('pe-w'+x).classList.remove('sel'); });
+  var key = w==='dad'?'d':w==='mom'?'m':'b';
+  document.getElementById('pe-w'+key).classList.add('sel');
+  _peBuildParentFields(w);
+}
+
+function _peBuildParentFields(who) {
+  var flds = document.getElementById('pe-parent-fields');
+  var html = '';
+  if (who === 'dad' || who === 'both') {
+    html += '<div class="pe-label">اسم أبوك</div>'
+      + '<input class="pe-input" id="pe-dname" maxlength="30" autocomplete="off" placeholder="اسم الأب..." value="'+(state.dadName||'')+'" style="margin-bottom:6px">'
+      + '<div class="pe-label">شغلته</div>'
+      + '<input class="pe-input" id="pe-djob" maxlength="40" autocomplete="off" placeholder="مقعد الأب..." value="'+(state.dadJob||'')+'">';
+  }
+  if (who === 'mom' || who === 'both') {
+    html += '<div class="pe-label">اسم أمك</div>'
+      + '<input class="pe-input" id="pe-mname" maxlength="30" autocomplete="off" placeholder="اسم الأم..." value="'+(state.momName||'')+'" style="margin-bottom:6px">'
+      + '<div class="pe-label">شغلتها</div>'
+      + '<input class="pe-input" id="pe-mjob" maxlength="40" autocomplete="off" placeholder="مهنة الأم..." value="'+(state.momJob||'')+'">';
+  }
+  flds.innerHTML = html;
+}
+
+function saveProfileEdit() {
+  var nm = (document.getElementById('pe-name').value || '').trim();
+  if (!nm) { document.getElementById('pe-name').focus(); return; }
+
+  var dName = '', dJob = '', mName = '', mJob = '';
+  try { dName = (document.getElementById('pe-dname').value||'').trim(); } catch(e){}
+  try { dJob  = (document.getElementById('pe-djob').value||'').trim();  } catch(e){}
+  try { mName = (document.getElementById('pe-mname').value||'').trim(); } catch(e){}
+  try { mJob  = (document.getElementById('pe-mjob').value||'').trim();  } catch(e){}
+
+  var primaryName = dName || mName;
+  var primaryJob  = dJob  || mJob;
+
+  // تحديث state
+  state.studentName   = nm;
+  state.studentGender = _peGender;
+  state.whoWorks      = _peWho;
+  state.dadName = dName; state.dadJob = dJob;
+  state.momName = mName; state.momJob = mJob;
+  state.parentName = primaryName; state.parentJob = primaryJob;
+  saveState();
+
+  // تحديث rw_profile أيضاً
+  try {
+    var p = JSON.parse(localStorage.getItem('rw_profile')||'{}');
+    p.name = nm; p.gender = _peGender; p.whoWorks = _peWho;
+    p.dadName = dName; p.dadJob = dJob;
+    p.momName = mName; p.momJob = mJob;
+    p.parentName = primaryName; p.parentJob = primaryJob;
+    localStorage.setItem('rw_profile', JSON.stringify(p));
+  } catch(e){}
+
+  closeProfileEdit();
+  renderProfileDisplay();
+}
+
+function closeProfileEdit() {
+  document.getElementById('profile-edit-overlay').style.display = 'none';
+}
+
+// ═══════════════════════════════════════════════════
 // NAV
 // ═══════════════════════════════════════════════════
 
@@ -2597,7 +2765,7 @@ function showPanel(id) {
   const panelEl = document.getElementById('panel-' + id); if(panelEl) panelEl.classList.add('active');
   const idx = ['lessons','chat','savings','progress'].indexOf(id);
   const activeNavBtn = document.querySelectorAll('.nav-btn')[idx]; if(activeNavBtn) activeNavBtn.classList.add('active');
-  if (id === 'progress') updateProgress();
+  if (id === 'progress') { updateProgress(); renderProfileDisplay(); }
 }
 
 // ═══════════════════════════════════════════════════
@@ -2645,71 +2813,74 @@ function selectUnit(num) {
 function personalizeText(text) {
   if (!text) return text;
   var st = state;
-  var sName  = (st.studentName   || '').trim();
-  var gender = (st.studentGender || 'm'); // m=ذكر, f=أنثى
-  var dName  = (st.dadName       || '').trim();
-  var mName  = (st.momName       || '').trim();
-  var whoWorks = (st.whoWorks    || '');
+  var sName    = (st.studentName   || '').trim();
+  var gender   = (st.studentGender || 'm');
+  var dName    = (st.dadName       || '').trim();
+  var mName    = (st.momName       || '').trim();
+  var whoWorks = (st.whoWorks      || '');
 
   if (!sName) return text;
 
-  // جدول الاستبدال حسب الجنس
-  // الأسماء الذكورية في القصص
-  var storyMaleKids   = ['أسامة','يوسف','أحمد','عمر','سامي','خالد'];
-  var storyFemaleKids = ['ياسمين','ريم','ليلى','نادين','سارة'];
+  var storyMaleKids   = ['أسامة','يوسف','أحمد','عمر','سامي'];
+  var storyFemaleKids = ['ياسمين','ريم','ليلى','نادين','سارة','نور','رنا','مريم'];
 
+  // --- استبدال اسم الطالب ---
   if (gender === 'f') {
-    // الطالبة — نستبدل أسماء الذكور بأسماء الإناث ثم بالاسم الحقيقي
-    // أولاً: استبدل الأفعال المذكرة بالمؤنثة للشخصية الرئيسية
-    storyMaleKids.forEach(function(n){
-      // استبدل الاسم أولاً
-      text = text.split(n).join('___SNAME___');
-    });
-    storyFemaleKids.forEach(function(n){
-      text = text.split(n).join('___SNAME___');
-    });
-    text = text.split('___SNAME___').join(sName);
-    // تأنيث أفعال وصفات مرتبطة بالشخصية
-    text = text.replace(/قال لنفسه/g, 'قالت لنفسها');
-    text = text.replace(/قرر /g, 'قررت ');
-    text = text.replace(/فكّر:/g, 'فكّرت:');
-    text = text.replace(/ابتسم\b/g, 'ابتسمت');
-    text = text.replace(/فهم /g, 'فهمت ');
-    text = text.replace(/استمع/g, 'استمعت');
-    text = text.replace(/غيّر\b/g, 'غيّرت');
-    text = text.replace(/باع\b/g, 'باعت');
-    text = text.replace(/اشترى\b/g, 'اشترت');
-    text = text.replace(/وفّر\b/g, 'وفّرت');
-    text = text.replace(/حسب\b(?! ي)/g, 'حسبت');
-    text = text.replace(/ذهب\b/g, 'ذهبت');
-    text = text.replace(/جلس\b/g, 'جلست');
-    text = text.replace(/سأل\b/g, 'سألت');
-    text = text.replace(/فتح\b/g, 'فتحت');
-    text = text.replace(/أرسل\b/g, 'أرسلت');
-    text = text.replace(/أخرج\b/g, 'أخرجت');
-    text = text.replace(/أضاف\b/g, 'أضافت');
-    text = text.replace(/بدأ\b/g, 'بدأت');
-    text = text.replace(/وضع\b/g, 'وضعت');
-    text = text.replace(/وجد\b/g, 'وجدت');
-    text = text.replace(/عنده\b/g, 'عندها');
-    text = text.replace(/معه\b/g, 'معها');
-    text = text.replace(/له\b/g, 'لها');
-    text = text.replace(/إليه\b/g, 'إليها');
-    text = text.replace(/هو /g, 'هي ');
+    storyMaleKids.forEach(function(n){   text = text.split(n).join('___S___'); });
+    storyFemaleKids.forEach(function(n){ text = text.split(n).join('___S___'); });
+    text = text.split('___S___').join(sName);
+    // تأنيث أفعال
+    var fem = [
+      ['قال لنفسه','قالت لنفسها'],
+      ['قرر ','قررت '],['فكّر:','فكّرت:'],['فكّر ','فكّرت '],
+      ['ابتسم','ابتسمت'],['فهم ','فهمت '],['استمع','استمعت'],
+      ['غيّر','غيّرت'],['باع','باعت'],['اشترى','اشترت'],
+      ['وفّر','وفّرت'],['ذهب','ذهبت'],['جلس','جلست'],
+      ['سأل ','سألت '],['فتح ','فتحت '],['أرسل','أرسلت'],
+      ['أخرج','أخرجت'],['أضاف','أضافت'],['بدأ ','بدأت '],
+      ['وضع','وضعت'],['وجد','وجدت'],['ربح','ربحت'],
+      ['باع','باعت'],['كسب','كسبت'],['حسب ','حسبت '],
+      ['عنده','عندها'],['معه','معها'],
+      [' له ',' لها '],[' هو ',' هي '],
+    ];
+    fem.forEach(function(p){ text = text.split(p[0]).join(p[1]); });
   } else {
-    // الطالب — استبدل كل الأسماء بالاسم الحقيقي بدون تغيير الأفعال
-    storyMaleKids.forEach(function(n){ text = text.split(n).join(sName); });
+    storyMaleKids.forEach(function(n){   text = text.split(n).join(sName); });
     storyFemaleKids.forEach(function(n){ text = text.split(n).join(sName); });
   }
 
-  // استبدال إشارات الأهل
-  if (dName && (whoWorks==='dad' || whoWorks==='both')) {
+  // --- استبدال اسم الأب ---
+  // الصيغ الموجودة في القصص: أبوها، أبوه، أبيها، أبيه، أبوك، سأله أبوه، قال الأب
+  if (dName) {
+    text = text.split('أبوها').join(dName);
+    text = text.split('أبوه').join(dName);
+    text = text.split('أبيها').join(dName);
+    text = text.split('أبيه').join(dName);
     text = text.split('لأبيه').join('لـ' + dName);
     text = text.split('لأبوه').join('لـ' + dName);
+    text = text.split('سألها أبوها').join('سأل' + (gender==='f'?'ها':'ه') + ' ' + dName);
+    text = text.split('سأله أبوه').join('سأله ' + dName);
+    text = text.split('قال الأب').join('قال ' + dName);
+    text = text.split('قال أبوه').join('قال ' + dName);
+    text = text.split('قال أبوها').join('قال ' + dName);
   }
-  if (mName && (whoWorks==='mom' || whoWorks==='both')) {
+
+  // --- استبدال اسم الأم ---
+  // الصيغ الموجودة: أمها، أمه، لأمه، قالت أمها، أجابت أمها، ابتسمت أمها
+  if (mName) {
+    text = text.split('أمها').join(mName);
+    text = text.split('أمه').join(mName);
     text = text.split('لأمه').join('لـ' + mName);
     text = text.split('لأمها').join('لـ' + mName);
+    text = text.split('قالت أمها').join('قال' + (gender==='f'?'ت':'') + ' ' + mName);
+    text = text.split('قالت أمه').join('قال' + (gender==='f'?'ت':'') + ' ' + mName);
+    text = text.split('أجابت أمها').join('أجاب' + (gender==='f'?'ت':'') + ' ' + mName);
+    text = text.split('ابتسمت أمها').join('ابتسم ' + mName);
+    text = text.split('سألت الأم').join('سأل' + (gender==='f'?'ت':'') + ' ' + mName);
+    text = text.split('قالت الأم').join('قال' + (gender==='f'?'ت':'') + ' ' + mName);
+    text = text.split('الأم').join(mName);
+  } else if (dName) {
+    // لو عندنا أب بس — نستبدل "الأم" بشيء محايد
   }
 
   return text;
