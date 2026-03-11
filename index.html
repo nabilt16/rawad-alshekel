@@ -1255,10 +1255,14 @@ body {
     <span class="ob-coin">🪙</span>
     <span class="ob-appname">رواد المال</span>
     <span class="ob-appsub">برنامج الثقافة المالية · الصف الرابع</span>
-    <div class="ob-steps"><div class="ob-dot act"></div><div class="ob-dot"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
-    <div class="ob-label">✦ خطوة 1 من 4</div>
+    <div class="ob-steps"><div class="ob-dot act"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
+    <div class="ob-label">✦ خطوة 1 من 3</div>
     <div class="ob-title">شو اسمك؟</div>
     <div class="ob-field"><input type="text" id="ob-name" placeholder="اكتب اسمك هون..." maxlength="30" autocomplete="off"></div>
+    <div class="ob-who-btns" id="ob-gender-btns" style="margin-bottom:20px">
+      <div class="ob-who-btn" id="ob-gender-m" onclick="obPickGender('m')">👦 صبي</div>
+      <div class="ob-who-btn" id="ob-gender-f" onclick="obPickGender('f')">👧 بنت</div>
+    </div>
     <button class="ob-btn" id="ob-btn1" disabled onclick="obStep2()">يلا نكمل ←</button>
     <div class="ob-note">معلوماتك محفوظة على جهازك بس <span>🔒</span></div>
   </div>
@@ -1268,8 +1272,8 @@ body {
     <span class="ob-coin">🪙</span>
     <span class="ob-appname">رواد المال</span>
     <span class="ob-appsub">برنامج الثقافة المالية · الصف الرابع</span>
-    <div class="ob-steps"><div class="ob-dot done"></div><div class="ob-dot act"></div><div class="ob-dot"></div><div class="ob-dot"></div></div>
-    <div class="ob-label">✦ خطوة 2 من 4</div>
+    <div class="ob-steps"><div class="ob-dot done"></div><div class="ob-dot act"></div><div class="ob-dot"></div></div>
+    <div class="ob-label">✦ خطوة 2 من 3</div>
     <div class="ob-title" id="ob-s2-title">مين بيشتغل وبيجيب المصاري للبيت؟</div>
     <div class="ob-who-btns">
       <div class="ob-who-btn" id="ob-who-dad" onclick="obPickWho('dad')">👨 أبوي بس</div>
@@ -1284,27 +1288,15 @@ body {
     <span class="ob-coin">🪙</span>
     <span class="ob-appname">رواد المال</span>
     <span class="ob-appsub">برنامج الثقافة المالية · الصف الرابع</span>
-    <div class="ob-steps"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot act"></div><div class="ob-dot"></div></div>
-    <div class="ob-label">✦ خطوة 3 من 4</div>
+    <div class="ob-steps"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot act"></div></div>
+    <div class="ob-label">✦ خطوة 3 من 3</div>
     <div class="ob-title" id="ob-s3-title">اسم وشغلة أبوك</div>
     <div id="ob-s3-body"><!-- يتبنى ديناميكياً --></div>
-    <button class="ob-btn" id="ob-btn3" disabled onclick="obStep4()">يلا نكمل ←</button>
+    <button class="ob-btn" id="ob-btn3" disabled onclick="obFinish()">خلص! وريني يلا 🎉</button>
   </div>
 
-  <!-- S4: إذا كلاهم — اسم وشغلة الأم -->
+  <!-- S4: مرحبا -->
   <div class="ob-screen" id="ob-s4">
-    <span class="ob-coin">🪙</span>
-    <span class="ob-appname">رواد المال</span>
-    <span class="ob-appsub">برنامج الثقافة المالية · الصف الرابع</span>
-    <div class="ob-steps"><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot done"></div><div class="ob-dot act"></div></div>
-    <div class="ob-label">✦ خطوة 4 من 4</div>
-    <div class="ob-title">اسم وشغلة أمك</div>
-    <div id="ob-s4-body"></div>
-    <button class="ob-btn" id="ob-btn4" disabled onclick="obFinish()">خلص! وريني يلا 🎉</button>
-  </div>
-
-  <!-- S5: مرحبا -->
-  <div class="ob-screen" id="ob-s5">
     <div class="ob-welcome-avatar">🌟</div>
     <div class="ob-wname">أهلاً <span id="ob-disp-name"></span>!</div>
     <div class="ob-wmsg" id="ob-disp-msg"></div>
@@ -1320,7 +1312,7 @@ body {
 //  Onboarding v31 — مع دعم أبو / أم / كلاهم
 // ══════════════════════════════════════════
 var _ob = {
-  name:'', whoWorks:'',
+  name:'', gender:'', whoWorks:'',
   dadName:'', dadJob:'', dadJobMsg:'',
   momName:'', momJob:'', momJobMsg:''
 };
@@ -1344,10 +1336,10 @@ function _buildJobHTML(prefix, btnId) {
   var chips = _jobList.map(function(item){
     return '<div class="ob-chip" onclick="obPickJob(this,\''+prefix+'\',\''+item.j+'\',\''+item.m.replace(/'/g,"\\'")+'\')">'+item.e+' '+item.j+'</div>';
   }).join('');
-  return '<div class="ob-field"><input type="text" id="ob-'+prefix+'-name" placeholder="'+(prefix==='dad'?'اسم أبوك...':'اسم أمك...')+'" maxlength="30" autocomplete="off" oninput="obCheckParentName(\''+prefix+'\',\''+btnId+'\')"></div>'
+  return '<div class="ob-field"><input type="text" id="ob-'+prefix+'-name" placeholder="'+(prefix==='dad'?'اسم أبوك...':'اسم أمك...')+'" maxlength="30" autocomplete="off" oninput="obCheckParentName(\''+prefix+'\',\'ob-btn3\')"></div>'
     +'<div class="ob-label" style="margin-top:4px">شو شغلته؟</div>'
     +'<div class="ob-chips" id="ob-'+prefix+'-chips">'+chips+'</div>'
-    +'<div class="ob-field"><input type="text" id="ob-'+prefix+'-job-input" placeholder="أو اكتب شغلة ثانية..." maxlength="30" autocomplete="off" oninput="obCustomJob(\''+prefix+'\',\''+btnId+'\')"></div>';
+    +'<div class="ob-field"><input type="text" id="ob-'+prefix+'-job-input" placeholder="أو اكتب شغلة ثانية..." maxlength="30" autocomplete="off" oninput="obCustomJob(\''+prefix+'\',\'ob-btn3\')"></div>';
 }
 
 function obShowScreen(id) {
@@ -1357,8 +1349,16 @@ function obShowScreen(id) {
   el.style.animation='none'; el.offsetHeight; el.style.animation='';
 }
 
+function obPickGender(g) {
+  _ob.gender = g;
+  ['m','f'].forEach(function(x){ document.getElementById('ob-gender-'+x).classList.remove('sel'); });
+  document.getElementById('ob-gender-'+g).classList.add('sel');
+  var nm = document.getElementById('ob-name').value.trim();
+  document.getElementById('ob-btn1').disabled = nm.length < 2;
+}
+
 document.getElementById('ob-name').addEventListener('input', function(){
-  document.getElementById('ob-btn1').disabled = this.value.trim().length < 2;
+  document.getElementById('ob-btn1').disabled = this.value.trim().length < 2 || !_ob.gender;
 });
 document.getElementById('ob-name').addEventListener('keydown', function(e){
   if(e.key==='Enter' && !document.getElementById('ob-btn1').disabled) obStep2();
@@ -1386,7 +1386,7 @@ function obPickJob(el, prefix, job, msg) {
   if(prefix==='dad'){ _ob.dadJob=job; _ob.dadJobMsg=msg; }
   else { _ob.momJob=job; _ob.momJobMsg=msg; }
   var nm = document.getElementById('ob-'+prefix+'-name').value.trim();
-  var btnId = prefix==='dad' ? 'ob-btn3' : 'ob-btn4';
+  var btnId = 'ob-btn3';
   document.getElementById(btnId).disabled = nm.length < 2;
 }
 
@@ -1411,68 +1411,70 @@ function obStep2() {
 
 function obStep3() {
   if(!_ob.whoWorks) return;
-  // بناء S3 حسب الاختيار
   var s3body = document.getElementById('ob-s3-body');
-  if(_ob.whoWorks === 'dad' || _ob.whoWorks === 'both') {
+  // بناء المحتوى حسب الاختيار
+  if(_ob.whoWorks === 'dad') {
     document.getElementById('ob-s3-title').textContent = 'اسم وشغلة أبوك';
     s3body.innerHTML = _buildJobHTML('dad','ob-btn3');
     setTimeout(function(){ var el=document.getElementById('ob-dad-name'); if(el) el.focus(); }, 400);
-  } else {
-    // أم بس — نقفز لـ S3 بمحتوى الأم
+  } else if(_ob.whoWorks === 'mom') {
     document.getElementById('ob-s3-title').textContent = 'اسم وشغلة أمك';
     s3body.innerHTML = _buildJobHTML('mom','ob-btn3');
-    // ob-btn3 يحيل لـ obFinish مباشرة
-    document.getElementById('ob-btn3').onclick = obFinishSingle;
     setTimeout(function(){ var el=document.getElementById('ob-mom-name'); if(el) el.focus(); }, 400);
+  } else {
+    // كلاهم → مقعد واحد يمثل العيلة — الولد يختار أيهم
+    document.getElementById('ob-s3-title').textContent = 'مين منهم تبي تحكي عنه في البرنامج؟';
+    s3body.innerHTML =
+      '<div class="ob-who-btns" style="margin-bottom:16px">'
+      + '<div class="ob-who-btn" id="ob-pick-dad" onclick="obPickRepresentative(\'dad\')">👨 أبوي</div>'
+      + '<div class="ob-who-btn" id="ob-pick-mom" onclick="obPickRepresentative(\'mom\')">👩 أمي</div>'
+      + '</div>'
+      + '<div id="ob-rep-detail" style="display:none"></div>';
   }
   obShowScreen('ob-s3');
 }
 
-function obFinishSingle() {
-  // حالة: أم بس — ob-s3 هو الأخير
-  var nm = document.getElementById('ob-mom-name').value.trim();
-  if(nm.length >= 2 && _ob.momJob) {
-    _ob.momName = nm;
-    _obSaveAndWelcome();
-  }
-}
+function obPickRepresentative(prefix) {
+  ['dad','mom'].forEach(function(x){
+    var el = document.getElementById('ob-pick-'+x);
+    if(el) el.classList.remove('sel');
+  });
+  var btn = document.getElementById('ob-pick-'+prefix);
+  if(btn) btn.classList.add('sel');
 
-function obStep4() {
-  // وصلنا هون = كلاهم — حفظ بيانات الأب وانتقل لـ S4 للأم
-  var dadNm = document.getElementById('ob-dad-name').value.trim();
-  if(dadNm.length >= 2 && _ob.dadJob) {
-    _ob.dadName = dadNm;
-    // بناء S4 للأم
-    document.getElementById('ob-s4-body').innerHTML = _buildJobHTML('mom','ob-btn4');
-    document.getElementById('ob-btn4').onclick = obFinish;
-    obShowScreen('ob-s4');
-    setTimeout(function(){ var el=document.getElementById('ob-mom-name'); if(el) el.focus(); }, 400);
-  }
+  var detail = document.getElementById('ob-rep-detail');
+  detail.style.display = 'block';
+  detail.innerHTML = _buildJobHTML(prefix, 'ob-btn3');
+  // احفظ الـ prefix المختار
+  _ob._repPrefix = prefix;
+  setTimeout(function(){ var el=document.getElementById('ob-'+prefix+'-name'); if(el) el.focus(); }, 200);
 }
 
 function obFinish() {
+  var prefix = _ob.whoWorks === 'dad' ? 'dad'
+             : _ob.whoWorks === 'mom' ? 'mom'
+             : (_ob._repPrefix || 'dad');
+
   var nm = '';
-  var prefix = (_ob.whoWorks==='both') ? 'mom' : (_ob.whoWorks==='dad' ? 'dad' : 'mom');
   try { nm = document.getElementById('ob-'+prefix+'-name').value.trim(); } catch(e){}
-  if(_ob.whoWorks==='both') {
-    _ob.momName = nm;
-  } else if(_ob.whoWorks==='dad') {
-    _ob.dadName = document.getElementById('ob-dad-name').value.trim();
-  } else {
-    _ob.momName = nm;
-  }
+  if(!nm || nm.length < 2) return;
+  if(!(prefix==='dad' ? _ob.dadJob : _ob.momJob)) return;
+
+  if(prefix==='dad') _ob.dadName = nm;
+  else _ob.momName = nm;
+
   _obSaveAndWelcome();
 }
 
 function _obSaveAndWelcome() {
-  // تحديد اسم الأهل الرئيسي للاستخدام في القصص
   var primaryParentName = _ob.dadName || _ob.momName;
-  var primaryJob = _ob.dadJob || _ob.momJob;
-  var primaryJobMsg = _ob.dadJobMsg || _ob.momJobMsg;
+  var primaryJob        = _ob.dadJob  || _ob.momJob;
+  var primaryJobMsg     = _ob.dadJobMsg || _ob.momJobMsg;
+  var primaryPrefix     = _ob.dadName ? 'dad' : 'mom';
 
   try {
     var profile = {
-      name:_ob.name, whoWorks:_ob.whoWorks,
+      name:_ob.name, gender:_ob.gender, whoWorks:_ob.whoWorks,
       dadName:_ob.dadName, dadJob:_ob.dadJob,
       momName:_ob.momName, momJob:_ob.momJob,
       parentName:primaryParentName, parentJob:primaryJob,
@@ -1482,10 +1484,11 @@ function _obSaveAndWelcome() {
     var st = {};
     try { st = JSON.parse(localStorage.getItem('rawad_state')||'{}'); } catch(e){}
     st.studentName = _ob.name;
+    st.studentGender = _ob.gender;
     st.dadName = _ob.dadName; st.dadJob = _ob.dadJob;
     st.momName = _ob.momName; st.momJob = _ob.momJob;
     st.parentName = primaryParentName; st.parentJob = primaryJob;
-    st.whoWorks = _ob.whoWorks;
+    st.whoWorks   = _ob.whoWorks;
     localStorage.setItem('rawad_state', JSON.stringify(st));
   } catch(e){}
 
@@ -1494,13 +1497,12 @@ function _obSaveAndWelcome() {
   var msg = '<strong>' + primaryJobMsg + '</strong><br><br>رواد المال هو برنامجك الخاص — رح يحكيلك كيف المصاري بتشتغل، وكيف تحافظ عليها.';
   document.getElementById('ob-disp-msg').innerHTML = msg;
 
-  var pills = '';
-  if(_ob.dadName) pills += '<div class="ob-pill"><span class="pi">👨</span><div>أبوك <strong>'+_ob.dadName+'</strong> — <strong>'+_ob.dadJob+'</strong></div></div>';
-  if(_ob.momName) pills += '<div class="ob-pill"><span class="pi">👩</span><div>أمك <strong>'+_ob.momName+'</strong> — <strong>'+_ob.momJob+'</strong></div></div>';
+  var whoIcon = _ob.whoWorks==='mom' ? '👩' : '👨';
+  var pills = '<div class="ob-pill"><span class="pi">'+whoIcon+'</span><div><strong>'+primaryParentName+'</strong> — <strong>'+primaryJob+'</strong></div></div>';
   pills += '<div class="ob-pill"><span class="pi">🎯</span><div>رح تتعلم كيف تصير <strong>رائد مالي صغير</strong></div></div>';
   document.getElementById('ob-disp-pills').innerHTML = pills;
 
-  obShowScreen('ob-s5');
+  obShowScreen('ob-s4');
 }
 
 function obStart() {
@@ -1517,7 +1519,8 @@ function obStart() {
       // حدّث state من profile موجود
       var st = {};
       try { st = JSON.parse(localStorage.getItem('rawad_state')||'{}'); } catch(e){}
-      st.studentName = p.name;
+      st.studentName   = p.name;
+      st.studentGender = p.gender || 'm';
       st.dadName = p.dadName||''; st.dadJob = p.dadJob||'';
       st.momName = p.momName||''; st.momJob = p.momJob||'';
       st.parentName = p.parentName||p.dadName||p.momName||'';
@@ -2642,44 +2645,72 @@ function selectUnit(num) {
 function personalizeText(text) {
   if (!text) return text;
   var st = state;
-  var sName  = (st.studentName || '').trim();
-  var dName  = (st.dadName     || '').trim();
-  var mName  = (st.momName     || '').trim();
-  var dJob   = (st.dadJob      || '').trim();
-  var mJob   = (st.momJob      || '').trim();
-  var whoWorks = (st.whoWorks  || '');
+  var sName  = (st.studentName   || '').trim();
+  var gender = (st.studentGender || 'm'); // m=ذكر, f=أنثى
+  var dName  = (st.dadName       || '').trim();
+  var mName  = (st.momName       || '').trim();
+  var whoWorks = (st.whoWorks    || '');
 
   if (!sName) return text;
 
-  // حدد اسم الأهل المناسب للسياق
-  var parentRef   = dName || mName || '';   // الاسم
-  var parentTitle = (whoWorks==='mom') ? 'أمك' : (whoWorks==='both' && mName) ? 'أبوك وأمك' : 'أبوك';
-  var parentJob   = dJob || mJob || '';
+  // جدول الاستبدال حسب الجنس
+  // الأسماء الذكورية في القصص
+  var storyMaleKids   = ['أسامة','يوسف','أحمد','عمر','سامي','خالد'];
+  var storyFemaleKids = ['ياسمين','ريم','ليلى','نادين','سارة'];
 
-  // أسماء الشخصيات الثابتة في القصص — نستبدلها باسم الطالب
-  var storyKids = ['أسامة','ياسمين','ريم','يوسف','ليلى','نادين','سارة','أحمد','عمر'];
-  storyKids.forEach(function(n){
-    text = text.split(n).join(sName);
-  });
-
-  // أسماء الأهل في القصص — نستبدل بالاسم الحقيقي
-  // خالد (الفلاح في قصة المقايضة) — دوره ثانوي، لا نبدله
-  // نبدل إشارات "أمها/أبوه/والده" عند الضرورة إذا يتبعها فعل عمل
-  if (parentRef) {
-    // "قال لأمه" ← "قال لـ[اسم أمه]"  — فقط إذا أم تعمل وعندها اسم
-    if (whoWorks === 'mom' || whoWorks === 'both') {
-      if (mName) text = text.split('لأمه').join('لـ' + mName);
-    }
-    if (whoWorks === 'dad' || whoWorks === 'both') {
-      if (dName) text = text.split('لأبيه').join('لـ' + dName).split('لأبوه').join('لـ' + dName);
-    }
+  if (gender === 'f') {
+    // الطالبة — نستبدل أسماء الذكور بأسماء الإناث ثم بالاسم الحقيقي
+    // أولاً: استبدل الأفعال المذكرة بالمؤنثة للشخصية الرئيسية
+    storyMaleKids.forEach(function(n){
+      // استبدل الاسم أولاً
+      text = text.split(n).join('___SNAME___');
+    });
+    storyFemaleKids.forEach(function(n){
+      text = text.split(n).join('___SNAME___');
+    });
+    text = text.split('___SNAME___').join(sName);
+    // تأنيث أفعال وصفات مرتبطة بالشخصية
+    text = text.replace(/قال لنفسه/g, 'قالت لنفسها');
+    text = text.replace(/قرر /g, 'قررت ');
+    text = text.replace(/فكّر:/g, 'فكّرت:');
+    text = text.replace(/ابتسم\b/g, 'ابتسمت');
+    text = text.replace(/فهم /g, 'فهمت ');
+    text = text.replace(/استمع/g, 'استمعت');
+    text = text.replace(/غيّر\b/g, 'غيّرت');
+    text = text.replace(/باع\b/g, 'باعت');
+    text = text.replace(/اشترى\b/g, 'اشترت');
+    text = text.replace(/وفّر\b/g, 'وفّرت');
+    text = text.replace(/حسب\b(?! ي)/g, 'حسبت');
+    text = text.replace(/ذهب\b/g, 'ذهبت');
+    text = text.replace(/جلس\b/g, 'جلست');
+    text = text.replace(/سأل\b/g, 'سألت');
+    text = text.replace(/فتح\b/g, 'فتحت');
+    text = text.replace(/أرسل\b/g, 'أرسلت');
+    text = text.replace(/أخرج\b/g, 'أخرجت');
+    text = text.replace(/أضاف\b/g, 'أضافت');
+    text = text.replace(/بدأ\b/g, 'بدأت');
+    text = text.replace(/وضع\b/g, 'وضعت');
+    text = text.replace(/وجد\b/g, 'وجدت');
+    text = text.replace(/عنده\b/g, 'عندها');
+    text = text.replace(/معه\b/g, 'معها');
+    text = text.replace(/له\b/g, 'لها');
+    text = text.replace(/إليه\b/g, 'إليها');
+    text = text.replace(/هو /g, 'هي ');
+  } else {
+    // الطالب — استبدل كل الأسماء بالاسم الحقيقي بدون تغيير الأفعال
+    storyMaleKids.forEach(function(n){ text = text.split(n).join(sName); });
+    storyFemaleKids.forEach(function(n){ text = text.split(n).join(sName); });
   }
 
-  // أبو الشخصية ← أبو + اسم الطالب
-  storyKids.forEach(function(n){
-    text = text.split('أبو '+n).join(parentTitle + (dName?' '+dName:''));
-    text = text.split('أبوه').join(parentTitle + (dName?' ('+dName+')':''));
-  });
+  // استبدال إشارات الأهل
+  if (dName && (whoWorks==='dad' || whoWorks==='both')) {
+    text = text.split('لأبيه').join('لـ' + dName);
+    text = text.split('لأبوه').join('لـ' + dName);
+  }
+  if (mName && (whoWorks==='mom' || whoWorks==='both')) {
+    text = text.split('لأمه').join('لـ' + mName);
+    text = text.split('لأمها').join('لـ' + mName);
+  }
 
   return text;
 }
