@@ -2835,6 +2835,9 @@ function personalizeText(text) {
 
   if (!sName) return text;
 
+  // استبدال [اسم_الطالب] المباشر
+  text = text.split('[اسم_الطالب]').join(sName);
+
   var storyMaleKids   = ['أسامة','يوسف','أحمد','عمر','سامي'];
   var storyFemaleKids = ['ياسمين','ريم','ليلى','نادين','سارة','نور','رنا','مريم'];
 
