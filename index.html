@@ -3634,10 +3634,15 @@ function spawnCoins() {
 // ═══════════════════════════════════════════════════
 
 document.addEventListener('DOMContentLoaded', () => {
-  loadState();
-  spawnCoins();
-  initChat();
-  selectUnit(1);
+  try {
+    loadState();
+    spawnCoins();
+    initChat();
+    selectUnit(1);
+  } catch(err) {
+    console.error('Init error:', err);
+    document.title = 'ERROR: ' + err.message;
+  }
   // تحديث الترحيب إذا كان التلميذ مسجلاً مسبقاً
   var greet = document.getElementById('lessons-greeting');
   if (greet && state.studentName) greet.textContent = 'أهلاً ' + state.studentName + '!';
