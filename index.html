@@ -2926,7 +2926,7 @@ function openLesson(unitNum, lessonIdx) {
   }
   var choiceLabels=['A','B','C'];
   var shuffledChoicesHTML = choiceIndices.map(function(ci, pos){
-    return '<button class="choice" onclick="soundClick();answerQuiz(\''+l.id+'\','+ci+')">'
+    return '<button class="choice" onclick="soundClick();answerQuiz(\''+l.id+'\','+pos+')">'
       +'<span class="choice-icon">'+choiceLabels[pos]+'</span>'
       +personalizeText(l.quiz.choices[ci].text)
       +'</button>';
@@ -2959,8 +2959,7 @@ function openLesson(unitNum, lessonIdx) {
       <p style="font-size:18px;font-weight:700;margin-bottom:16px;color:rgba(255,255,255,0.92);line-height:1.7">
         ${personalizeText(l.quiz.q)}
       </p>
-      <div class="choices" id="quiz-choices-${l.id}">
-        ${shuffledChoicesHTML}
+`<div class="choices" id="quiz-choices-${l.id}" data-map='${JSON.stringify(choiceIndices)}'>`        ${shuffledChoicesHTML}
       </div>
       <div class="feedback-box" id="fb-${l.id}"></div>
     </div>`;
@@ -3083,8 +3082,9 @@ function answerQuiz(lessonId, choiceIdx) {
   const unitNum = currentLesson.unitNum;
   const lessonIdx = currentLesson.lessonIdx;
   const l = UNITS[unitNum].lessons[lessonIdx];
-  const choice = l.quiz.choices[choiceIdx];
-  const btns = document.querySelectorAll(`#quiz-choices-${lessonId} .choice`);
+const shuffleMap = JSON.parse(document.getElementById('quiz-choices-'+lessonId).getAttribute('data-map')||'[0,1,2]');
+const choice = l.quiz.choices[shuffleMap[choiceIdx]];
+   const btns = document.querySelectorAll(`#quiz-choices-${lessonId} .choice`);
   const fb = document.getElementById('fb-' + lessonId);
 
  btns.forEach((b, i) => {
