@@ -1570,6 +1570,7 @@ function obStart() {
     <button class="nav-btn active" onclick="showPanel('lessons')">📚 الدروس</button>
     <button class="nav-btn" onclick="showPanel('chat')">🤖 رفيق المال</button>
     <button class="nav-btn" onclick="showPanel('savings')">🐷 هدف الادخار</button>
+    <button class="nav-btn" onclick="showPanel('glossary')">📖 قاموسي</button>
     <button class="nav-btn" onclick="showPanel('progress')">⭐ تقدمي</button>
     <button class="nav-btn nav-parent" onclick="showParentDashboard()">👨‍👩‍👧 للأهل</button>
     <button class="nav-btn" onclick="showTeacherWithPin()" style="background:linear-gradient(135deg,#1B5E20,#2E7D32);color:white">📋 للمعلم</button>
@@ -1782,6 +1783,15 @@ function obStart() {
   <!-- ══════════════════════════════════
        PANEL: SAVINGS
   ══════════════════════════════════ -->
+  <div id="panel-glossary" class="panel" style="padding:16px;overflow-y:auto">
+    <h2 style="font-family:Noto Naskh Arabic,serif;font-weight:800;font-size:20px;color:white;
+      margin-bottom:4px;text-align:right">📖 قاموسي الصغير</h2>
+    <p style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:16px;text-align:right">
+      رواد المال — الصف الرابع
+    </p>
+    <div id="glossary-list-g4"></div>
+  </div>
+
   <div id="panel-savings" class="panel">
     <div class="savings-hero">
       <h2>💰 خطة مالي الأسبوعية</h2>
@@ -2775,9 +2785,10 @@ function showPanel(id) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   const panelEl = document.getElementById('panel-' + id); if(panelEl) panelEl.classList.add('active');
-  const idx = ['lessons','chat','savings','progress'].indexOf(id);
+  const idx = ['lessons','chat','savings','glossary','progress'].indexOf(id);
   const activeNavBtn = document.querySelectorAll('.nav-btn')[idx]; if(activeNavBtn) activeNavBtn.classList.add('active');
   if (id === 'progress') { updateProgress(); renderProfileDisplay(); }
+  if (id === 'glossary') { setTimeout(renderGlossaryG4, 50); }
 }
 
 // ═══════════════════════════════════════════════════
@@ -4855,6 +4866,110 @@ function showChangeTeacherPin() {
   localStorage.setItem('teacherPin', newPin);
   alert('✅ تم تغيير الرمز بنجاح');
 }
+
+// ══════════════════════════════════════════
+// GLOSSARY — كيتة ד'
+// ══════════════════════════════════════════
+var GLOSSARY_TERMS_G4 = [
+  {
+    unit: 1, unitName: 'المال من حولي', unitColor: '#1565C0', icon: '💰',
+    terms: [
+      { ar: 'المال',            he: 'כסף',          def: 'وسيلة نتفق عليها جميعاً لتبادل الأشياء والخدمات — بدونه لازم المقايضة!',                ex: 'قديماً: أعطيك خبزاً مقابل حليب. اليوم: ادفع 6 ₪ وخذ الحليب.' },
+      { ar: 'الشيكل',           he: 'שקל',           def: 'عملة دولة إسرائيل الرسمية — رمزه ₪.',                                                     ex: '10 أقروش = 1 شيكل. ورقة 200 ₪ هي أكبر ورقة نقدية.' },
+      { ar: 'المقايضة',         he: 'חליפין',        def: 'تبادل شيء بشيء آخر بدون مال — كانت الطريقة الأولى للتجارة.',                              ex: 'أعطيك دراجتي القديمة مقابل لعبة الكمبيوتر عندك.' },
+      { ar: 'القيمة',           he: 'ערך',            def: 'كم يساوي الشيء — الثمن الذي يقبله البائع ويدفعه المشتري.',                               ex: 'كوب عصير قيمته 7 ₪ — هذا ما يتفق عليه البائع والمشتري.' },
+    ]
+  },
+  {
+    unit: 2, unitName: 'قراراتي المالية', unitColor: '#2E7D32', icon: '🧠',
+    terms: [
+      { ar: 'الحاجة',           he: 'צורך',          def: 'شيء لا غنى عنه: طعام، ملابس، مأوى، تعليم.',                                               ex: 'الغداء في المدرسة حاجة — بدونه لن تتمكن من التركيز.' },
+      { ar: 'الرغبة',           he: 'רצון',           def: 'شيء تريده لكنك تستطيع العيش بدونه.',                                                     ex: 'آيس كريم أو لعبة جديدة — ممتع لكن ليس ضرورياً.' },
+      { ar: 'الميزانية',        he: 'תקציב',         def: 'خطة توزيع المال: كم أنفق وكم أدخر وكم أتبرع.',                                            ex: 'مصروف 40 ₪ ← أنفق 20 + أدخر 14 + أتبرع 6.' },
+      { ar: 'الادخار',          he: 'חיסכון',        def: 'الاحتفاظ بجزء من المال لهدف مستقبلي بدلاً من إنفاقه كله الآن.',                           ex: 'أدخر 15 ₪ كل أسبوع ← بعد 10 أسابيع عندي 150 ₪ لأشتري دراجة.' },
+    ]
+  },
+  {
+    unit: 3, unitName: 'أنا مستهلك واعٍ', unitColor: '#E65100', icon: '🛒',
+    terms: [
+      { ar: 'المستهلك',         he: 'צרכן',          def: 'الشخص الذي يشتري المنتجات والخدمات — أنت مستهلك في كل مرة تشتري شيئاً.',                  ex: 'اشتريت عصيراً من الدكان ← أنت المستهلك.' },
+      { ar: 'الإعلان',          he: 'פרסומת',        def: 'رسالة تحاول إقناعك بشراء منتج — لا تصدق كل ما تراه!',                                     ex: '"أفضل شوكولاتة في العالم!" — كيف تعرف؟ هذا مجرد إعلان.' },
+      { ar: 'المقارنة الذكية',  he: 'השוואת מחירים', def: 'مقارنة أسعار نفس المنتج في أماكن مختلفة قبل الشراء.',                                      ex: 'نفس الكتاب: 45 ₪ في مكان و35 ₪ في مكان آخر ← وفّرت 10 ₪.' },
+      { ar: 'القيمة مقابل السعر',he: 'תמורה לכסף',   def: 'هل المنتج يستحق ثمنه فعلاً؟ الرخيص ليس دائماً الأفضل.',                                  ex: 'حذاء رخيص بـ50 ₪ تمزق بشهر. حذاء بـ120 ₪ دام سنتين ← الثاني أوفر.' },
+    ]
+  },
+  {
+    unit: 4, unitName: 'أنا رائد صغير', unitColor: '#6A1B9A', icon: '🚀',
+    terms: [
+      { ar: 'المشروع الصغير',   he: 'עסק קטן',       def: 'نشاط تقدم فيه خدمة أو منتجاً مقابل مال.',                                                 ex: 'بيع عصير محلي في يوم الصيف ← مشروع صغير!' },
+      { ar: 'الربح',            he: 'רווח',           def: 'ما يتبقى من المال بعد طرح التكاليف من الإيرادات.',                                        ex: 'بعت بـ50 ₪ وصرفت 30 ₪ ← ربحك 20 ₪.' },
+      { ar: 'التكلفة',          he: 'עלות',           def: 'المال الذي تصرفه لتنتج أو تقدم شيئاً.',                                                  ex: 'المواد الخام + وقت العمل + أي مصاريف أخرى.' },
+      { ar: 'الزبون',           he: 'לקוח',           def: 'الشخص الذي يشتري منتجك أو خدمتك.',                                                       ex: 'جارتك التي تشتري منك الكعك كل جمعة ← هي زبونتك.' },
+    ]
+  },
+  {
+    unit: 5, unitName: 'المال أداة في يدي', unitColor: '#B71C1C', icon: '🤝',
+    terms: [
+      { ar: 'صندوق التوفير',    he: 'קופת חיסכון',   def: 'مكان آمن تضع فيه مالك حتى يتراكم لهدف معين.',                                            ex: 'حصالتك في البيت أو حساب توفير في البنك.' },
+      { ar: 'صندوق التبرع',     he: 'קופת תרומה',    def: 'مال تخصصه طوعاً لمساعدة الآخرين.',                                                       ex: 'كريم خصص 6 ₪ أسبوعياً في صندوق التبرع ← ساعد زميله بكنزة.' },
+      { ar: 'الهدف المالي',     he: 'יעד כלכלי',     def: 'شيء تريد شراءه أو تحقيقه تدخر من أجله.',                                                 ex: 'أريد دراجة بـ200 ₪ ← أدخر 20 ₪ أسبوعياً ← بعد 10 أسابيع أشتريها.' },
+      { ar: 'العطاء',           he: 'נתינה',          def: 'مشاركة ما عندك مع الآخرين — يعطي سعادة حقيقية.',                                         ex: 'كريم أعطى كنزة لزميله وشعر بسعادة أكثر مما لو اشترى لنفسه.' },
+    ]
+  },
+];
+
+function renderGlossaryG4() {
+  var container = document.getElementById('glossary-list-g4');
+  if (!container) return;
+
+  var html = '';
+  GLOSSARY_TERMS_G4.forEach(function(unit) {
+    html += '<div style="margin-bottom:20px">';
+    html += '<div style="background:' + unit.unitColor + ';border-radius:12px 12px 0 0;padding:12px 16px;' +
+            'display:flex;align-items:center;gap:10px">' +
+              '<span style="font-size:20px">' + unit.icon + '</span>' +
+              '<span style="font-family:Noto Naskh Arabic,serif;font-weight:800;font-size:15px;color:white">' +
+                'الوحدة ' + unit.unit + ' — ' + unit.unitName +
+              '</span>' +
+            '</div>';
+
+    unit.terms.forEach(function(t) {
+      html += '<div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);' +
+              'border-top:none;padding:16px;margin-bottom:1px">' +
+
+              '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">' +
+                '<span style="font-family:Noto Naskh Arabic,serif;font-size:19px;font-weight:800;color:white">' +
+                  t.ar +
+                '</span>' +
+                '<span style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.5);' +
+                  'direction:ltr;background:rgba(255,255,255,0.08);padding:3px 10px;border-radius:8px">' +
+                  t.he +
+                '</span>' +
+              '</div>' +
+
+              '<div style="background:' + unit.unitColor + '22;border-radius:12px;padding:14px 16px;' +
+                'font-size:15px;color:rgba(255,255,255,0.95);line-height:2;margin-bottom:10px;' +
+                'border-right:3px solid ' + unit.unitColor + '99">' +
+                t.def +
+              '</div>' +
+
+              (t.ex ?
+                '<div style="display:flex;align-items:flex-start;gap:10px;background:' + unit.unitColor + '15;' +
+                  'border-right:3px solid ' + unit.unitColor + ';border-radius:0 10px 10px 0;padding:10px 14px">' +
+                  '<span style="font-size:14px;font-weight:800;color:' + unit.unitColor + ';flex-shrink:0">💡 مثال:</span>' +
+                  '<span style="font-size:14px;color:rgba(255,255,255,0.85);line-height:1.7">' + t.ex + '</span>' +
+                '</div>'
+              : '') +
+
+              '</div>';
+    });
+
+    html += '</div>';
+  });
+
+  container.innerHTML = html;
+}
+
 </script>
 
   <!-- Certificate Overlay -->
