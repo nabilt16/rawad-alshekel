@@ -2845,7 +2845,7 @@ function personalizeText(text) {
   var whoWorks = (st.whoWorks      || '');
 
   if (!sName) return text;
-
+  text = text.split('[اسم_الطالب]').join(sName);
   var storyMaleKids   = ['أسامة','يوسف','أحمد','عمر','سامي'];
   var storyFemaleKids = ['ياسمين','ريم','ليلى','نادين','سارة','نور','رنا','مريم'];
 
