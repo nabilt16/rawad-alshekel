@@ -2959,7 +2959,8 @@ function openLesson(unitNum, lessonIdx) {
       <p style="font-size:18px;font-weight:700;margin-bottom:16px;color:rgba(255,255,255,0.92);line-height:1.7">
         ${personalizeText(l.quiz.q)}
       </p>
-`<div class="choices" id="quiz-choices-${l.id}" data-map='${JSON.stringify(choiceIndices)}'>`        ${shuffledChoicesHTML}
+    <div class="choices" id="quiz-choices-${l.id}" data-map='${JSON.stringify(choiceIndices)}'>
+        ${shuffledChoicesHTML}
       </div>
       <div class="feedback-box" id="fb-${l.id}"></div>
     </div>`;
