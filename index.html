@@ -2918,6 +2918,20 @@ function openLesson(unitNum, lessonIdx) {
   const l = UNITS[unitNum].lessons[lessonIdx];
   const detail = document.getElementById('lesson-detail');
 
+  // Shuffle choices
+  var choiceIndices = [0,1,2];
+  for(var i=choiceIndices.length-1;i>0;i--){
+    var j=Math.floor(Math.random()*(i+1));
+    var tmp=choiceIndices[i];choiceIndices[i]=choiceIndices[j];choiceIndices[j]=tmp;
+  }
+  var choiceLabels=['A','B','C'];
+  var shuffledChoicesHTML = choiceIndices.map(function(ci, pos){
+    return '<button class="choice" onclick="soundClick();answerQuiz(\''+l.id+'\','+ci+')">'
+      +'<span class="choice-icon">'+choiceLabels[pos]+'</span>'
+      +personalizeText(l.quiz.choices[ci].text)
+      +'</button>';
+  }).join('');
+
   detail.innerHTML = `
     <button class="back-btn" onclick="closeLesson()">◀ العودة للقائمة</button>
 
@@ -2946,17 +2960,12 @@ function openLesson(unitNum, lessonIdx) {
         ${personalizeText(l.quiz.q)}
       </p>
       <div class="choices" id="quiz-choices-${l.id}">
-        ${l.quiz.choices.map((c,ci) => `
-          <button class="choice" onclick="soundClick();answerQuiz('${l.id}',${ci})">
-            <span class="choice-icon">${ci===0?'A':ci===1?'B':'C'}</span>
-            ${personalizeText(c.text)}
-          </button>`).join('')}
+        ${shuffledChoicesHTML}
       </div>
       <div class="feedback-box" id="fb-${l.id}"></div>
     </div>`;
 
   detail.classList.add('open');
-  // Animate lesson cards entrance
   setTimeout(() => {
     detail.querySelectorAll('.story-card,.concept-card,.activity-card').forEach((el,i) => {
       el.style.opacity = '0';
@@ -2972,19 +2981,16 @@ function openLesson(unitNum, lessonIdx) {
   document.getElementById('lessons-list').style.display = 'none';
   detail.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-  // Populate htmlId concept + coin images
   setTimeout(function(){
     var rt = document.getElementById('concept-render-target');
     if (rt) {
       var src = document.getElementById(l.concept.htmlId);
       if (src) {
         rt.innerHTML = src.innerHTML;
-        // Populate coin images
         rt.querySelectorAll('img[data-coin]').forEach(function(img) {
           var asset = document.getElementById('img-' + img.getAttribute('data-coin'));
           if (asset) img.src = asset.src;
         });
-        // Populate banknote images
         rt.querySelectorAll('img[data-note]').forEach(function(img) {
           var noteId = img.getAttribute('data-note');
           if (_fronts[noteId]) img.src = _fronts[noteId];
